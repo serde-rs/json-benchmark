@@ -1,0 +1,19 @@
+[package]
+name = "json-benchmark"
+version = "0.0.1"
+authors = ["dtolnay@gmail.com"]
+
+[dependencies]
+dtoa = "*"
+fastwrite = "*"
+json = "*"
+rustc-serialize = "*"
+serde = "*"
+serde_json = { git = "https://github.com/serde-rs/json", branch = "v0.8.0-rc" }
+serde_macros = "*"
+time = "*"
+
+[features]
+default = ["performance"]
+performance = []
+conformance = []
