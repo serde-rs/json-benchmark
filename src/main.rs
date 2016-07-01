@@ -458,7 +458,7 @@ mod json_rust {
         }
 
         fn stringify_dom<W: io::Write>(write: &mut W, dom: &JsonValue) {
-            write.write_all(dom.dump().as_bytes()).unwrap();
+            dom.to_writer(write);
         }
 
         fn parse_double(j: &str) -> Result<f64, ()> {

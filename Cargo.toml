@@ -6,7 +6,7 @@ authors = ["dtolnay@gmail.com"]
 [dependencies]
 dtoa = "*"
 fastwrite = "*"
-json = "*"
+json = { git = "https://github.com/maciejhirsz/json-rust", branch = "0.8.5" }
 rustc-serialize = "*"
 serde = "*"
 serde_json = { git = "https://github.com/serde-rs/json", branch = "v0.8.0-rc" }
