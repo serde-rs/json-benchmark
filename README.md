@@ -4,9 +4,9 @@ This is a partial port of
 [nativejson-benchark](https://github.com/miloyip/nativejson-benchmark)
 to Rust. The libraries tested are:
 
-- [serde\_json](https://github.com/serde-rs/json)
-- [json-rust](https://github.com/maciejhirsz/json-rust)
-- [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize)
+- [serde\_json](https://github.com/serde-rs/json) 0.8.0-rc
+- [json-rust](https://github.com/maciejhirsz/json-rust) 0.8.4
+- [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.19
 
 #### `$ cargo run --release`
 
