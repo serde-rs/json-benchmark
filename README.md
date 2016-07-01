@@ -28,3 +28,9 @@ to Rust. The libraries tested are:
 > data/citm_catalog.json    23.5ms     5.4ms    28.7ms     3.5ms
 > data/twitter.json         11.6ms     2.5ms    15.6ms     2.3ms
 > ```
+
+#### `$ cargo run --features conformance --no-default-features`
+
+- serde\_json: 82%
+- json-rust: 79%
+- rustc-serialize: 82%
