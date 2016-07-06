@@ -6,10 +6,10 @@ authors = ["dtolnay@gmail.com"]
 [dependencies]
 dtoa = "*"
 fastwrite = "*"
-json = { git = "https://github.com/maciejhirsz/json-rust", branch = "0.8.5" }
+json = { git = "https://github.com/maciejhirsz/json-rust", branch = "benches" }
 rustc-serialize = "*"
 serde = "*"
-serde_json = { git = "https://github.com/serde-rs/json", branch = "v0.8.0-rc" }
+serde_json = { git = "https://github.com/serde-rs/json", branch = "json-benchmark" }
 serde_macros = "*"
 time = "*"
 
