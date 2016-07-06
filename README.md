@@ -5,22 +5,21 @@ This is a partial port of
 to Rust. The libraries tested are:
 
 - [serde\_json](https://github.com/serde-rs/json) 0.8.0-rc
-- [json-rust](https://github.com/maciejhirsz/json-rust) 0.8.5-rc
+- [json-rust](https://github.com/maciejhirsz/json-rust) 0.8.6-rc
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.19
 
 #### `$ cargo run --release`
 
 > ```
->      Running `target/release/json-benchmark`
 >                                 DOM                STRUCT
 > ======= serde_json ======= parse|stringify === parse|stringify ===
-> data/canada.json          46.0ms    18.8ms    33.9ms    16.1ms
-> data/citm_catalog.json    27.0ms     2.8ms    17.5ms     1.4ms
-> data/twitter.json          9.2ms     1.3ms     6.9ms     1.3ms
+> data/canada.json          30.2ms    19.3ms    17.7ms    16.3ms
+> data/citm_catalog.json    17.0ms     2.8ms     7.1ms     1.4ms
+> data/twitter.json          7.7ms     1.3ms     5.2ms     1.3ms
 >
 > ======= json-rust ======== parse|stringify === parse|stringify ===
-> data/canada.json          31.7ms    33.6ms
-> data/citm_catalog.json    15.1ms     2.2ms
+> data/canada.json          31.7ms    20.3ms
+> data/citm_catalog.json    15.1ms     1.9ms
 > data/twitter.json          6.0ms     0.8ms
 >
 > ==== rustc_serialize ===== parse|stringify === parse|stringify ===
