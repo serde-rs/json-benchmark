@@ -6,6 +6,7 @@ authors = ["dtolnay@gmail.com"]
 [dependencies]
 dtoa = "*"
 fastwrite = "*"
+getopts = "*"
 serde = { version = "*", optional = true }
 serde_macros = { version = "*", optional = true }
 time = "*"

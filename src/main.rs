@@ -29,10 +29,8 @@ pub mod twitter;
 
 pub use std::io::{self, Read, Write};
 
-use std::mem;
+use std::{env, mem};
 use std::fs::File;
-
-const TRIALS: usize = 10;
 
 #[derive(Copy, Clone)]
 pub enum TestFile {
@@ -116,6 +114,16 @@ fn main() {
         #[cfg(feature = "lib-rustc-serialize")]
         conformance::<rustc::Library>();
     }
+}
+
+fn num_trials() -> usize {
+    extern crate getopts;
+    let mut opts = getopts::Options::new();
+    opts.optopt("n", "", "number of trials", "N");
+
+    let args: Vec<String> = env::args().collect();
+    let matches = opts.parse(&args[1..]).unwrap();
+    matches.opt_str("n").map(|s| s.parse().unwrap()).unwrap_or(10)
 }
 
 fn bench<L: Library>() {
@@ -374,25 +382,25 @@ fn conformance_roundtrip<L: Library>() {
 }
 
 fn bench_parse_dom<L: Library>(contents: &[u8]) -> time::Duration {
-    timer::bench(TRIALS, || {
+    timer::bench(num_trials(), || {
         L::parse_dom(contents).ok();
     })
 }
 
 fn bench_stringify_dom<L: Library>(dom: &L::DOM, len: usize) -> time::Duration {
-    timer::bench_with_buf(TRIALS, len, |out| {
+    timer::bench_with_buf(num_trials(), len, |out| {
         L::stringify_dom(out, &dom)
     })
 }
 
 fn bench_parse_struct<L: Library>(contents: &[u8], which: TestFile) -> time::Duration {
-    timer::bench(TRIALS, || {
+    timer::bench(num_trials(), || {
         L::parse_struct(contents, which)
     })
 }
 
 fn bench_stringify_struct<L: Library>(contents: Contents, len: usize) -> time::Duration {
-    timer::bench_with_buf(TRIALS, len, |out| {
+    timer::bench_with_buf(num_trials(), len, |out| {
         L::stringify_struct(out, &contents)
     })
 }
