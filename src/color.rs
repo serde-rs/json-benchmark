@@ -1,11 +1,15 @@
-use std::{mem, ptr, slice, str};
+#[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
+use std::{ptr, slice, str};
 
+#[cfg(feature = "lib-serde")]
 use serde::{de, Serialize, Deserialize, Serializer, Deserializer};
+#[cfg(feature = "lib-rustc-serialize")]
 use rustc_serialize::{Encodable, Encoder, Decodable, Decoder};
 
 #[derive(Clone, Copy)]
 pub struct Color(u32);
 
+#[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
 const HEX_LUT: &'static[u8] =
     b"000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F\
       202122232425262728292A2B2C2D2E2F303132333435363738393A3B3C3D3E3F\
@@ -16,6 +20,7 @@ const HEX_LUT: &'static[u8] =
       C0C1C2C3C4C5C6C7C8C9CACBCCCDCECFD0D1D2D3D4D5D6D7D8D9DADBDCDDDEDF\
       E0E1E2E3E4E5E6E7E8E9EAEBECEDEEEFF0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF";
 
+#[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
 impl Color {
     fn as_str<'a>(self, buf: &'a mut [u8; 6]) -> &'a str {
         let buf_ptr = buf.as_mut_ptr();
@@ -36,15 +41,17 @@ impl Color {
     }
 }
 
+#[cfg(feature = "lib-serde")]
 impl Serialize for Color {
     fn serialize<S>(&self, serializer: &mut S) -> Result<(), S::Error>
         where S: Serializer,
     {
-        let mut buf: [u8; 6] = unsafe { mem::uninitialized() };
+        let mut buf: [u8; 6] = unsafe { ::std::mem::uninitialized() };
         serializer.serialize_str(self.as_str(&mut buf))
     }
 }
 
+#[cfg(feature = "lib-serde")]
 impl Deserialize for Color {
     fn deserialize<D>(deserializer: &mut D) -> Result<Self, D::Error>
         where D: Deserializer,
@@ -69,15 +76,17 @@ impl Deserialize for Color {
     }
 }
 
+#[cfg(feature = "lib-rustc-serialize")]
 impl Encodable for Color {
     fn encode<S>(&self, s: &mut S) -> Result<(), S::Error>
         where S: Encoder,
     {
-        let mut buf: [u8; 6] = unsafe { mem::uninitialized() };
+        let mut buf: [u8; 6] = unsafe { ::std::mem::uninitialized() };
         self.as_str(&mut buf).encode(s)
     }
 }
 
+#[cfg(feature = "lib-rustc-serialize")]
 impl Decodable for Color {
     fn decode<D>(d: &mut D) -> Result<Color, D::Error>
         where D: Decoder,
@@ -93,7 +102,7 @@ impl Decodable for Color {
 
 #[test]
 fn test_color() {
-    let mut buf: [u8; 6] = unsafe { mem::uninitialized() };
+    let mut buf: [u8; 6] = unsafe { ::std::mem::uninitialized() };
     let string = Color(0xA0A0A0).as_str(&mut buf);
     assert_eq!(string, "A0A0A0");
 }

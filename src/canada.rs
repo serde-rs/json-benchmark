@@ -2,27 +2,27 @@ use std::collections::BTreeMap;
 
 pub type Canada = FeatureCollection;
 
-#[derive(Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
 pub struct FeatureCollection {
-    #[serde(rename="type")]
+    #[cfg_attr(feature = "lib-serde", serde(rename="type"))]
     pub obj_type: ObjType,
     pub features: Vec<Feature>,
 }
 
-#[derive(Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
 pub struct Feature {
-    #[serde(rename="type")]
+    #[cfg_attr(feature = "lib-serde", serde(rename="type"))]
     pub obj_type: ObjType,
     pub properties: BTreeMap<String, String>,
     pub geometry: Geometry,
 }
 
-#[derive(Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
 pub struct Geometry {
-    #[serde(rename="type")]
+    #[cfg_attr(feature = "lib-serde", serde(rename="type"))]
     pub obj_type: ObjType,
     pub coordinates: Vec<Vec<(Latitude, Longitude)>>
 }
@@ -39,6 +39,7 @@ enum_str!(ObjType {
 ////////////////////////////////////////////////////////////////////////////////
 // #[derive(RustcEncodable, RustcDecodable)] but with the field renames
 
+#[cfg(feature = "lib-rustc-serialize")]
 impl ::rustc_serialize::Decodable for FeatureCollection {
     fn decode<__D: ::rustc_serialize::Decoder>
         (__arg_0: &mut __D)
@@ -66,6 +67,7 @@ impl ::rustc_serialize::Decodable for FeatureCollection {
     }
 }
 
+#[cfg(feature = "lib-rustc-serialize")]
 impl ::rustc_serialize::Encodable for FeatureCollection {
     fn encode<__S: ::rustc_serialize::Encoder>(&self,
                                                 __arg_0: &mut __S)
@@ -90,6 +92,7 @@ impl ::rustc_serialize::Encodable for FeatureCollection {
     }
 }
 
+#[cfg(feature = "lib-rustc-serialize")]
 impl ::rustc_serialize::Decodable for Feature {
     fn decode<__D: ::rustc_serialize::Decoder>
         (__arg_0: &mut __D)
@@ -126,6 +129,7 @@ impl ::rustc_serialize::Decodable for Feature {
     }
 }
 
+#[cfg(feature = "lib-rustc-serialize")]
 impl ::rustc_serialize::Encodable for Feature {
     fn encode<__S: ::rustc_serialize::Encoder>(&self,
                                                 __arg_0: &mut __S)
@@ -160,6 +164,7 @@ impl ::rustc_serialize::Encodable for Feature {
     }
 }
 
+#[cfg(feature = "lib-rustc-serialize")]
 impl ::rustc_serialize::Decodable for Geometry {
     fn decode<__D: ::rustc_serialize::Decoder>
         (__arg_0: &mut __D)
@@ -188,6 +193,7 @@ impl ::rustc_serialize::Decodable for Geometry {
     }
 }
 
+#[cfg(feature = "lib-rustc-serialize")]
 impl ::rustc_serialize::Encodable for Geometry {
     fn encode<__S: ::rustc_serialize::Encoder>(&self,
                                                 __arg_0: &mut __S)

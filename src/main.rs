@@ -1,56 +1,79 @@
-#![feature(custom_derive, plugin)]
-#![plugin(serde_macros)]
+#![feature(stmt_expr_attributes)]
+
+#![cfg_attr(feature = "lib-serde", feature(custom_derive, plugin))]
+#![cfg_attr(feature = "lib-serde", plugin(serde_macros))]
 
 extern crate dtoa;
 extern crate fastwrite;
-extern crate rustc_serialize;
-extern crate serde;
 extern crate time;
+
+#[cfg(feature = "lib-rustc-serialize")]
+extern crate rustc_serialize;
+#[cfg(feature = "lib-serde")]
+extern crate serde;
 
 #[macro_use] pub mod enums;
 
 pub mod adapter;
-pub mod canada;
-pub mod citm_catalog;
 pub mod color;
 pub mod empty;
 pub mod prim_str;
 pub mod timer;
+
+#[cfg(feature = "file-canada")]
+pub mod canada;
+#[cfg(feature = "file-citm-catalog")]
+pub mod citm_catalog;
+#[cfg(feature = "file-twitter")]
 pub mod twitter;
 
 pub use std::io::{self, Read, Write};
 
-use std::{mem, slice};
+use std::mem;
 use std::fs::File;
 
 const TRIALS: usize = 10;
 
 #[derive(Copy, Clone)]
 pub enum TestFile {
+    #[cfg(feature = "file-canada")]
     Canada,
+    #[cfg(feature = "file-citm-catalog")]
     CitmCatalog,
+    #[cfg(feature = "file-twitter")]
     Twitter,
 }
 
 impl TestFile {
-    pub fn iter() -> slice::Iter<'static, TestFile> {
-        pub use TestFile::*;
-        static VARIANTS: [TestFile; 3] = [Canada, CitmCatalog, Twitter];
-        VARIANTS.into_iter()
+    pub fn files() -> Vec<TestFile> {
+        let mut variants = Vec::new();
+        #[cfg(feature = "file-canada")]
+        variants.push(TestFile::Canada);
+        #[cfg(feature = "file-citm-catalog")]
+        variants.push(TestFile::CitmCatalog);
+        #[cfg(feature = "file-twitter")]
+        variants.push(TestFile::Twitter);
+        variants
     }
 
     pub fn path(self) -> &'static str {
         match self {
+            #[cfg(feature = "file-canada")]
             TestFile::Canada => "data/canada.json",
+            #[cfg(feature = "file-citm-catalog")]
             TestFile::CitmCatalog => "data/citm_catalog.json",
+            #[cfg(feature = "file-twitter")]
             TestFile::Twitter => "data/twitter.json",
         }
     }
 }
 
 pub enum Contents {
+    #[cfg(feature = "file-canada")]
     Canada(canada::Canada),
+    #[cfg(feature = "file-citm-catalog")]
     CitmCatalog(citm_catalog::CitmCatalog),
+    #[cfg(feature = "file-twitter")]
     Twitter(twitter::Twitter),
 }
 
@@ -77,14 +100,20 @@ trait Library {
 fn main() {
     if cfg!(feature = "performance") {
         print!("{:>35}{:>22}", "DOM", "STRUCT");
+        #[cfg(feature = "lib-serde")]
         bench::<serde_json::Library>();
+        #[cfg(feature = "lib-json-rust")]
         bench::<json_rust::Library>();
+        #[cfg(feature = "lib-rustc-serialize")]
         bench::<rustc::Library>();
     }
 
     if cfg!(feature = "conformance") {
+        #[cfg(feature = "lib-serde")]
         conformance::<serde_json::Library>();
+        #[cfg(feature = "lib-json-rust")]
         conformance::<json_rust::Library>();
+        #[cfg(feature = "lib-rustc-serialize")]
         conformance::<rustc::Library>();
     }
 }
@@ -92,7 +121,7 @@ fn main() {
 fn bench<L: Library>() {
     let name = format!(" {} ", L::name());
     println!("\n{:=^26} parse|stringify === parse|stringify ===", name);
-    for &file in TestFile::iter() {
+    for file in TestFile::files() {
         print!("{:22}", file.path());
         io::stdout().flush().unwrap();
 
@@ -376,6 +405,7 @@ fn tenths(dur: time::Duration) -> u8 {
     (dur.num_microseconds().unwrap() / 100 % 10) as u8
 }
 
+#[cfg(feature = "lib-serde")]
 mod serde_json {
     use super::*;
     extern crate serde_json;
@@ -406,12 +436,15 @@ mod serde_json {
             let mut string = String::new();
             read.read_to_string(&mut string).unwrap();
             match which {
+                #[cfg(feature = "file-canada")]
                 TestFile::Canada => {
                     Contents::Canada(serde_json::from_str(&string).unwrap())
                 }
+                #[cfg(feature = "file-citm-catalog")]
                 TestFile::CitmCatalog => {
                     Contents::CitmCatalog(serde_json::from_str(&string).unwrap())
                 }
+                #[cfg(feature = "file-twitter")]
                 TestFile::Twitter => {
                     Contents::Twitter(serde_json::from_str(&string).unwrap())
                 }
@@ -422,8 +455,11 @@ mod serde_json {
             where W: io::Write,
         {
             match *obj {
+                #[cfg(feature = "file-canada")]
                 Contents::Canada(ref v) => serde_json::to_writer(write, v),
+                #[cfg(feature = "file-citm-catalog")]
                 Contents::CitmCatalog(ref v) => serde_json::to_writer(write, v),
+                #[cfg(feature = "file-twitter")]
                 Contents::Twitter(ref v) => serde_json::to_writer(write, v),
             }.unwrap();
         }
@@ -438,6 +474,7 @@ mod serde_json {
     }
 }
 
+#[cfg(feature = "lib-json-rust")]
 mod json_rust {
     use super::*;
     extern crate json;
@@ -471,6 +508,7 @@ mod json_rust {
     }
 }
 
+#[cfg(feature = "lib-rustc-serialize")]
 mod rustc {
     use super::*;
 
@@ -503,12 +541,15 @@ mod rustc {
             let mut string = String::new();
             read.read_to_string(&mut string).unwrap();
             match which {
+                #[cfg(feature = "file-canada")]
                 TestFile::Canada => {
                     Contents::Canada(json::decode(&string).unwrap())
                 }
+                #[cfg(feature = "file-citm-catalog")]
                 TestFile::CitmCatalog => {
                     Contents::CitmCatalog(json::decode(&string).unwrap())
                 }
+                #[cfg(feature = "file-twitter")]
                 TestFile::Twitter => {
                     Contents::Twitter(json::decode(&string).unwrap())
                 }
@@ -522,8 +563,11 @@ mod rustc {
             let mut write = adapter::IoWriteAsFmtWrite::new(write);
             let mut encoder = json::Encoder::new(&mut write);
             match *obj {
+                #[cfg(feature = "file-canada")]
                 Contents::Canada(ref v) => v.encode(&mut encoder),
+                #[cfg(feature = "file-citm-catalog")]
                 Contents::CitmCatalog(ref v) => v.encode(&mut encoder),
+                #[cfg(feature = "file-twitter")]
                 Contents::Twitter(ref v) => v.encode(&mut encoder),
             }.unwrap();
         }

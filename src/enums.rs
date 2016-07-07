@@ -6,6 +6,7 @@ macro_rules! enum_str {
             $($variant,)*
         }
 
+        #[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
         impl $name {
             fn as_str(self) -> &'static str {
                 match self {
@@ -14,6 +15,7 @@ macro_rules! enum_str {
             }
         }
 
+        #[cfg(feature = "lib-serde")]
         impl ::serde::Serialize for $name {
             fn serialize<S>(&self, serializer: &mut S) -> Result<(), S::Error>
                 where S: ::serde::Serializer,
@@ -22,6 +24,7 @@ macro_rules! enum_str {
             }
         }
 
+        #[cfg(feature = "lib-serde")]
         impl ::serde::Deserialize for $name {
             fn deserialize<D>(deserializer: &mut D) -> Result<Self, D::Error>
                 where D: ::serde::Deserializer,
@@ -47,6 +50,7 @@ macro_rules! enum_str {
             }
         }
 
+        #[cfg(feature = "lib-rustc-serialize")]
         impl ::rustc_serialize::Encodable for $name {
             fn encode<S>(&self, s: &mut S) -> Result<(), S::Error>
                 where S: ::rustc_serialize::Encoder,
@@ -55,6 +59,7 @@ macro_rules! enum_str {
             }
         }
 
+        #[cfg(feature = "lib-rustc-serialize")]
         impl ::rustc_serialize::Decodable for $name {
             fn decode<D>(d: &mut D) -> Result<$name, D::Error>
                 where D: ::rustc_serialize::Decoder,

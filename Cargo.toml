@@ -6,14 +6,36 @@ authors = ["dtolnay@gmail.com"]
 [dependencies]
 dtoa = "*"
 fastwrite = "*"
-json = { git = "https://github.com/maciejhirsz/json-rust", branch = "benches" }
-rustc-serialize = "*"
-serde = "*"
-serde_json = { git = "https://github.com/serde-rs/json", branch = "json-benchmark" }
-serde_macros = "*"
+serde = { version = "*", optional = true }
+serde_macros = { version = "*", optional = true }
 time = "*"
 
+[dependencies.serde_json]
+git = "https://github.com/serde-rs/json"
+branch = "json-benchmark"
+optional = true
+
+[dependencies.json]
+git = "https://github.com/maciejhirsz/json-rust"
+branch = "benches"
+optional = true
+
+[dependencies.rustc-serialize]
+version = "*"
+optional = true
+
 [features]
-default = ["performance"]
+default = ["performance", "all-libs", "all-files"]
+all-libs = ["lib-serde", "lib-json-rust", "lib-rustc-serialize"]
+all-files = ["file-canada", "file-citm-catalog", "file-twitter"]
 performance = []
 conformance = []
+lib-serde = ["serde", "serde_macros", "serde_json"]
+lib-json-rust = ["json"]
+lib-rustc-serialize = ["rustc-serialize"]
+file-canada = []
+file-citm-catalog = []
+file-twitter = []
+
+[profile.release]
+debug = true

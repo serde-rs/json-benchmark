@@ -1,12 +1,14 @@
-use std::marker::PhantomData;
 use std::str::FromStr;
 
+#[cfg(feature = "lib-serde")]
 use serde::{de, Serialize, Serializer, Deserialize, Deserializer};
+#[cfg(feature = "lib-rustc-serialize")]
 use rustc_serialize::{Encodable, Encoder, Decodable, Decoder};
 
 #[derive(Clone, Copy, Ord, PartialOrd, Eq, PartialEq)]
 pub struct PrimStr<T>(T) where T: Copy + Ord + ToString + FromStr;
 
+#[cfg(feature = "lib-serde")]
 impl<T> Serialize for PrimStr<T>
     where T: Copy + Ord + ToString + FromStr,
 {
@@ -17,12 +19,14 @@ impl<T> Serialize for PrimStr<T>
     }
 }
 
+#[cfg(feature = "lib-serde")]
 impl<T> Deserialize for PrimStr<T>
     where T: Copy + Ord + ToString + FromStr,
 {
     fn deserialize<D>(deserializer: &mut D) -> Result<Self, D::Error>
         where D: Deserializer,
     {
+        use std::marker::PhantomData;
         struct Visitor<T>(PhantomData<T>);
 
         impl<T> de::Visitor for Visitor<T>
@@ -45,6 +49,7 @@ impl<T> Deserialize for PrimStr<T>
     }
 }
 
+#[cfg(feature = "lib-rustc-serialize")]
 impl<T> Encodable for PrimStr<T>
     where T: Copy + Ord + ToString + FromStr,
 {
@@ -55,6 +60,7 @@ impl<T> Encodable for PrimStr<T>
     }
 }
 
+#[cfg(feature = "lib-rustc-serialize")]
 impl<T> Decodable for PrimStr<T>
     where T: Copy + Ord + ToString + FromStr,
 {
