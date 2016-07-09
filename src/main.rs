@@ -96,7 +96,11 @@ trait Library {
 }
 
 fn main() {
-    if cfg!(feature = "performance") {
+    if cfg!(any(feature = "performance",
+                feature = "parse-dom",
+                feature = "stringify-dom",
+                feature = "parse-struct",
+                feature = "stringify-struct")) {
         print!("{:>35}{:>22}", "DOM", "STRUCT");
         #[cfg(feature = "lib-serde")]
         bench::<serde_json::Library>();
@@ -137,23 +141,37 @@ fn bench<L: Library>() {
         File::open(file.path()).unwrap().read_to_end(&mut contents).unwrap();
         let dom = L::parse_dom(contents.as_slice()).unwrap();
 
-        let dur = bench_parse_dom::<L>(contents.as_slice());
-        print!("{:6}.{}ms", millis(dur), tenths(dur));
-        io::stdout().flush().unwrap();
+        if cfg!(feature = "parse-dom") {
+            let dur = bench_parse_dom::<L>(contents.as_slice());
+            print!("{:6}.{}ms", millis(dur), tenths(dur));
+            io::stdout().flush().unwrap();
+        } else {
+            print!("          ");
+        }
 
-        let dur = bench_stringify_dom::<L>(&dom, contents.len());
-        print!("{:6}.{}ms", millis(dur), tenths(dur));
-        io::stdout().flush().unwrap();
+        if cfg!(feature = "stringify-dom") {
+            let dur = bench_stringify_dom::<L>(&dom, contents.len());
+            print!("{:6}.{}ms", millis(dur), tenths(dur));
+            io::stdout().flush().unwrap();
+        } else {
+            print!("          ");
+        }
 
         if L::can_codegen() {
-            let dur = bench_parse_struct::<L>(contents.as_slice(), file);
-            print!("{:6}.{}ms", millis(dur), tenths(dur));
-            io::stdout().flush().unwrap();
+            if cfg!(feature = "parse-struct") {
+                let dur = bench_parse_struct::<L>(contents.as_slice(), file);
+                print!("{:6}.{}ms", millis(dur), tenths(dur));
+                io::stdout().flush().unwrap();
+            } else {
+                print!("          ");
+            }
 
-            let parsed = L::parse_struct(contents.as_slice(), file);
-            let dur = bench_stringify_struct::<L>(parsed, contents.len());
-            print!("{:6}.{}ms", millis(dur), tenths(dur));
-            io::stdout().flush().unwrap();
+            if cfg!(feature = "stringify-struct") {
+                let parsed = L::parse_struct(contents.as_slice(), file);
+                let dur = bench_stringify_struct::<L>(parsed, contents.len());
+                print!("{:6}.{}ms", millis(dur), tenths(dur));
+                io::stdout().flush().unwrap();
+            }
         }
 
         println!("");
