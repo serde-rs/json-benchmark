@@ -1,4 +1,3 @@
 /Cargo.lock
-/perf.data
-/perf.data.old
+/perf.*
 /target
