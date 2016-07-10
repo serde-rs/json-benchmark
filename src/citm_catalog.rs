@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use std::collections::BTreeMap as Map;
 
 use empty;
 use prim_str::PrimStr;
@@ -7,25 +7,25 @@ use prim_str::PrimStr;
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
 pub struct CitmCatalog {
     #[cfg_attr(feature = "lib-serde", serde(rename="areaNames"))]
-    pub area_names: BTreeMap<IdStr, String>,
+    pub area_names: Map<IdStr, String>,
     #[cfg_attr(feature = "lib-serde", serde(rename="audienceSubCategoryNames"))]
-    pub audience_sub_category_names: BTreeMap<IdStr, String>,
+    pub audience_sub_category_names: Map<IdStr, String>,
     #[cfg_attr(feature = "lib-serde", serde(rename="blockNames"))]
-    pub block_names: BTreeMap<IdStr, String>,
-    pub events: BTreeMap<IdStr, Event>,
+    pub block_names: Map<IdStr, String>,
+    pub events: Map<IdStr, Event>,
     pub performances: Vec<Performance>,
     #[cfg_attr(feature = "lib-serde", serde(rename="seatCategoryNames"))]
-    pub seat_category_names: BTreeMap<IdStr, String>,
+    pub seat_category_names: Map<IdStr, String>,
     #[cfg_attr(feature = "lib-serde", serde(rename="subTopicNames"))]
-    pub sub_topic_names: BTreeMap<IdStr, String>,
+    pub sub_topic_names: Map<IdStr, String>,
     #[cfg_attr(feature = "lib-serde", serde(rename="subjectNames"))]
-    pub subject_names: BTreeMap<IdStr, String>,
+    pub subject_names: Map<IdStr, String>,
     #[cfg_attr(feature = "lib-serde", serde(rename="topicNames"))]
-    pub topic_names: BTreeMap<IdStr, String>,
+    pub topic_names: Map<IdStr, String>,
     #[cfg_attr(feature = "lib-serde", serde(rename="topicSubTopics"))]
-    pub topic_sub_topics: BTreeMap<IdStr, Vec<Id>>,
+    pub topic_sub_topics: Map<IdStr, Vec<Id>>,
     #[cfg_attr(feature = "lib-serde", serde(rename="venueNames"))]
-    pub venue_names: BTreeMap<String, String>,
+    pub venue_names: Map<String, String>,
 }
 
 pub type Id = u32;

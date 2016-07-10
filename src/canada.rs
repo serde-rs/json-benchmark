@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use std::collections::BTreeMap as Map;
 
 pub type Canada = FeatureCollection;
 
@@ -15,7 +15,7 @@ pub struct FeatureCollection {
 pub struct Feature {
     #[cfg_attr(feature = "lib-serde", serde(rename="type"))]
     pub obj_type: ObjType,
-    pub properties: BTreeMap<String, String>,
+    pub properties: Map<String, String>,
     pub geometry: Geometry,
 }
 
