@@ -5,7 +5,7 @@ This is a partial port of
 to Rust. The libraries tested are:
 
 - [serde\_json](https://github.com/serde-rs/json) 0.8.0-rc
-- [json-rust](https://github.com/maciejhirsz/json-rust) 0.8.6-rc
+- [json-rust](https://github.com/maciejhirsz/json-rust) 0.8.8
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.19
 
 #### `$ cargo run --release`
@@ -13,14 +13,14 @@ to Rust. The libraries tested are:
 > ```
 >                                 DOM                STRUCT
 > ======= serde_json ======= parse|stringify === parse|stringify ===
-> data/canada.json          30.2ms    19.3ms    17.7ms    16.3ms
-> data/citm_catalog.json    17.0ms     2.8ms     7.1ms     1.4ms
-> data/twitter.json          7.7ms     1.3ms     5.2ms     1.3ms
+> data/canada.json          30.8ms    19.4ms    17.8ms    16.0ms
+> data/citm_catalog.json    16.9ms     2.9ms     6.2ms     1.3ms
+> data/twitter.json          6.5ms     1.0ms     4.1ms     1.1ms
 >
 > ======= json-rust ======== parse|stringify === parse|stringify ===
-> data/canada.json          31.7ms    20.3ms
-> data/citm_catalog.json    15.1ms     1.9ms
-> data/twitter.json          6.0ms     0.8ms
+> data/canada.json          32.8ms    19.6ms
+> data/citm_catalog.json    15.1ms     1.8ms
+> data/twitter.json          6.0ms     0.9ms
 >
 > ==== rustc_serialize ===== parse|stringify === parse|stringify ===
 > data/canada.json          34.2ms    54.0ms    40.2ms    50.7ms
