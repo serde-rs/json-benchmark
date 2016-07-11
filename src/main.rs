@@ -43,6 +43,7 @@ pub enum TestFile {
 }
 
 impl TestFile {
+    #[allow(unused_mut)]
     pub fn files() -> Vec<TestFile> {
         let mut variants = Vec::new();
         #[cfg(feature = "file-canada")]
@@ -477,6 +478,9 @@ mod serde_json {
             }
         }
 
+        #[cfg(any(feature = "file-canada",
+                  feature = "file-citm-catalog",
+                  feature = "file-twitter"))]
         fn stringify_struct<W>(write: &mut W, obj: &Contents)
             where W: io::Write,
         {
@@ -582,6 +586,9 @@ mod rustc {
             }
         }
 
+        #[cfg(any(feature = "file-canada",
+                  feature = "file-citm-catalog",
+                  feature = "file-twitter"))]
         fn stringify_struct<W>(write: &mut W, obj: &Contents)
             where W: io::Write,
         {
