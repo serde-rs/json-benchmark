@@ -33,6 +33,6 @@ to Rust. The libraries tested are:
 
 #### `$ cargo run --features conformance --no-default-features`
 
-- serde\_json: 82%
-- json-rust: 78%
+- serde\_json: 90%
+- json-rust: 84%
 - rustc-serialize: 82%
