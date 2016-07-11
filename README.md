@@ -13,7 +13,7 @@ to Rust. The libraries tested are:
 > ```
 >                                 DOM                STRUCT
 > ======= serde_json ======= parse|stringify === parse|stringify ===
-> data/canada.json          30.8ms    19.4ms    17.8ms    16.0ms
+> data/canada.json          24.3ms    19.4ms    11.1ms    16.0ms
 > data/citm_catalog.json    16.9ms     2.9ms     6.2ms     1.3ms
 > data/twitter.json          6.5ms     1.0ms     4.1ms     1.1ms
 >
