@@ -1,7 +1,7 @@
 # Rust JSON Benchmark
 
 This is a partial port of
-[nativejson-benchark](https://github.com/miloyip/nativejson-benchmark)
+[nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark)
 to Rust. The libraries tested are:
 
 - [serde\_json](https://github.com/serde-rs/json) 0.8.0-rc
