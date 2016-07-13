@@ -30,9 +30,3 @@ data/twitter.json         11.6ms     2.5ms    15.6ms     2.3ms
 
 - Intel(R) Core(TM) i5-3210M CPU @ 2.50GHz
 - rustc 1.11.0-nightly (ad7fe6521 2016-06-23)
-
-#### `$ cargo run --features conformance --no-default-features`
-
-- serde\_json: 90%
-- json-rust: 84%
-- rustc-serialize: 82%
