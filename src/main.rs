@@ -445,7 +445,6 @@ mod serde_json {
         fn name() -> &'static str { "serde_json" }
 
         fn parse_dom<R: io::Read>(mut read: R) -> Result<serde_json::Value, ()> {
-            //serde_json::from_reader(read).unwrap()
             let mut string = String::new();
             read.read_to_string(&mut string).unwrap();
             serde_json::from_str(&string).or(Err(()))
@@ -553,8 +552,6 @@ mod rustc {
 
         fn parse_dom<R: io::Read>(mut read: R) -> Result<json::Json, ()> {
             json::Json::from_reader(&mut read).or(Err(()))
-            //let mut decoder = json::Decoder::new(dom);
-            //rustc_serialize::Decodable::decode(&mut decoder).unwrap()
         }
 
         fn stringify_dom<W: io::Write>(write: &mut W, dom: &json::Json) {

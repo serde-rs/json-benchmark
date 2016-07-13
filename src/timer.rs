@@ -72,14 +72,3 @@ impl<'a> Timer<'a> {
         })
     }
 }
-
-/*
-use std::ops::Drop;
-impl<'a> Drop for Timer<'a> {
-    fn drop(&mut self) {
-        if !self.stopped {
-            panic!("timer not stopped");
-        }
-    }
-}
-*/
