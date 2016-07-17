@@ -33,3 +33,15 @@ data/twitter.json         11.6ms     2.4ms    15.9ms     2.2ms
 
 To update the numbers above, I run `./json-benchmark -n 256` twice on an
 otherwise idle computer and take the least of the two results for each number.
+
+For comparison, here are results from
+[RapidJSON](https://github.com/miloyip/rapidjson) on the same hardware with the
+nativejson-benchmark modified to run 256 times instead of 10.
+
+```
+                                DOM
+======= rapidjson ======== parse|stringify ===
+data/canada.json           5.4ms     9.8ms
+data/citm_catalog.json     2.2ms     1.3ms
+data/twitter.json          1.0ms     1.0ms
+```
