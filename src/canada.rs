@@ -27,8 +27,8 @@ pub struct Geometry {
     pub coordinates: Vec<Vec<(Latitude, Longitude)>>
 }
 
-pub type Latitude = f64;
-pub type Longitude = f64;
+pub type Latitude = f32;
+pub type Longitude = f32;
 
 enum_str!(ObjType {
     FeatureCollection("FeatureCollection"),
