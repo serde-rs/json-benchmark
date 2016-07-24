@@ -1,0 +1,13 @@
+{
+  "name": "benches",
+  "version": "1.0.0",
+  "description": "Plotting json-benchmark",
+  "main": "src/benches.js",
+  "author": "Maciej Hirsz <maciej.hirsz@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chart.js": "^2.2.0-rc.1",
+    "webpack": "^1.13.1",
+    "xhr": "^2.2.1"
+  }
+}

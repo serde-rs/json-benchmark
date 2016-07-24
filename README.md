@@ -5,7 +5,7 @@ This is a partial port of
 to Rust. The libraries tested are:
 
 - [serde\_json](https://github.com/serde-rs/json) 0.8.0-rc
-- [json-rust](https://github.com/maciejhirsz/json-rust) 0.9.1-rc
+- [json-rust](https://github.com/maciejhirsz/json-rust) 0.10.0
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.19
 
 #### `$ cargo run --release`
