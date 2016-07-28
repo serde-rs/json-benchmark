@@ -7,8 +7,8 @@ authors = ["dtolnay@gmail.com"]
 dtoa = "*"
 fastwrite = "*"
 getopts = "*"
-serde = { version = "0.8.0-rc1", optional = true }
-serde_macros = { version = "0.8.0-rc1", optional = true }
+serde = { version = "0.8.0", optional = true }
+serde_macros = { version = "0.8.0", optional = true }
 time = "*"
 
 [dependencies.serde_json]
