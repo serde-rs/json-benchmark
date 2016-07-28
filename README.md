@@ -15,9 +15,9 @@ to Rust. The libraries tested are:
 ```
                                 DOM                STRUCT
 ======= serde_json ======= parse|stringify === parse|stringify ===
-data/canada.json          24.7ms    14.7ms    11.5ms    11.9ms
-data/citm_catalog.json    16.7ms     2.6ms     6.4ms     1.5ms
-data/twitter.json          6.4ms     1.0ms     3.7ms     0.9ms
+data/canada.json          24.5ms    14.5ms    11.4ms     9.4ms
+data/citm_catalog.json    16.7ms     2.6ms     6.4ms     1.3ms
+data/twitter.json          6.5ms     1.0ms     3.7ms     0.9ms
 
 ======= json-rust ======== parse|stringify === parse|stringify ===
 data/canada.json          14.8ms     4.4ms
@@ -31,7 +31,7 @@ data/twitter.json         11.6ms     2.4ms    15.9ms     2.2ms
 ```
 
 - Intel(R) Core(TM) i5-3210M CPU @ 2.50GHz
-- rustc 1.12.0-nightly (9316ae515 2016-07-24)
+- rustc 1.12.0-nightly (feeca9457 2016-07-26)
 
 To update the numbers above, I run `./json-benchmark -n 256` twice on an
 otherwise idle computer and take the least of the two results for each number.
