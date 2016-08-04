@@ -25,9 +25,9 @@ data/citm_catalog.json     8.7ms     1.5ms
 data/twitter.json          3.4ms     0.9ms
 
 ==== rustc_serialize ===== parse|stringify === parse|stringify ===
-data/canada.json          33.4ms    53.2ms    41.4ms    74.1ms
-data/citm_catalog.json    23.7ms     5.2ms    29.6ms     3.6ms
-data/twitter.json         11.6ms     2.4ms    15.9ms     2.2ms
+data/canada.json          32.5ms    55.1ms    38.6ms    77.6ms
+data/citm_catalog.json    23.5ms     5.0ms    29.0ms     3.3ms
+data/twitter.json         11.4ms     2.2ms    15.4ms     2.0ms
 ```
 
 - Intel(R) Core(TM) i5-3210M CPU @ 2.50GHz
