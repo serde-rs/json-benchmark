@@ -15,13 +15,13 @@ to Rust. The libraries tested are:
 ```
                                 DOM                STRUCT
 ======= serde_json ======= parse|stringify === parse|stringify ===
-data/canada.json          15.8ms    10.4ms     8.2ms     7.1ms
-data/citm_catalog.json    11.2ms     1.7ms     4.4ms     0.8ms
-data/twitter.json          4.2ms     0.6ms     1.9ms     0.5ms
+data/canada.json          15.6ms    11.5ms     8.3ms     6.9ms
+data/citm_catalog.json    11.1ms     1.6ms     4.2ms     0.8ms
+data/twitter.json          4.2ms     0.6ms     1.8ms     0.5ms
 
 ======= json-rust ======== parse|stringify === parse|stringify ===
-data/canada.json          10.7ms     3.1ms
-data/citm_catalog.json     6.4ms     0.8ms
+data/canada.json          10.1ms     3.2ms
+data/citm_catalog.json     6.3ms     0.8ms
 data/twitter.json          2.3ms     0.6ms
 
 ==== rustc_serialize ===== parse|stringify === parse|stringify ===
@@ -31,7 +31,7 @@ data/twitter.json          8.5ms     1.7ms    10.7ms     1.5ms
 ```
 
 - Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
-- rustc 1.12.0-nightly (1deb02ea6 2016-08-12)
+- rustc 1.13.0-nightly (3c5a0fa45 2016-08-22)
 
 To update the numbers above, I run `./json-benchmark -n 256` twice on an
 otherwise idle computer and take the least of the two results for each number.
