@@ -280,7 +280,7 @@ mod json_rust {
         }
 
         fn stringify_dom<W: io::Write>(write: &mut W, dom: &JsonValue) {
-            dom.to_writer(write);
+            dom.write(write).unwrap();
         }
     }
 }
