@@ -11,7 +11,7 @@ json = { version = "0.10", optional = true }
 rustc-serialize = { version = "*", optional = true }
 serde = { version = "0.8", optional = true }
 serde_json = { version = "0.8", optional = true }
-serde_macros = { version = "0.8", optional = true }
+serde_derive = { version = "0.8", optional = true }
 time = "*"
 
 [features]
@@ -19,7 +19,7 @@ default = ["performance", "all-libs", "all-files"]
 all-libs = ["lib-serde", "lib-json-rust", "lib-rustc-serialize"]
 all-files = ["file-canada", "file-citm-catalog", "file-twitter"]
 performance = ["parse-dom", "stringify-dom", "parse-struct", "stringify-struct"]
-lib-serde = ["serde", "serde_macros", "serde_json"]
+lib-serde = ["serde", "serde_derive", "serde_json"]
 lib-json-rust = ["json"]
 lib-rustc-serialize = ["rustc-serialize"]
 file-canada = []
