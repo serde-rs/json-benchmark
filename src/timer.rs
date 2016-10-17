@@ -1,7 +1,5 @@
 use std::cmp;
 
-use fastwrite;
-
 use super::time::{Duration, PreciseTime};
 
 pub fn bench<T, F>(trials: usize, f: F) -> Duration
@@ -17,11 +15,11 @@ pub fn bench<T, F>(trials: usize, f: F) -> Duration
 }
 
 pub fn bench_with_buf<T, F>(trials: usize, len: usize, f: F) -> Duration
-    where F: Fn(&mut fastwrite::Buffer) -> T,
+    where F: Fn(&mut Vec<u8>) -> T,
 {
     let mut benchmark = Benchmark::new();
     for _ in 0..trials {
-        let mut buf = fastwrite::Buffer::with_capacity(len);
+        let mut buf = Vec::with_capacity(len);
         let mut timer = benchmark.start();
         f(&mut buf);
         timer.stop();

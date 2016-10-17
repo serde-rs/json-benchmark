@@ -5,7 +5,6 @@ authors = ["dtolnay@gmail.com"]
 
 [dependencies]
 dtoa = "*"
-fastwrite = "*"
 getopts = "*"
 json = { version = "0.10", optional = true }
 rustc-serialize = { version = "*", optional = true }

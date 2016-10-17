@@ -7,7 +7,6 @@
 extern crate serde_derive;
 
 extern crate dtoa;
-extern crate fastwrite;
 extern crate time;
 
 #[cfg(feature = "lib-rustc-serialize")]
