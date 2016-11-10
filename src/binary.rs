@@ -117,11 +117,11 @@ fn main() {
         };
 
         let dur = bench_deserialize(contents.as_slice(), file);
-        print!("{:6}.{:02}us", millis(dur), hundredths(dur));
+        print!("{:6}.{:02}ms", millis(dur), hundredths(dur));
         io::stdout().flush().unwrap();
 
         let dur = bench_serialize(structs, contents.len());
-        print!("{:4}.{:02}us", millis(dur), hundredths(dur));
+        print!("{:4}.{:02}ms", millis(dur), hundredths(dur));
         io::stdout().flush().unwrap();
 
         println!("");
