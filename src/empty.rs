@@ -33,7 +33,7 @@ impl Deserialize for Array {
             }
         }
 
-        deserializer.deserialize_seq(Visitor)
+        deserializer.deserialize_seq_fixed_size(0, Visitor)
     }
 }
 
