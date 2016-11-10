@@ -36,7 +36,7 @@ name = "json-benchmark"
 path = "src/main.rs"
 
 [[bin]]
-name = "json-benchmark-binary"
+name = "binary-benchmark"
 path = "src/binary.rs"
 
 [profile.release]
