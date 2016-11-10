@@ -9,6 +9,7 @@ getopts = "*"
 json = { version = "0.10", optional = true }
 rustc-serialize = { version = "*", optional = true }
 serde = { version = "0.8", optional = true }
+serde-bench = { version = "0.0.1", optional = true }
 serde_derive = { version = "0.8", optional = true }
 serde_json = { version = "0.8", optional = true }
 time = "*"
@@ -28,6 +29,15 @@ parse-dom = []
 stringify-dom = []
 parse-struct = []
 stringify-struct = []
+binary = ["serde-bench", "lib-serde"]
+
+[[bin]]
+name = "json-benchmark"
+path = "src/main.rs"
+
+[[bin]]
+name = "json-benchmark-binary"
+path = "src/binary.rs"
 
 [profile.release]
 debug = true
