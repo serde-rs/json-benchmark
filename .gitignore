@@ -1,3 +1,6 @@
+/*.perf
 /Cargo.lock
+/after
+/before
 /perf.*
 /target
