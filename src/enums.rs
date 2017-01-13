@@ -17,7 +17,7 @@ macro_rules! enum_str {
 
         #[cfg(feature = "lib-serde")]
         impl ::serde::Serialize for $name {
-            fn serialize<S>(&self, serializer: &mut S) -> Result<(), S::Error>
+            fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
                 where S: ::serde::Serializer,
             {
                 serializer.serialize_str(self.as_str())
@@ -26,7 +26,7 @@ macro_rules! enum_str {
 
         #[cfg(feature = "lib-serde")]
         impl ::serde::Deserialize for $name {
-            fn deserialize<D>(deserializer: &mut D) -> Result<Self, D::Error>
+            fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
                 where D: ::serde::Deserializer,
             {
                 struct Visitor;
@@ -34,14 +34,16 @@ macro_rules! enum_str {
                 impl ::serde::de::Visitor for Visitor {
                     type Value = $name;
 
-                    fn visit_str<E>(&mut self, value: &str) -> Result<$name, E>
+                    fn expecting(&self, formatter: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                        formatter.write_str("unit variant")
+                    }
+
+                    fn visit_str<E>(self, value: &str) -> Result<$name, E>
                         where E: ::serde::de::Error,
                     {
                         match value {
                             $( $str => Ok($name::$variant), )*
-                            _ => Err(E::invalid_value(
-                                &format!("unknown {} variant: {}",
-                                stringify!($name), value))),
+                            _ => Err(E::invalid_value(::serde::de::Unexpected::Str(value), &self)),
                         }
                     }
                 }

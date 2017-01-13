@@ -1,7 +1,11 @@
+#[cfg(feature = "lib-serde")]
+use std::fmt;
 use std::str::FromStr;
 
 #[cfg(feature = "lib-serde")]
-use serde::{de, Serialize, Serializer, Deserialize, Deserializer};
+use serde::ser::{Serialize, Serializer};
+#[cfg(feature = "lib-serde")]
+use serde::de::{self, Deserialize, Deserializer, Unexpected};
 #[cfg(feature = "lib-rustc-serialize")]
 use rustc_serialize::{Encodable, Encoder, Decodable, Decoder};
 
@@ -12,7 +16,7 @@ pub struct PrimStr<T>(T) where T: Copy + Ord + ToString + FromStr;
 impl<T> Serialize for PrimStr<T>
     where T: Copy + Ord + ToString + FromStr,
 {
-    fn serialize<S>(&self, serializer: &mut S) -> Result<(), S::Error>
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
         where S: Serializer,
     {
         serializer.serialize_str(&self.0.to_string())
@@ -23,7 +27,7 @@ impl<T> Serialize for PrimStr<T>
 impl<T> Deserialize for PrimStr<T>
     where T: Copy + Ord + ToString + FromStr,
 {
-    fn deserialize<D>(deserializer: &mut D) -> Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where D: Deserializer,
     {
         use std::marker::PhantomData;
@@ -34,13 +38,16 @@ impl<T> Deserialize for PrimStr<T>
         {
             type Value = PrimStr<T>;
 
-            fn visit_str<E>(&mut self, value: &str) -> Result<PrimStr<T>, E>
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+                formatter.write_str("number represented as string")
+            }
+
+            fn visit_str<E>(self, value: &str) -> Result<PrimStr<T>, E>
                 where E: de::Error,
             {
                 match T::from_str(value) {
                     Ok(id) => Ok(PrimStr(id)),
-                    Err(_) => Err(E::invalid_value(
-                        &format!("failed to parse id: {}", value))),
+                    Err(_) => Err(E::invalid_value(Unexpected::Str(value), &self)),
                 }
             }
         }

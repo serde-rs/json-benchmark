@@ -1,7 +1,5 @@
 #![feature(stmt_expr_attributes)]
 
-#![cfg_attr(feature = "lib-serde", feature(proc_macro))]
-
 #[cfg(feature = "lib-serde")]
 #[macro_use]
 extern crate serde_derive;

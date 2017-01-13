@@ -1,8 +1,10 @@
 #[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
-use std::{ptr, slice, str};
+use std::{fmt, ptr, slice, str};
 
 #[cfg(feature = "lib-serde")]
-use serde::{de, Serialize, Deserialize, Serializer, Deserializer};
+use serde::ser::{Serialize, Serializer};
+#[cfg(feature = "lib-serde")]
+use serde::de::{self, Deserialize, Deserializer, Unexpected};
 #[cfg(feature = "lib-rustc-serialize")]
 use rustc_serialize::{Encodable, Encoder, Decodable, Decoder};
 
@@ -43,7 +45,7 @@ impl Color {
 
 #[cfg(feature = "lib-serde")]
 impl Serialize for Color {
-    fn serialize<S>(&self, serializer: &mut S) -> Result<(), S::Error>
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
         where S: Serializer,
     {
         let mut buf: [u8; 6] = unsafe { ::std::mem::uninitialized() };
@@ -53,7 +55,7 @@ impl Serialize for Color {
 
 #[cfg(feature = "lib-serde")]
 impl Deserialize for Color {
-    fn deserialize<D>(deserializer: &mut D) -> Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where D: Deserializer,
     {
         struct Visitor;
@@ -61,13 +63,16 @@ impl Deserialize for Color {
         impl de::Visitor for Visitor {
             type Value = Color;
 
-            fn visit_str<E>(&mut self, value: &str) -> Result<Color, E>
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+                formatter.write_str("color string")
+            }
+
+            fn visit_str<E>(self, value: &str) -> Result<Color, E>
                 where E: de::Error,
             {
                 match u32::from_str_radix(value, 16) {
                     Ok(hex) => Ok(Color(hex)),
-                    Err(_) => Err(E::invalid_value(
-                        &format!("failed to parse color: {}", value))),
+                    Err(_) => Err(E::invalid_value(Unexpected::Str(value), &self)),
                 }
             }
         }

@@ -6,12 +6,12 @@ authors = ["dtolnay@gmail.com"]
 [dependencies]
 dtoa = "*"
 getopts = "*"
-json = { version = "0.10", optional = true }
+json = { version = "0.11", optional = true }
 rustc-serialize = { version = "*", optional = true }
-serde = { version = "0.8", optional = true }
+serde = { version = "0.9", optional = true }
 serde-bench = { version = "0.0.1", optional = true }
-serde_derive = { version = "0.8", optional = true }
-serde_json = { version = "0.8", optional = true }
+serde_derive = { version = "0.9", optional = true }
+serde_json = { version = "0.9", optional = true }
 time = "*"
 
 [features]

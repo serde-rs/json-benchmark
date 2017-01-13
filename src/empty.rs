@@ -1,4 +1,6 @@
 #[cfg(feature = "lib-serde")]
+use std::fmt;
+#[cfg(feature = "lib-serde")]
 use serde::{de, Serialize, Deserialize, Serializer, Deserializer};
 #[cfg(feature = "lib-rustc-serialize")]
 use rustc_serialize::{Encodable, Encoder, Decodable, Decoder};
@@ -8,7 +10,7 @@ pub struct Array;
 
 #[cfg(feature = "lib-serde")]
 impl Serialize for Array {
-    fn serialize<S>(&self, serializer: &mut S) -> Result<(), S::Error>
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
         where S: Serializer,
     {
         [(); 0].serialize(serializer)
@@ -17,7 +19,7 @@ impl Serialize for Array {
 
 #[cfg(feature = "lib-serde")]
 impl Deserialize for Array {
-    fn deserialize<D>(deserializer: &mut D) -> Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
         where D: Deserializer,
     {
         struct Visitor;
@@ -25,10 +27,13 @@ impl Deserialize for Array {
         impl de::Visitor for Visitor {
             type Value = Array;
 
-            fn visit_seq<V>(&mut self, mut visitor: V) -> Result<Array, V::Error>
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+                formatter.write_str("empty array")
+            }
+
+            fn visit_seq<V>(self, _: V) -> Result<Array, V::Error>
                 where V: de::SeqVisitor,
             {
-                try!(visitor.end());
                 Ok(Array)
             }
         }
