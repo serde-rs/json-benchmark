@@ -10,7 +10,7 @@ to Rust. The libraries tested are:
 - [json-rust](https://github.com/maciejhirsz/json-rust) 0.11.5
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.22
 
-#### `$ cargo run --release`
+#### `$ cargo run --release --bin json-benchmark`
 
 ```
                                 DOM                STRUCT
