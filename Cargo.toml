@@ -9,7 +9,7 @@ getopts = "*"
 json = { version = "0.11", optional = true }
 rustc-serialize = { version = "*", optional = true }
 serde = { version = "0.9", optional = true }
-serde-bench = { version = "0.0.1", optional = true }
+serde-bench = { version = "0.0.2", optional = true }
 serde_derive = { version = "0.9", optional = true }
 serde_json = { version = "0.9", optional = true }
 time = "*"
