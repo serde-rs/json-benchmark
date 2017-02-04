@@ -79,7 +79,7 @@ fn num_trials() -> usize {
 
     let args: Vec<String> = env::args().collect();
     let matches = opts.parse(&args[1..]).unwrap();
-    matches.opt_str("n").map(|s| s.parse().unwrap()).unwrap_or(10)
+    matches.opt_str("n").map(|s| s.parse().unwrap()).unwrap_or(4096)
 }
 
 fn main() {
