@@ -27,12 +27,18 @@ pub mod empty;
 pub mod prim_str;
 pub mod timer;
 
+#[cfg(feature = "zero-copy")]
+pub mod borrow;
+#[cfg(feature = "zero-copy")]
+pub use self::borrow::*;
+
+#[cfg(not(feature = "zero-copy"))]
+pub mod copy;
+#[cfg(not(feature = "zero-copy"))]
+pub use self::copy::*;
+
 #[cfg(feature = "file-canada")]
 pub mod canada;
-#[cfg(feature = "file-citm-catalog")]
-pub mod citm_catalog;
-#[cfg(feature = "file-twitter")]
-pub mod twitter;
 
 pub use std::io::{self, Read, Write};
 

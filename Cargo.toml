@@ -29,6 +29,7 @@ parse-dom = []
 stringify-dom = []
 parse-struct = []
 stringify-struct = []
+zero-copy = []
 binary = ["serde-bench", "lib-serde"]
 
 [[bin]]
