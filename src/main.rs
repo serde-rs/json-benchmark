@@ -107,9 +107,6 @@ macro_rules! bench_file {
             vec
         };
 
-        let len = contents.len();
-        let dom: $dom = $parse_dom(&contents).unwrap();
-
         #[cfg(feature = "parse-dom")]
         {
             let dur = timer::bench(num_trials(), || {
@@ -124,6 +121,8 @@ macro_rules! bench_file {
 
         #[cfg(feature = "stringify-dom")]
         {
+            let len = contents.len();
+            let dom: $dom = $parse_dom(&contents).unwrap();
             let dur = timer::bench_with_buf(num_trials(), len, |out| {
                 $stringify_dom(out, &dom).unwrap()
             });
@@ -148,6 +147,7 @@ macro_rules! bench_file {
 
             #[cfg(feature = "stringify-struct")]
             {
+                let len = contents.len();
                 let parsed: $structure = $parse_struct(&contents).unwrap();
                 let dur = timer::bench_with_buf(num_trials(), len, |out| {
                     $stringify_struct(out, &parsed).unwrap()
@@ -193,14 +193,14 @@ fn main() {
     }
 }
 
-#[cfg(all(feature = "lib-serde", feature = "parse-dom"))]
+#[cfg(all(feature = "lib-serde", any(feature = "parse-dom", feature = "stringify-dom")))]
 fn serde_json_parse_dom(bytes: &[u8]) -> serde_json::Result<serde_json::Value> {
     use std::str;
     let s = str::from_utf8(bytes).unwrap();
     serde_json::from_str(s)
 }
 
-#[cfg(all(feature = "lib-serde", feature = "parse-struct"))]
+#[cfg(all(feature = "lib-serde", any(feature = "parse-struct", feature = "stringify-struct")))]
 fn serde_json_parse_struct<'de, T>(bytes: &'de [u8]) -> serde_json::Result<T>
     where T: serde::Deserialize<'de>
 {
@@ -209,7 +209,7 @@ fn serde_json_parse_struct<'de, T>(bytes: &'de [u8]) -> serde_json::Result<T>
     serde_json::from_str(s)
 }
 
-#[cfg(all(feature = "lib-json-rust", feature = "parse-dom"))]
+#[cfg(all(feature = "lib-json-rust", any(feature = "parse-dom", feature = "stringify-dom")))]
 fn json_rust_parse_dom(bytes: &[u8]) -> json::Result<json::JsonValue> {
     use std::str;
     let s = str::from_utf8(bytes).unwrap();
@@ -221,12 +221,12 @@ fn json_rust_stringify_dom<W: io::Write>(write: &mut W, dom: &json::JsonValue) -
     dom.write(write)
 }
 
-#[cfg(all(feature = "lib-rustc-serialize", feature = "parse-dom"))]
+#[cfg(all(feature = "lib-rustc-serialize", any(feature = "parse-dom", feature = "stringify-dom")))]
 fn rustc_serialize_parse_dom(mut bytes: &[u8]) -> Result<rustc_serialize::json::Json, rustc_serialize::json::BuilderError> {
     rustc_serialize::json::Json::from_reader(&mut bytes)
 }
 
-#[cfg(all(feature = "lib-rustc-serialize", feature = "parse-struct"))]
+#[cfg(all(feature = "lib-rustc-serialize", any(feature = "parse-struct", feature = "stringify-struct")))]
 fn rustc_serialize_parse_struct<T>(bytes: &[u8]) -> rustc_serialize::json::DecodeResult<T>
     where T: rustc_serialize::Decodable
 {
