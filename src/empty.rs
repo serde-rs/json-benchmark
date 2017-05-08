@@ -18,13 +18,13 @@ impl Serialize for Array {
 }
 
 #[cfg(feature = "lib-serde")]
-impl Deserialize for Array {
+impl<'de> Deserialize<'de> for Array {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-        where D: Deserializer,
+        where D: Deserializer<'de>,
     {
         struct Visitor;
 
-        impl de::Visitor for Visitor {
+        impl<'de> de::Visitor<'de> for Visitor {
             type Value = Array;
 
             fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
@@ -32,13 +32,13 @@ impl Deserialize for Array {
             }
 
             fn visit_seq<V>(self, _: V) -> Result<Array, V::Error>
-                where V: de::SeqVisitor,
+                where V: de::SeqAccess<'de>,
             {
                 Ok(Array)
             }
         }
 
-        deserializer.deserialize_seq_fixed_size(0, Visitor)
+        deserializer.deserialize_tuple(0, Visitor)
     }
 }
 

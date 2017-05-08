@@ -25,16 +25,16 @@ impl<T> Serialize for PrimStr<T>
 }
 
 #[cfg(feature = "lib-serde")]
-impl<T> Deserialize for PrimStr<T>
+impl<'de, T> Deserialize<'de> for PrimStr<T>
     where T: Copy + Ord + Display + FromStr,
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-        where D: Deserializer,
+        where D: Deserializer<'de>,
     {
         use std::marker::PhantomData;
         struct Visitor<T>(PhantomData<T>);
 
-        impl<T> de::Visitor for Visitor<T>
+        impl<'de, T> de::Visitor<'de> for Visitor<T>
             where T: Copy + Ord + Display + FromStr,
         {
             type Value = PrimStr<T>;

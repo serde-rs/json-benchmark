@@ -25,13 +25,13 @@ macro_rules! enum_str {
         }
 
         #[cfg(feature = "lib-serde")]
-        impl ::serde::Deserialize for $name {
+        impl<'de> ::serde::Deserialize<'de> for $name {
             fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-                where D: ::serde::Deserializer,
+                where D: ::serde::Deserializer<'de>,
             {
                 struct Visitor;
 
-                impl ::serde::de::Visitor for Visitor {
+                impl<'de> ::serde::de::Visitor<'de> for Visitor {
                     type Value = $name;
 
                     fn expecting(&self, formatter: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {

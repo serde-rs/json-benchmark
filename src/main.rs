@@ -195,8 +195,8 @@ fn serde_json_parse_dom(bytes: &[u8]) -> serde_json::Result<serde_json::Value> {
 }
 
 #[cfg(all(feature = "lib-serde", feature = "parse-struct"))]
-fn serde_json_parse_struct<T>(bytes: &[u8]) -> serde_json::Result<T>
-    where T: serde::Deserialize
+fn serde_json_parse_struct<'de, T>(bytes: &'de [u8]) -> serde_json::Result<T>
+    where T: serde::Deserialize<'de>
 {
     use std::str;
     let s = str::from_utf8(bytes).unwrap();
