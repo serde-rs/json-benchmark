@@ -6,32 +6,32 @@ This is a partial port of
 [nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark)
 to Rust. The libraries tested are:
 
-- [serde\_json](https://github.com/serde-rs/json) 0.9.9
-- [json-rust](https://github.com/maciejhirsz/json-rust) 0.11.5
-- [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.22
+- [serde\_json](https://github.com/serde-rs/json) 1.0.1
+- [json-rust](https://github.com/maciejhirsz/json-rust) 0.11.6
+- [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.24
 
 #### `$ cargo run --release --bin json-benchmark`
 
 ```
                                 DOM                STRUCT
 ======= serde_json ======= parse|stringify === parse|stringify ===
-data/canada.json          14.2ms    11.6ms     6.3ms     8.2ms
-data/citm_catalog.json     9.0ms     1.3ms     2.8ms     0.8ms
-data/twitter.json          3.3ms     0.5ms     1.3ms     0.5ms
+data/canada.json          10.8ms    11.0ms     3.9ms     6.9ms
+data/citm_catalog.json     5.7ms     1.3ms     2.1ms     0.8ms
+data/twitter.json          2.5ms     0.6ms     1.3ms     0.6ms
 
 ======= json-rust ======== parse|stringify === parse|stringify ===
-data/canada.json          10.9ms     3.1ms
-data/citm_catalog.json     5.6ms     0.8ms
-data/twitter.json          2.0ms     0.5ms
+data/canada.json           8.4ms     2.9ms
+data/citm_catalog.json     3.7ms     0.8ms
+data/twitter.json          1.6ms     0.6ms
 
 ==== rustc_serialize ===== parse|stringify === parse|stringify ===
-data/canada.json          20.2ms    44.0ms    22.6ms    63.7ms
-data/citm_catalog.json    16.3ms     3.6ms    18.9ms     2.8ms
-data/twitter.json          8.3ms     1.8ms    10.5ms     1.7ms
+data/canada.json          17.6ms    41.1ms    22.0ms    59.2ms
+data/citm_catalog.json    13.9ms     3.6ms    17.9ms     2.9ms
+data/twitter.json          7.8ms     1.8ms    10.2ms     1.7ms
 ```
 
 - Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
-- rustc 1.17.0-nightly (b1e31766d 2017-03-03)
+- rustc 1.19.0-nightly (f4209651e 2017-05-05)
 
 To update the numbers above, I run `./json-benchmark -n 256` twice on an
 otherwise idle computer and take the least of the two results for each number.
