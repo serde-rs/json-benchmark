@@ -8,7 +8,7 @@ pub fn bench<T, F>(trials: usize, f: F) -> Duration
     let mut benchmark = Benchmark::new();
     for _ in 0..trials {
         let mut timer = benchmark.start();
-        f();
+        let _keep = f();
         timer.stop();
     }
     benchmark.min_elapsed()
@@ -21,7 +21,7 @@ pub fn bench_with_buf<T, F>(trials: usize, len: usize, f: F) -> Duration
     for _ in 0..trials {
         let mut buf = Vec::with_capacity(len);
         let mut timer = benchmark.start();
-        f(&mut buf);
+        let _keep = f(&mut buf);
         timer.stop();
     }
     benchmark.min_elapsed()
