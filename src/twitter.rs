@@ -173,7 +173,7 @@ pub struct Media {
     pub url: String,
     pub display_url: String,
     pub expanded_url: String,
-    #[cfg_attr(feature = "lib-serde", serde(rename="type"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "type"))]
     pub media_type: String,
     pub sizes: Sizes,
     pub source_status_id: Option<LongId>,

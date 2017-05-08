@@ -6,25 +6,25 @@ use prim_str::PrimStr;
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
 pub struct CitmCatalog {
-    #[cfg_attr(feature = "lib-serde", serde(rename="areaNames"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "areaNames"))]
     pub area_names: Map<IdStr, String>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="audienceSubCategoryNames"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "audienceSubCategoryNames"))]
     pub audience_sub_category_names: Map<IdStr, String>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="blockNames"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "blockNames"))]
     pub block_names: Map<IdStr, String>,
     pub events: Map<IdStr, Event>,
     pub performances: Vec<Performance>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="seatCategoryNames"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "seatCategoryNames"))]
     pub seat_category_names: Map<IdStr, String>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="subTopicNames"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "subTopicNames"))]
     pub sub_topic_names: Map<IdStr, String>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="subjectNames"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "subjectNames"))]
     pub subject_names: Map<IdStr, String>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="topicNames"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "topicNames"))]
     pub topic_names: Map<IdStr, String>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="topicSubTopics"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "topicSubTopics"))]
     pub topic_sub_topics: Map<IdStr, Vec<Id>>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="venueNames"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "venueNames"))]
     pub venue_names: Map<String, String>,
 }
 
@@ -38,30 +38,30 @@ pub struct Event {
     pub id: Id,
     pub logo: Option<String>,
     pub name: String,
-    #[cfg_attr(feature = "lib-serde", serde(rename="subTopicIds"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "subTopicIds"))]
     pub sub_topic_ids: Vec<Id>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="subjectCode"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "subjectCode"))]
     pub subject_code: (),
     pub subtitle: (),
-    #[cfg_attr(feature = "lib-serde", serde(rename="topicIds"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "topicIds"))]
     pub topic_ids: Vec<Id>,
 }
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
 pub struct Performance {
-    #[cfg_attr(feature = "lib-serde", serde(rename="eventId"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "eventId"))]
     pub event_id: Id,
     pub id: Id,
     pub logo: Option<String>,
     pub name: (),
     pub prices: Vec<Price>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="seatCategories"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "seatCategories"))]
     pub seat_categories: Vec<SeatCategory>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="seatMapImage"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "seatMapImage"))]
     pub seat_map_image: (),
     pub start: u64,
-    #[cfg_attr(feature = "lib-serde", serde(rename="venueCode"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "venueCode"))]
     pub venue_code: String,
 }
 
@@ -69,9 +69,9 @@ pub struct Performance {
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
 pub struct Price {
     pub amount: u32,
-    #[cfg_attr(feature = "lib-serde", serde(rename="audienceSubCategoryId"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "audienceSubCategoryId"))]
     pub audience_sub_category_id: Id,
-    #[cfg_attr(feature = "lib-serde", serde(rename="seatCategoryId"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "seatCategoryId"))]
     pub seat_category_id: Id,
 }
 
@@ -79,16 +79,16 @@ pub struct Price {
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
 pub struct SeatCategory {
     pub areas: Vec<Area>,
-    #[cfg_attr(feature = "lib-serde", serde(rename="seatCategoryId"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "seatCategoryId"))]
     pub seat_category_id: Id,
 }
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
 pub struct Area {
-    #[cfg_attr(feature = "lib-serde", serde(rename="areaId"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "areaId"))]
     pub area_id: Id,
-    #[cfg_attr(feature = "lib-serde", serde(rename="blockIds"))]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "blockIds"))]
     pub block_ids: empty::Array,
 }
 
