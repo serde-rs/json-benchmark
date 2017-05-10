@@ -43,14 +43,14 @@ nativejson-benchmark modified to run 256 times instead of 10.
 ```
                                 DOM
 ==== rapidjson-clang ===== parse|stringify ===
-data/canada.json           4.6ms     9.5ms
-data/citm_catalog.json     2.0ms     1.1ms
-data/twitter.json          1.4ms     0.9ms
+data/canada.json           5.7ms    10.5ms
+data/citm_catalog.json     2.5ms     1.7ms
+data/twitter.json          1.8ms     1.2ms
 
 ===== rapidjson-gcc ====== parse|stringify ===
-data/canada.json           3.9ms     7.0ms
-data/citm_catalog.json     1.7ms     0.9ms
-data/twitter.json          1.3ms     0.9ms
+data/canada.json           4.7ms     8.6ms
+data/citm_catalog.json     1.7ms     1.0ms
+data/twitter.json          1.3ms     0.7ms
 ```
 
 - clang version 3.8.0
