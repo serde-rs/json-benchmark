@@ -1,7 +1,5 @@
 # Rust JSON Benchmark
 
-You can see the results of this benchmarks with some commentary at [json.rs](http://json.rs).
-
 This is a partial port of
 [nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark)
 to Rust. The libraries tested are:
