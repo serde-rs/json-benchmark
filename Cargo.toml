@@ -42,3 +42,4 @@ path = "src/binary.rs"
 
 [profile.release]
 debug = true
+panic = "abort"
