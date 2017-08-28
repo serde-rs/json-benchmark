@@ -1,7 +1,6 @@
 #[macro_use]
 extern crate serde_derive;
 
-extern crate dtoa;
 extern crate time;
 
 extern crate serde;

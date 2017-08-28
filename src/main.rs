@@ -4,7 +4,6 @@
 #[macro_use]
 extern crate serde_derive;
 
-extern crate dtoa;
 extern crate time;
 
 #[cfg(feature = "lib-serde")]
