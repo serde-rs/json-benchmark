@@ -2,6 +2,7 @@
 name = "json-benchmark"
 version = "0.0.1"
 authors = ["dtolnay@gmail.com"]
+publish = false
 
 [dependencies]
 getopts = "*"
