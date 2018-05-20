@@ -5,9 +5,9 @@
 #[macro_use]
 extern crate serde_derive;
 
-extern crate test;
 extern crate serde;
 extern crate serde_json;
+extern crate test;
 
 use test::Bencher;
 
@@ -31,15 +31,15 @@ struct SmallPayload {
 impl SmallPayload {
     fn new() -> Self {
         SmallPayload {
-            st:   1,
-            sid:  2,
-            tt:   "TestString".to_owned(),
-            gr:   4,
+            st: 1,
+            sid: 2,
+            tt: "TestString".to_owned(),
+            gr: 4,
             uuid: "8f9a65eb-4807-4d57-b6e0-bda5d62f1429".to_owned(),
-            ip:   "127.0.0.1".to_owned(),
-            ua:   "Mozilla".to_owned(),
-            tz:   8,
-            v:    6,
+            ip: "127.0.0.1".to_owned(),
+            ua: "Mozilla".to_owned(),
+            tz: 8,
+            v: 6,
         }
     }
 }
@@ -74,12 +74,12 @@ struct CBGithub {
 
 #[derive(Serialize, Deserialize)]
 struct CBGravatar {
-	avatars: Vec<CBAvatar>,
+    avatars: Vec<CBAvatar>,
 }
 
 #[derive(Serialize, Deserialize)]
 struct CBAvatar {
-	url: String,
+    url: String,
 }
 
 impl MediumPayload {
@@ -90,9 +90,7 @@ impl MediumPayload {
                 name: CBName {
                     full_name: "test".to_owned(),
                 },
-                github: CBGithub {
-                    followers: 100,
-                },
+                github: CBGithub { followers: 100 },
                 gravatar: CBGravatar {
                     avatars: vec![
                         CBAvatar {
@@ -132,13 +130,13 @@ const LARGE: &str = include_str!("large.json");
 
 #[derive(Serialize, Deserialize)]
 struct LargePayload {
-	users: Vec<DSUser>,
-	topics: DSTopicsList,
+    users: Vec<DSUser>,
+    topics: DSTopicsList,
 }
 
 #[derive(Serialize, Deserialize)]
 struct DSTopicsList {
-	topics: Vec<DSTopic>,
+    topics: Vec<DSTopic>,
     more_topics_url: String,
 }
 
@@ -150,7 +148,7 @@ struct DSTopic {
 
 #[derive(Serialize, Deserialize)]
 struct DSUser {
-	username: String,
+    username: String,
 }
 
 impl LargePayload {
@@ -159,13 +157,15 @@ impl LargePayload {
         let mut ds_topics = Vec::new();
         for i in 0..100 {
             let s = format!("test{}", i);
-            ds_users.push(DSUser { username: s.clone() });
+            ds_users.push(DSUser {
+                username: s.clone(),
+            });
             ds_topics.push(DSTopic { id: i, slug: s });
         }
         LargePayload {
             users: ds_users,
             topics: DSTopicsList {
-                topics:        ds_topics,
+                topics: ds_topics,
                 more_topics_url: "http://test.com".to_owned(),
             },
         }
