@@ -33,6 +33,8 @@ BenchmarkGoJayEncodeSmallFunc-4            412 ns/op
 
 # Graphs
 
+**(lower is better)**
+
 ![large.svg](large.svg)
 ![medium.svg](medium.svg)
 ![small.svg](small.svg)
