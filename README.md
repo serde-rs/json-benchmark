@@ -30,3 +30,9 @@ BenchmarkGoJayEncodeMediumStruct-4        1310 ns/op
 BenchmarkGoJayEncodeSmallStruct-4          562 ns/op
 BenchmarkGoJayEncodeSmallFunc-4            412 ns/op
 ```
+
+# Graphs
+
+![large.svg](large.svg)
+![medium.svg](medium.svg)
+![small.svg](small.svg)
