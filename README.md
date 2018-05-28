@@ -4,7 +4,7 @@ This is a partial port of
 [nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark)
 to Rust. The libraries tested are:
 
-- [serde\_json](https://github.com/serde-rs/json) 1.0.9
+- [serde\_json](https://github.com/serde-rs/json) 1.0.18
 - [json-rust](https://github.com/maciejhirsz/json-rust) 0.11.13
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.24
 
@@ -13,23 +13,23 @@ to Rust. The libraries tested are:
 ```
                                 DOM                STRUCT
 ======= serde_json ======= parse|stringify === parse|stringify ===
-data/canada.json          10.8ms     9.6ms     4.1ms     7.0ms
-data/citm_catalog.json     5.8ms     1.3ms     1.8ms     0.8ms
-data/twitter.json          2.6ms     0.7ms     1.1ms     0.6ms
+data/canada.json          11.3ms     9.2ms     4.0ms     6.8ms
+data/citm_catalog.json     6.3ms     1.3ms     2.0ms     0.8ms
+data/twitter.json          2.5ms     0.7ms     1.1ms     0.6ms
 
 ======= json-rust ======== parse|stringify === parse|stringify ===
-data/canada.json           7.1ms     3.4ms
+data/canada.json           7.0ms     3.2ms
 data/citm_catalog.json     3.4ms     0.9ms
 data/twitter.json          1.4ms     0.6ms
 
 ==== rustc_serialize ===== parse|stringify === parse|stringify ===
-data/canada.json          16.2ms    38.8ms    23.9ms    52.6ms
-data/citm_catalog.json    11.0ms     3.6ms    15.7ms     2.9ms
-data/twitter.json          6.2ms     1.8ms     8.6ms     1.7ms
+data/canada.json          17.8ms    41.1ms    23.4ms    55.7ms
+data/citm_catalog.json    14.1ms     4.1ms    17.9ms     2.9ms
+data/twitter.json          8.3ms     1.7ms    10.5ms     1.6ms
 ```
 
 - Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
-- rustc 1.26.0-nightly (322d7f7b9 2018-02-25)
+- rustc 1.28.0-nightly (990d8aa74 2018-05-25)
 
 To update the numbers above, I run `./json-benchmark -n 256` twice on an
 otherwise idle computer and take the least of the two results for each number.
