@@ -9,3 +9,4 @@ rust:
 
 script:
   - cargo check --bin json-benchmark
+  - cargo check --bin binary-benchmark --no-default-features --features 'binary performance all-files'
