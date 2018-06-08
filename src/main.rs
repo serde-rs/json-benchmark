@@ -1,5 +1,3 @@
-#![feature(stmt_expr_attributes)]
-
 #[cfg(feature = "lib-serde")]
 #[macro_use]
 extern crate serde_derive;
