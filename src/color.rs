@@ -1,5 +1,7 @@
+#[cfg(feature = "lib-serde")]
+use std::fmt;
 #[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
-use std::{fmt, ptr, slice, str};
+use std::{ptr, slice, str};
 
 #[cfg(feature = "lib-serde")]
 use serde::ser::{Serialize, Serializer};
