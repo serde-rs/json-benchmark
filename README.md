@@ -4,7 +4,7 @@ This is a partial port of
 [nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark)
 to Rust. The libraries tested are:
 
-- [serde\_json](https://github.com/serde-rs/json) 1.0.25
+- [serde\_json](https://github.com/serde-rs/json) 1.0.26
 - [json-rust](https://github.com/maciejhirsz/json-rust) 0.11.13
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.24
 
@@ -13,7 +13,7 @@ to Rust. The libraries tested are:
 ```
                                 DOM                STRUCT
 ======= serde_json ======= parse|stringify === parse|stringify ===
-data/canada.json          10.2ms     8.7ms     3.9ms     6.3ms
+data/canada.json          10.2ms     5.4ms     3.9ms     4.0ms
 data/citm_catalog.json     5.7ms     1.0ms     1.9ms     0.6ms
 data/twitter.json          2.4ms     0.5ms     1.1ms     0.5ms
 
