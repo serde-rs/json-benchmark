@@ -1,11 +1,14 @@
 #[macro_use]
 extern crate serde_derive;
 
-extern crate time;
-
+#[cfg(feature = "lib-json-rust")]
+extern crate json;
+#[cfg(feature = "lib-rustc-serialize")]
+extern crate rustc_serialize;
 extern crate serde;
 extern crate serde_bench;
 extern crate serde_json;
+extern crate time;
 
 #[macro_use] pub mod enums;
 
@@ -48,7 +51,7 @@ macro_rules! bench_file {
         path: $path:expr,
         structure: $structure:ty,
     } => {
-        print!("{:22}", $path);
+        print!("{:41}", $path);
         io::stdout().flush().unwrap();
 
         let contents = {
@@ -79,7 +82,7 @@ macro_rules! bench_file {
             let dur = timer::bench_with_buf(num_trials(), len, |out| {
                 serde_bench::serialize(out, &data).unwrap()
             });
-            print!("{:6}.{:02}ms", millis(dur), hundredths(dur));
+            print!("{:5}.{:02}ms", millis(dur), hundredths(dur));
             io::stdout().flush().unwrap();
         }
 
@@ -88,7 +91,7 @@ macro_rules! bench_file {
 }
 
 fn main() {
-    println!("========================== decode | encode ===");
+    println!("============================================== decode | encode ===");
 
     #[cfg(feature = "file-canada")]
     bench_file! {

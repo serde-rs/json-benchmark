@@ -53,3 +53,14 @@ data/twitter.json          1.3ms     0.7ms
 
 - clang version 3.8.0
 - gcc version 5.4.0
+
+As another point of comparison, here are the same three json files encoded into
+a compact binary format with Serde. To reproduce these numbers run `cargo run
+--release --bin binary-benchmark --features binary`.
+
+```
+============================================== decode | encode ===
+data/canada.json                              0.29ms    0.46ms
+data/citm_catalog.json                        0.29ms    0.10ms
+data/twitter.json                             0.35ms    0.09ms
+```
