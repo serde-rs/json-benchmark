@@ -59,6 +59,7 @@ a compact binary format with Serde. To reproduce these numbers run `cargo run
 --release --bin binary-benchmark --features binary`.
 
 ```
+                                                   STRUCT
 ============================================== decode | encode ===
 data/canada.json                              0.29ms    0.46ms
 data/citm_catalog.json                        0.29ms    0.10ms

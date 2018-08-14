@@ -91,6 +91,7 @@ macro_rules! bench_file {
 }
 
 fn main() {
+    println!("{:>57}", "STRUCT");
     println!("============================================== decode | encode ===");
 
     #[cfg(feature = "file-canada")]
