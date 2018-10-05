@@ -4,7 +4,7 @@ This is a partial port of
 [nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark)
 to Rust. The libraries tested are:
 
-- [serde\_json](https://github.com/serde-rs/json) 1.0.26
+- [serde\_json](https://github.com/serde-rs/json) 1.0.32
 - [json-rust](https://github.com/maciejhirsz/json-rust) 0.11.13
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.24
 
@@ -13,23 +13,23 @@ to Rust. The libraries tested are:
 ```
                                 DOM                STRUCT
 ======= serde_json ======= parse|stringify === parse|stringify ===
-data/canada.json          10.2ms     5.4ms     3.9ms     4.0ms
-data/citm_catalog.json     5.7ms     1.0ms     1.9ms     0.6ms
-data/twitter.json          2.4ms     0.5ms     1.1ms     0.5ms
+data/canada.json          10.5ms     5.5ms     4.1ms     4.0ms
+data/citm_catalog.json     5.9ms     1.0ms     2.0ms     0.6ms
+data/twitter.json          2.5ms     0.5ms     1.1ms     0.5ms
 
 ======= json-rust ======== parse|stringify === parse|stringify ===
-data/canada.json           7.0ms     3.1ms
-data/citm_catalog.json     3.4ms     0.6ms
-data/twitter.json          1.4ms     0.5ms
+data/canada.json           6.6ms     3.1ms
+data/citm_catalog.json     3.5ms     0.6ms
+data/twitter.json          1.3ms     0.5ms
 
 ==== rustc_serialize ===== parse|stringify === parse|stringify ===
-data/canada.json          17.2ms    40.3ms    24.9ms    57.5ms
-data/citm_catalog.json    14.1ms     4.1ms    18.6ms     3.2ms
-data/twitter.json          7.8ms     1.9ms    10.1ms     1.8ms
+data/canada.json          17.4ms    39.6ms    24.9ms    53.3ms
+data/citm_catalog.json    14.3ms     3.6ms    19.0ms     2.9ms
+data/twitter.json          7.8ms     1.5ms    10.2ms     1.5ms
 ```
 
 - Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
-- rustc 1.30.0-nightly (73c78734b 2018-08-05)
+- rustc 1.31.0-nightly (8c4ad4e9e 2018-10-04)
 
 To update the numbers above, I run `./json-benchmark -n 256` twice on an
 otherwise idle computer and take the least of the two results for each number.
