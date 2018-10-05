@@ -61,7 +61,7 @@ macro_rules! bench {
         $($args:tt)*
     } => {
         let name = format!(" {} ", $name);
-        println!("\n{:=^26} parse|stringify === parse|stringify ===", name);
+        println!("\n{:=^26} parse|stringify ===== parse|stringify ====", name);
 
         #[cfg(feature = "file-canada")]
         bench_file! {
@@ -113,7 +113,7 @@ macro_rules! bench_file {
                 let parsed: $dom = $parse_dom(&contents).unwrap();
                 parsed
             });
-            print!("{:6}.{}ms", millis(dur), tenths(dur));
+            print!("{:6} MB/s", throughput(dur, contents.len()));
             io::stdout().flush().unwrap();
         }
         #[cfg(not(feature = "parse-dom"))]
@@ -126,7 +126,9 @@ macro_rules! bench_file {
             let dur = timer::bench_with_buf(num_trials(), len, |out| {
                 $stringify_dom(out, &dom).unwrap()
             });
-            print!("{:6}.{}ms", millis(dur), tenths(dur));
+            let mut serialized = Vec::new();
+            $stringify_dom(&mut serialized, &dom).unwrap();
+            print!("{:6} MB/s", throughput(dur, serialized.len()));
             io::stdout().flush().unwrap();
         }
         #[cfg(not(feature = "stringify-dom"))]
@@ -139,7 +141,7 @@ macro_rules! bench_file {
                     let parsed: $structure = $parse_struct(&contents).unwrap();
                     parsed
                 });
-                print!("{:6}.{}ms", millis(dur), tenths(dur));
+                print!("{:6} MB/s", throughput(dur, contents.len()));
                 io::stdout().flush().unwrap();
             }
             #[cfg(not(feature = "parse-struct"))]
@@ -152,7 +154,9 @@ macro_rules! bench_file {
                 let dur = timer::bench_with_buf(num_trials(), len, |out| {
                     $stringify_struct(out, &parsed).unwrap()
                 });
-                print!("{:6}.{}ms", millis(dur), tenths(dur));
+                let mut serialized = Vec::new();
+                $stringify_dom(&mut serialized, &parsed).unwrap();
+                print!("{:6} MB/s", throughput(dur, serialized.len()));
                 io::stdout().flush().unwrap();
             }
         )*
@@ -162,7 +166,7 @@ macro_rules! bench_file {
 }
 
 fn main() {
-    print!("{:>35}{:>22}", "DOM", "STRUCT");
+    print!("{:>35}{:>24}", "DOM", "STRUCT");
 
     #[cfg(feature = "lib-serde")]
     bench! {
@@ -271,10 +275,21 @@ where
     value.encode(&mut encoder)
 }
 
-fn millis(dur: time::Duration) -> i64 {
-    dur.num_milliseconds()
-}
+fn throughput(dur: time::Duration, bytes: usize) -> u64 {
+    let mut megabytes_per_second = bytes as u64 / dur.num_microseconds().unwrap() as u64;
 
-fn tenths(dur: time::Duration) -> u8 {
-    (dur.num_microseconds().unwrap() / 100 % 10) as u8
+    // Round to two significant digits.
+    if megabytes_per_second > 1000 {
+        if megabytes_per_second % 100 >= 50 {
+            megabytes_per_second += 100;
+        }
+        megabytes_per_second = megabytes_per_second / 100 * 100;
+    } else if megabytes_per_second > 100 {
+        if megabytes_per_second % 10 >= 5 {
+            megabytes_per_second += 10;
+        }
+        megabytes_per_second = megabytes_per_second / 10 * 10;
+    }
+
+    megabytes_per_second
 }
