@@ -49,7 +49,10 @@ fn num_trials() -> usize {
 
     let args: Vec<String> = env::args().collect();
     let matches = opts.parse(&args[1..]).unwrap();
-    matches.opt_str("n").map(|s| s.parse().unwrap()).unwrap_or(256)
+    matches
+        .opt_str("n")
+        .map(|s| s.parse().unwrap())
+        .unwrap_or(256)
 }
 
 macro_rules! bench {
@@ -190,23 +193,33 @@ fn main() {
     }
 }
 
-#[cfg(all(feature = "lib-serde", any(feature = "parse-dom", feature = "stringify-dom")))]
+#[cfg(all(
+    feature = "lib-serde",
+    any(feature = "parse-dom", feature = "stringify-dom")
+))]
 fn serde_json_parse_dom(bytes: &[u8]) -> serde_json::Result<serde_json::Value> {
     use std::str;
     let s = str::from_utf8(bytes).unwrap();
     serde_json::from_str(s)
 }
 
-#[cfg(all(feature = "lib-serde", any(feature = "parse-struct", feature = "stringify-struct")))]
+#[cfg(all(
+    feature = "lib-serde",
+    any(feature = "parse-struct", feature = "stringify-struct")
+))]
 fn serde_json_parse_struct<'de, T>(bytes: &'de [u8]) -> serde_json::Result<T>
-    where T: serde::Deserialize<'de>
+where
+    T: serde::Deserialize<'de>,
 {
     use std::str;
     let s = str::from_utf8(bytes).unwrap();
     serde_json::from_str(s)
 }
 
-#[cfg(all(feature = "lib-json-rust", any(feature = "parse-dom", feature = "stringify-dom")))]
+#[cfg(all(
+    feature = "lib-json-rust",
+    any(feature = "parse-dom", feature = "stringify-dom")
+))]
 fn json_rust_parse_dom(bytes: &[u8]) -> json::Result<json::JsonValue> {
     use std::str;
     let s = str::from_utf8(bytes).unwrap();
@@ -218,24 +231,40 @@ fn json_rust_stringify_dom<W: io::Write>(write: &mut W, dom: &json::JsonValue) -
     dom.write(write)
 }
 
-#[cfg(all(feature = "lib-rustc-serialize", any(feature = "parse-dom", feature = "stringify-dom")))]
-fn rustc_serialize_parse_dom(mut bytes: &[u8]) -> Result<rustc_serialize::json::Json, rustc_serialize::json::BuilderError> {
+#[cfg(all(
+    feature = "lib-rustc-serialize",
+    any(feature = "parse-dom", feature = "stringify-dom")
+))]
+fn rustc_serialize_parse_dom(
+    mut bytes: &[u8],
+) -> Result<rustc_serialize::json::Json, rustc_serialize::json::BuilderError> {
     rustc_serialize::json::Json::from_reader(&mut bytes)
 }
 
-#[cfg(all(feature = "lib-rustc-serialize", any(feature = "parse-struct", feature = "stringify-struct")))]
+#[cfg(all(
+    feature = "lib-rustc-serialize",
+    any(feature = "parse-struct", feature = "stringify-struct")
+))]
 fn rustc_serialize_parse_struct<T>(bytes: &[u8]) -> rustc_serialize::json::DecodeResult<T>
-    where T: rustc_serialize::Decodable
+where
+    T: rustc_serialize::Decodable,
 {
     use std::str;
     let s = str::from_utf8(bytes).unwrap();
     rustc_serialize::json::decode(s)
 }
 
-#[cfg(all(feature = "lib-rustc-serialize", any(feature = "stringify-dom", feature = "stringify-struct")))]
-fn rustc_serialize_stringify<W, T: ?Sized>(writer: W, value: &T) -> rustc_serialize::json::EncodeResult<()>
-    where W: Write,
-          T: rustc_serialize::Encodable
+#[cfg(all(
+    feature = "lib-rustc-serialize",
+    any(feature = "stringify-dom", feature = "stringify-struct")
+))]
+fn rustc_serialize_stringify<W, T: ?Sized>(
+    writer: W,
+    value: &T,
+) -> rustc_serialize::json::EncodeResult<()>
+where
+    W: Write,
+    T: rustc_serialize::Encodable,
 {
     let mut writer = adapter::IoWriteAsFmtWrite::new(writer);
     let mut encoder = rustc_serialize::json::Encoder::new(&mut writer);

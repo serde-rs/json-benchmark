@@ -1,4 +1,4 @@
-use std::{io, fmt};
+use std::{fmt, io};
 
 pub struct IoWriteAsFmtWrite<W: io::Write>(W);
 

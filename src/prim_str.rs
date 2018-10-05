@@ -3,22 +3,26 @@ use std::fmt;
 use std::fmt::Display;
 use std::str::FromStr;
 
-#[cfg(feature = "lib-serde")]
-use serde::ser::{Serialize, Serializer};
+#[cfg(feature = "lib-rustc-serialize")]
+use rustc_serialize::{Decodable, Decoder, Encodable, Encoder};
 #[cfg(feature = "lib-serde")]
 use serde::de::{self, Deserialize, Deserializer, Unexpected};
-#[cfg(feature = "lib-rustc-serialize")]
-use rustc_serialize::{Encodable, Encoder, Decodable, Decoder};
+#[cfg(feature = "lib-serde")]
+use serde::ser::{Serialize, Serializer};
 
 #[derive(Clone, Copy, Ord, PartialOrd, Eq, PartialEq)]
-pub struct PrimStr<T>(T) where T: Copy + Ord + Display + FromStr;
+pub struct PrimStr<T>(T)
+where
+    T: Copy + Ord + Display + FromStr;
 
 #[cfg(feature = "lib-serde")]
 impl<T> Serialize for PrimStr<T>
-    where T: Copy + Ord + Display + FromStr,
+where
+    T: Copy + Ord + Display + FromStr,
 {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-        where S: Serializer,
+    where
+        S: Serializer,
     {
         serializer.collect_str(&self.0)
     }
@@ -26,16 +30,19 @@ impl<T> Serialize for PrimStr<T>
 
 #[cfg(feature = "lib-serde")]
 impl<'de, T> Deserialize<'de> for PrimStr<T>
-    where T: Copy + Ord + Display + FromStr,
+where
+    T: Copy + Ord + Display + FromStr,
 {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-        where D: Deserializer<'de>,
+    where
+        D: Deserializer<'de>,
     {
         use std::marker::PhantomData;
         struct Visitor<T>(PhantomData<T>);
 
         impl<'de, T> de::Visitor<'de> for Visitor<T>
-            where T: Copy + Ord + Display + FromStr,
+        where
+            T: Copy + Ord + Display + FromStr,
         {
             type Value = PrimStr<T>;
 
@@ -44,7 +51,8 @@ impl<'de, T> Deserialize<'de> for PrimStr<T>
             }
 
             fn visit_str<E>(self, value: &str) -> Result<PrimStr<T>, E>
-                where E: de::Error,
+            where
+                E: de::Error,
             {
                 match T::from_str(value) {
                     Ok(id) => Ok(PrimStr(id)),
@@ -59,10 +67,12 @@ impl<'de, T> Deserialize<'de> for PrimStr<T>
 
 #[cfg(feature = "lib-rustc-serialize")]
 impl<T> Encodable for PrimStr<T>
-    where T: Copy + Ord + Display + FromStr,
+where
+    T: Copy + Ord + Display + FromStr,
 {
     fn encode<S>(&self, s: &mut S) -> Result<(), S::Error>
-        where S: Encoder,
+    where
+        S: Encoder,
     {
         self.0.to_string().encode(s)
     }
@@ -70,10 +80,12 @@ impl<T> Encodable for PrimStr<T>
 
 #[cfg(feature = "lib-rustc-serialize")]
 impl<T> Decodable for PrimStr<T>
-    where T: Copy + Ord + Display + FromStr,
+where
+    T: Copy + Ord + Display + FromStr,
 {
     fn decode<D>(d: &mut D) -> Result<PrimStr<T>, D::Error>
-        where D: Decoder,
+    where
+        D: Decoder,
     {
         let string = try!(d.read_str());
         match T::from_str(&string) {

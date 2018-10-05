@@ -3,7 +3,8 @@ use std::cmp;
 use super::time::{Duration, PreciseTime};
 
 pub fn bench<T, F>(trials: usize, f: F) -> Duration
-    where F: Fn() -> T,
+where
+    F: Fn() -> T,
 {
     let mut benchmark = Benchmark::new();
     for _ in 0..trials {
@@ -15,7 +16,8 @@ pub fn bench<T, F>(trials: usize, f: F) -> Duration
 }
 
 pub fn bench_with_buf<T, F>(trials: usize, len: usize, f: F) -> Duration
-    where F: Fn(&mut Vec<u8>) -> T,
+where
+    F: Fn(&mut Vec<u8>) -> T,
 {
     let mut benchmark = Benchmark::new();
     for _ in 0..trials {
@@ -33,9 +35,7 @@ pub struct Benchmark {
 
 impl Benchmark {
     pub fn new() -> Self {
-        Benchmark {
-            min_elapsed: None,
-        }
+        Benchmark { min_elapsed: None }
     }
 
     pub fn start<'a>(&'a mut self) -> Timer<'a> {

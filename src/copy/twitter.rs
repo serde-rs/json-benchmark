@@ -4,7 +4,10 @@ use prim_str::PrimStr;
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct Twitter {
     pub statuses: Vec<Status>,
     pub search_metadata: SearchMetadata,
@@ -17,7 +20,10 @@ pub type ShortIdStr = PrimStr<ShortId>;
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct Status {
     pub metadata: Metadata,
     pub created_at: String,
@@ -48,7 +54,10 @@ pub struct Status {
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct Metadata {
     pub result_type: ResultType,
     pub iso_language_code: LanguageCode,
@@ -56,7 +65,10 @@ pub struct Metadata {
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct User {
     pub id: ShortId,
     pub id_str: ShortIdStr,
@@ -102,7 +114,10 @@ pub struct User {
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct UserEntities {
     pub url: Option<UserUrl>,
     pub description: UserEntitiesDescription,
@@ -110,14 +125,20 @@ pub struct UserEntities {
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct UserUrl {
     pub urls: Vec<Url>,
 }
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct Url {
     pub url: String,
     pub expanded_url: String,
@@ -127,14 +148,20 @@ pub struct Url {
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct UserEntitiesDescription {
     pub urls: Vec<Url>,
 }
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct StatusEntities {
     pub hashtags: Vec<Hashtag>,
     pub symbols: empty::Array,
@@ -145,7 +172,10 @@ pub struct StatusEntities {
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct Hashtag {
     pub text: String,
     pub indices: Indices,
@@ -153,7 +183,10 @@ pub struct Hashtag {
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct UserMention {
     pub screen_name: String,
     pub name: String,
@@ -182,7 +215,10 @@ pub struct Media {
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct Sizes {
     pub medium: Size,
     pub small: Size,
@@ -192,7 +228,10 @@ pub struct Sizes {
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct Size {
     pub w: u16,
     pub h: u16,
@@ -203,7 +242,10 @@ pub type Indices = (u8, u8);
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-rustc-serialize", derive(RustcEncodable, RustcDecodable))]
+#[cfg_attr(
+    feature = "lib-rustc-serialize",
+    derive(RustcEncodable, RustcDecodable)
+)]
 pub struct SearchMetadata {
     pub completed_in: f32,
     pub max_id: LongId,
@@ -239,107 +281,119 @@ enum_str!(ResultType {
 
 #[cfg(feature = "lib-rustc-serialize")]
 impl ::rustc_serialize::Decodable for Media {
-    fn decode<__D: ::rustc_serialize::Decoder>(__arg_0: &mut __D)
-                                                -> ::std::result::Result<Media, __D::Error> {
+    fn decode<__D: ::rustc_serialize::Decoder>(
+        __arg_0: &mut __D,
+    ) -> ::std::result::Result<Media, __D::Error> {
         __arg_0.read_struct("Media", 12usize, |_d| -> _ {
             ::std::result::Result::Ok(Media {
-                id: match _d.read_struct_field("id",
-                                                0usize,
-                                                ::rustc_serialize::Decodable::decode) {
+                id: match _d.read_struct_field("id", 0usize, ::rustc_serialize::Decodable::decode) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                id_str: match _d.read_struct_field("id_str",
-                                                    1usize,
-                                                    ::rustc_serialize::Decodable::decode) {
+                id_str: match _d.read_struct_field(
+                    "id_str",
+                    1usize,
+                    ::rustc_serialize::Decodable::decode,
+                ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                indices: match _d.read_struct_field("indices",
-                                                    2usize,
-                                                    ::rustc_serialize::Decodable::decode) {
+                indices: match _d.read_struct_field(
+                    "indices",
+                    2usize,
+                    ::rustc_serialize::Decodable::decode,
+                ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                media_url: match _d.read_struct_field("media_url",
-                                                        3usize,
-                                                        ::rustc_serialize::Decodable::decode) {
+                media_url: match _d.read_struct_field(
+                    "media_url",
+                    3usize,
+                    ::rustc_serialize::Decodable::decode,
+                ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                media_url_https:
-                    match _d.read_struct_field("media_url_https",
-                                                4usize,
-                                                ::rustc_serialize::Decodable::decode) {
+                media_url_https: match _d.read_struct_field(
+                    "media_url_https",
+                    4usize,
+                    ::rustc_serialize::Decodable::decode,
+                ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                url: match _d.read_struct_field("url",
-                                                5usize,
-                                                ::rustc_serialize::Decodable::decode) {
+                url: match _d.read_struct_field("url", 5usize, ::rustc_serialize::Decodable::decode)
+                {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                display_url:
-                    match _d.read_struct_field("display_url",
-                                                6usize,
-                                                ::rustc_serialize::Decodable::decode) {
+                display_url: match _d.read_struct_field(
+                    "display_url",
+                    6usize,
+                    ::rustc_serialize::Decodable::decode,
+                ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                expanded_url:
-                    match _d.read_struct_field("expanded_url",
-                                                7usize,
-                                                ::rustc_serialize::Decodable::decode) {
+                expanded_url: match _d.read_struct_field(
+                    "expanded_url",
+                    7usize,
+                    ::rustc_serialize::Decodable::decode,
+                ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                media_type:
-                    match _d.read_struct_field("type",
-                                                8usize,
-                                                ::rustc_serialize::Decodable::decode) {
+                media_type: match _d.read_struct_field(
+                    "type",
+                    8usize,
+                    ::rustc_serialize::Decodable::decode,
+                ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                sizes: match _d.read_struct_field("sizes",
-                                                    9usize,
-                                                    ::rustc_serialize::Decodable::decode) {
+                sizes: match _d.read_struct_field(
+                    "sizes",
+                    9usize,
+                    ::rustc_serialize::Decodable::decode,
+                ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                source_status_id:
-                    match _d.read_struct_field("source_status_id",
-                                                10usize,
-                                                ::rustc_serialize::Decodable::decode) {
+                source_status_id: match _d.read_struct_field(
+                    "source_status_id",
+                    10usize,
+                    ::rustc_serialize::Decodable::decode,
+                ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
                     }
                 },
-                source_status_id_str:
-                    match _d.read_struct_field("source_status_id_str",
-                                                11usize,
-                                                ::rustc_serialize::Decodable::decode) {
+                source_status_id_str: match _d.read_struct_field(
+                    "source_status_id_str",
+                    11usize,
+                    ::rustc_serialize::Decodable::decode,
+                ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
                         return ::std::result::Result::Err(__try_var)
@@ -352,116 +406,117 @@ impl ::rustc_serialize::Decodable for Media {
 
 #[cfg(feature = "lib-rustc-serialize")]
 impl ::rustc_serialize::Encodable for Media {
-    fn encode<__S: ::rustc_serialize::Encoder>(&self,
-                                                __arg_0: &mut __S)
-                                                -> ::std::result::Result<(), __S::Error> {
+    fn encode<__S: ::rustc_serialize::Encoder>(
+        &self,
+        __arg_0: &mut __S,
+    ) -> ::std::result::Result<(), __S::Error> {
         match *self {
-            Media { id: ref __self_0_0,
-                    id_str: ref __self_0_1,
-                    indices: ref __self_0_2,
-                    media_url: ref __self_0_3,
-                    media_url_https: ref __self_0_4,
-                    url: ref __self_0_5,
-                    display_url: ref __self_0_6,
-                    expanded_url: ref __self_0_7,
-                    media_type: ref __self_0_8,
-                    sizes: ref __self_0_9,
-                    source_status_id: ref __self_0_10,
-                    source_status_id_str: ref __self_0_11 } => {
-                __arg_0.emit_struct("Media", 12usize, |_e| -> _ {
-                    match _e.emit_struct_field("id", 0usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_0), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    match _e.emit_struct_field("id_str", 1usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_1), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    match _e.emit_struct_field("indices", 2usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_2), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    match _e.emit_struct_field("media_url", 3usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_3), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    match _e.emit_struct_field("media_url_https", 4usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_4), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    match _e.emit_struct_field("url", 5usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_5), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    match _e.emit_struct_field("display_url", 6usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_6), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    match _e.emit_struct_field("expanded_url", 7usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_7), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    match _e.emit_struct_field("type", 8usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_8), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    match _e.emit_struct_field("sizes", 9usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_9), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    match _e.emit_struct_field("source_status_id", 10usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_10), _e)
-                    }) {
-                        ::std::result::Result::Ok(__try_var) => __try_var,
-                        ::std::result::Result::Err(__try_var) => {
-                            return ::std::result::Result::Err(__try_var)
-                        }
-                    };
-                    return _e.emit_struct_field("source_status_id_str", 11usize, |_e| -> _ {
-                        ::rustc_serialize::Encodable::encode(&(*__self_0_11), _e)
-                    });
-                })
-            }
+            Media {
+                id: ref __self_0_0,
+                id_str: ref __self_0_1,
+                indices: ref __self_0_2,
+                media_url: ref __self_0_3,
+                media_url_https: ref __self_0_4,
+                url: ref __self_0_5,
+                display_url: ref __self_0_6,
+                expanded_url: ref __self_0_7,
+                media_type: ref __self_0_8,
+                sizes: ref __self_0_9,
+                source_status_id: ref __self_0_10,
+                source_status_id_str: ref __self_0_11,
+            } => __arg_0.emit_struct("Media", 12usize, |_e| -> _ {
+                match _e.emit_struct_field("id", 0usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_0), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                match _e.emit_struct_field("id_str", 1usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_1), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                match _e.emit_struct_field("indices", 2usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_2), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                match _e.emit_struct_field("media_url", 3usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_3), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                match _e.emit_struct_field("media_url_https", 4usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_4), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                match _e.emit_struct_field("url", 5usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_5), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                match _e.emit_struct_field("display_url", 6usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_6), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                match _e.emit_struct_field("expanded_url", 7usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_7), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                match _e.emit_struct_field("type", 8usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_8), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                match _e.emit_struct_field("sizes", 9usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_9), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                match _e.emit_struct_field("source_status_id", 10usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_10), _e)
+                }) {
+                    ::std::result::Result::Ok(__try_var) => __try_var,
+                    ::std::result::Result::Err(__try_var) => {
+                        return ::std::result::Result::Err(__try_var)
+                    }
+                };
+                return _e.emit_struct_field("source_status_id_str", 11usize, |_e| -> _ {
+                    ::rustc_serialize::Encodable::encode(&(*__self_0_11), _e)
+                });
+            }),
         }
     }
 }

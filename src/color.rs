@@ -3,19 +3,19 @@ use std::fmt;
 #[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
 use std::{ptr, slice, str};
 
-#[cfg(feature = "lib-serde")]
-use serde::ser::{Serialize, Serializer};
+#[cfg(feature = "lib-rustc-serialize")]
+use rustc_serialize::{Decodable, Decoder, Encodable, Encoder};
 #[cfg(feature = "lib-serde")]
 use serde::de::{self, Deserialize, Deserializer, Unexpected};
-#[cfg(feature = "lib-rustc-serialize")]
-use rustc_serialize::{Encodable, Encoder, Decodable, Decoder};
+#[cfg(feature = "lib-serde")]
+use serde::ser::{Serialize, Serializer};
 
 #[derive(Clone, Copy)]
 pub struct Color(u32);
 
 #[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
-const HEX_LUT: &'static[u8] =
-    b"000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F\
+const HEX_LUT: &'static [u8] = b"\
+      000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F\
       202122232425262728292A2B2C2D2E2F303132333435363738393A3B3C3D3E3F\
       404142434445464748494A4B4C4D4E4F505152535455565758595A5B5C5D5E5F\
       606162636465666768696A6B6C6D6E6F707172737475767778797A7B7C7D7E7F\
@@ -39,8 +39,7 @@ impl Color {
             ptr::copy_nonoverlapping(lut_ptr.offset(g), buf_ptr.offset(2), 2);
             ptr::copy_nonoverlapping(lut_ptr.offset(b), buf_ptr.offset(4), 2);
 
-            str::from_utf8(
-                slice::from_raw_parts(buf_ptr, buf.len())).unwrap()
+            str::from_utf8(slice::from_raw_parts(buf_ptr, buf.len())).unwrap()
         }
     }
 }
@@ -48,7 +47,8 @@ impl Color {
 #[cfg(feature = "lib-serde")]
 impl Serialize for Color {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-        where S: Serializer,
+    where
+        S: Serializer,
     {
         let mut buf: [u8; 6] = unsafe { ::std::mem::uninitialized() };
         serializer.serialize_str(self.as_str(&mut buf))
@@ -58,7 +58,8 @@ impl Serialize for Color {
 #[cfg(feature = "lib-serde")]
 impl<'de> Deserialize<'de> for Color {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-        where D: Deserializer<'de>,
+    where
+        D: Deserializer<'de>,
     {
         struct Visitor;
 
@@ -70,7 +71,8 @@ impl<'de> Deserialize<'de> for Color {
             }
 
             fn visit_str<E>(self, value: &str) -> Result<Color, E>
-                where E: de::Error,
+            where
+                E: de::Error,
             {
                 match u32::from_str_radix(value, 16) {
                     Ok(hex) => Ok(Color(hex)),
@@ -86,7 +88,8 @@ impl<'de> Deserialize<'de> for Color {
 #[cfg(feature = "lib-rustc-serialize")]
 impl Encodable for Color {
     fn encode<S>(&self, s: &mut S) -> Result<(), S::Error>
-        where S: Encoder,
+    where
+        S: Encoder,
     {
         let mut buf: [u8; 6] = unsafe { ::std::mem::uninitialized() };
         self.as_str(&mut buf).encode(s)
@@ -96,13 +99,13 @@ impl Encodable for Color {
 #[cfg(feature = "lib-rustc-serialize")]
 impl Decodable for Color {
     fn decode<D>(d: &mut D) -> Result<Color, D::Error>
-        where D: Decoder,
+    where
+        D: Decoder,
     {
         let string = try!(d.read_str());
         match u32::from_str_radix(&string, 16) {
             Ok(hex) => Ok(Color(hex)),
-            Err(_) => Err(d.error(
-                &format!("failed to parse color: {}", string))),
+            Err(_) => Err(d.error(&format!("failed to parse color: {}", string))),
         }
     }
 }

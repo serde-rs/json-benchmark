@@ -10,7 +10,8 @@ extern crate serde_bench;
 extern crate serde_json;
 extern crate time;
 
-#[macro_use] pub mod enums;
+#[macro_use]
+pub mod enums;
 
 pub mod adapter;
 pub mod color;
@@ -43,7 +44,10 @@ fn num_trials() -> usize {
 
     let args: Vec<String> = env::args().collect();
     let matches = opts.parse(&args[1..]).unwrap();
-    matches.opt_str("n").map(|s| s.parse().unwrap()).unwrap_or(4096)
+    matches
+        .opt_str("n")
+        .map(|s| s.parse().unwrap())
+        .unwrap_or(4096)
 }
 
 macro_rules! bench_file {
