@@ -28,7 +28,7 @@ data/citm_catalog.json   130 MB/s   130 MB/s    87 MB/s   170 MB/s
 data/twitter.json         79 MB/s   290 MB/s    61 MB/s   310 MB/s
 ```
 
-- Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
+- Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz *(laptop CPU from 2015)*
 - rustc 1.31.0-nightly (8c4ad4e9e 2018-10-04)
 
 To update the numbers above, I run `./json-benchmark -n 256` twice on an
