@@ -279,12 +279,7 @@ fn throughput(dur: time::Duration, bytes: usize) -> u64 {
     let mut megabytes_per_second = bytes as u64 / dur.num_microseconds().unwrap() as u64;
 
     // Round to two significant digits.
-    if megabytes_per_second > 1000 {
-        if megabytes_per_second % 100 >= 50 {
-            megabytes_per_second += 100;
-        }
-        megabytes_per_second = megabytes_per_second / 100 * 100;
-    } else if megabytes_per_second > 100 {
+    if megabytes_per_second > 100 {
         if megabytes_per_second % 10 >= 5 {
             megabytes_per_second += 10;
         }
