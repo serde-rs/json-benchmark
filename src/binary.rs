@@ -55,7 +55,7 @@ macro_rules! bench_file {
         path: $path:expr,
         structure: $structure:ty,
     } => {
-        print!("{:41}", $path);
+        print!("{:27}", $path);
         io::stdout().flush().unwrap();
 
         let contents = {
@@ -70,11 +70,12 @@ macro_rules! bench_file {
 
         #[cfg(feature = "parse-struct")]
         {
+            let len = binary.len();
             let dur = timer::bench(num_trials(), || {
                 let parsed: $structure = serde_bench::deserialize(&binary).unwrap();
                 parsed
             });
-            print!("{:6}.{:02}ms", millis(dur), hundredths(dur));
+            print!("{:7} MB/s", throughput(dur, len));
             io::stdout().flush().unwrap();
         }
         #[cfg(not(feature = "parse-struct"))]
@@ -86,7 +87,7 @@ macro_rules! bench_file {
             let dur = timer::bench_with_buf(num_trials(), len, |out| {
                 serde_bench::serialize(out, &data).unwrap()
             });
-            print!("{:5}.{:02}ms", millis(dur), hundredths(dur));
+            print!("{:7} MB/s", throughput(dur, len));
             io::stdout().flush().unwrap();
         }
 
@@ -95,8 +96,8 @@ macro_rules! bench_file {
 }
 
 fn main() {
-    println!("{:>57}", "STRUCT");
-    println!("============================================== decode | encode ===");
+    println!("{:>45}", "STRUCT");
+    println!("================================= decode | encode ===");
 
     #[cfg(feature = "file-canada")]
     bench_file! {
@@ -117,10 +118,21 @@ fn main() {
     }
 }
 
-fn millis(dur: time::Duration) -> i64 {
-    dur.num_milliseconds()
-}
+fn throughput(dur: time::Duration, bytes: usize) -> u64 {
+    let mut megabytes_per_second = bytes as u64 / dur.num_microseconds().unwrap() as u64;
 
-fn hundredths(dur: time::Duration) -> u8 {
-    (dur.num_microseconds().unwrap() / 10 % 100) as u8
+    // Round to two significant digits.
+    if megabytes_per_second > 1000 {
+        if megabytes_per_second % 100 >= 50 {
+            megabytes_per_second += 100;
+        }
+        megabytes_per_second = megabytes_per_second / 100 * 100;
+    } else if megabytes_per_second > 100 {
+        if megabytes_per_second % 10 >= 5 {
+            megabytes_per_second += 10;
+        }
+        megabytes_per_second = megabytes_per_second / 10 * 10;
+    }
+
+    megabytes_per_second
 }
