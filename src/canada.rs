@@ -1,3 +1,6 @@
+#[cfg(feature = "lib-serde")]
+use serde::{Deserialize, Serialize};
+
 use std::collections::BTreeMap as Map;
 
 pub type Canada = FeatureCollection;

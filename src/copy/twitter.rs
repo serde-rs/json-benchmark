@@ -1,6 +1,9 @@
-use color::Color;
-use empty;
-use prim_str::PrimStr;
+#[cfg(feature = "lib-serde")]
+use serde::{Deserialize, Serialize};
+
+use crate::color::Color;
+use crate::empty;
+use crate::prim_str::PrimStr;
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]

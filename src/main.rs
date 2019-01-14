@@ -1,20 +1,3 @@
-#[cfg(feature = "lib-serde")]
-#[macro_use]
-extern crate serde_derive;
-
-extern crate time;
-
-#[cfg(feature = "lib-serde")]
-extern crate serde;
-#[cfg(feature = "lib-serde")]
-extern crate serde_json;
-
-#[cfg(feature = "lib-json-rust")]
-extern crate json;
-
-#[cfg(feature = "lib-rustc-serialize")]
-extern crate rustc_serialize;
-
 #[macro_use]
 pub mod enums;
 
@@ -43,7 +26,6 @@ use std::env;
 use std::fs::File;
 
 fn num_trials() -> usize {
-    extern crate getopts;
     let mut opts = getopts::Options::new();
     opts.optopt("n", "", "number of trials", "N");
 

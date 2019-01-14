@@ -1,6 +1,8 @@
-use color::Color;
-use empty;
-use prim_str::PrimStr;
+use serde::{Deserialize, Serialize};
+
+use crate::color::Color;
+use crate::empty;
+use crate::prim_str::PrimStr;
 
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]

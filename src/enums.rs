@@ -66,7 +66,7 @@ macro_rules! enum_str {
             fn decode<D>(d: &mut D) -> Result<$name, D::Error>
                 where D: ::rustc_serialize::Decoder,
             {
-                let string = try!(d.read_str());
+                let string = d.read_str()?;
                 match &string as &str {
                     $( $str => Ok($name::$variant), )*
                     _ => Err(d.error(

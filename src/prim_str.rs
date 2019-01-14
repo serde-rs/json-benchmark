@@ -87,7 +87,7 @@ where
     where
         D: Decoder,
     {
-        let string = try!(d.read_str());
+        let string = d.read_str()?;
         match T::from_str(&string) {
             Ok(id) => Ok(PrimStr(id)),
             Err(_) => Err(d.error(&format!("failed to parse id: {}", string))),

@@ -102,7 +102,7 @@ impl Decodable for Color {
     where
         D: Decoder,
     {
-        let string = try!(d.read_str());
+        let string = d.read_str()?;
         match u32::from_str_radix(&string, 16) {
             Ok(hex) => Ok(Color(hex)),
             Err(_) => Err(d.error(&format!("failed to parse color: {}", string))),

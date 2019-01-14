@@ -1,7 +1,10 @@
+#[cfg(feature = "lib-serde")]
+use serde::{Deserialize, Serialize};
+
 use std::collections::BTreeMap as Map;
 
-use empty;
-use prim_str::PrimStr;
+use crate::empty;
+use crate::prim_str::PrimStr;
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]

@@ -2,15 +2,15 @@
 name = "json-benchmark"
 version = "0.0.1"
 authors = ["dtolnay@gmail.com"]
+edition = "2018"
 publish = false
 
 [dependencies]
 getopts = "0.2"
 json = { version = "0.11", optional = true }
 rustc-serialize = { version = "0.3", optional = true }
-serde = { version = "1.0", optional = true }
+serde = { version = "1.0", features = ["derive"], optional = true }
 serde-bench = { version = "0.0.7", optional = true }
-serde_derive = { version = "1.0", optional = true }
 serde_json = { version = "1.0", optional = true }
 time = "0.1"
 
@@ -19,7 +19,7 @@ default = ["performance", "all-libs", "all-files"]
 all-libs = ["lib-serde", "lib-json-rust", "lib-rustc-serialize"]
 all-files = ["file-canada", "file-citm-catalog", "file-twitter"]
 performance = ["parse-dom", "stringify-dom", "parse-struct", "stringify-struct"]
-lib-serde = ["serde", "serde_derive", "serde_json"]
+lib-serde = ["serde", "serde_json"]
 lib-json-rust = ["json"]
 lib-rustc-serialize = ["rustc-serialize"]
 file-canada = []
