@@ -56,7 +56,7 @@ impl ::rustc_serialize::Decodable for FeatureCollection {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 features: match _d.read_struct_field(
@@ -66,7 +66,7 @@ impl ::rustc_serialize::Decodable for FeatureCollection {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
             })
@@ -90,7 +90,7 @@ impl ::rustc_serialize::Encodable for FeatureCollection {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 return _e.emit_struct_field("features", 1usize, |_e| -> _ {
@@ -115,7 +115,7 @@ impl ::rustc_serialize::Decodable for Feature {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 properties: match _d.read_struct_field(
@@ -125,7 +125,7 @@ impl ::rustc_serialize::Decodable for Feature {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 geometry: match _d.read_struct_field(
@@ -135,7 +135,7 @@ impl ::rustc_serialize::Decodable for Feature {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
             })
@@ -160,7 +160,7 @@ impl ::rustc_serialize::Encodable for Feature {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("properties", 1usize, |_e| -> _ {
@@ -168,7 +168,7 @@ impl ::rustc_serialize::Encodable for Feature {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 return _e.emit_struct_field("geometry", 2usize, |_e| -> _ {
@@ -193,7 +193,7 @@ impl ::rustc_serialize::Decodable for Geometry {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 coordinates: match _d.read_struct_field(
@@ -203,7 +203,7 @@ impl ::rustc_serialize::Decodable for Geometry {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
             })
@@ -227,7 +227,7 @@ impl ::rustc_serialize::Encodable for Geometry {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 return _e.emit_struct_field("coordinates", 1usize, |_e| -> _ {

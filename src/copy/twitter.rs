@@ -292,7 +292,7 @@ impl ::rustc_serialize::Decodable for Media {
                 id: match _d.read_struct_field("id", 0usize, ::rustc_serialize::Decodable::decode) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 id_str: match _d.read_struct_field(
@@ -302,7 +302,7 @@ impl ::rustc_serialize::Decodable for Media {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 indices: match _d.read_struct_field(
@@ -312,7 +312,7 @@ impl ::rustc_serialize::Decodable for Media {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 media_url: match _d.read_struct_field(
@@ -322,7 +322,7 @@ impl ::rustc_serialize::Decodable for Media {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 media_url_https: match _d.read_struct_field(
@@ -332,14 +332,14 @@ impl ::rustc_serialize::Decodable for Media {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 url: match _d.read_struct_field("url", 5usize, ::rustc_serialize::Decodable::decode)
                 {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 display_url: match _d.read_struct_field(
@@ -349,7 +349,7 @@ impl ::rustc_serialize::Decodable for Media {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 expanded_url: match _d.read_struct_field(
@@ -359,7 +359,7 @@ impl ::rustc_serialize::Decodable for Media {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 media_type: match _d.read_struct_field(
@@ -369,7 +369,7 @@ impl ::rustc_serialize::Decodable for Media {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 sizes: match _d.read_struct_field(
@@ -379,7 +379,7 @@ impl ::rustc_serialize::Decodable for Media {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 source_status_id: match _d.read_struct_field(
@@ -389,7 +389,7 @@ impl ::rustc_serialize::Decodable for Media {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 source_status_id_str: match _d.read_struct_field(
@@ -399,7 +399,7 @@ impl ::rustc_serialize::Decodable for Media {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
             })
@@ -433,7 +433,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("id_str", 1usize, |_e| -> _ {
@@ -441,7 +441,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("indices", 2usize, |_e| -> _ {
@@ -449,7 +449,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("media_url", 3usize, |_e| -> _ {
@@ -457,7 +457,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("media_url_https", 4usize, |_e| -> _ {
@@ -465,7 +465,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("url", 5usize, |_e| -> _ {
@@ -473,7 +473,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("display_url", 6usize, |_e| -> _ {
@@ -481,7 +481,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("expanded_url", 7usize, |_e| -> _ {
@@ -489,7 +489,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("type", 8usize, |_e| -> _ {
@@ -497,7 +497,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("sizes", 9usize, |_e| -> _ {
@@ -505,7 +505,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("source_status_id", 10usize, |_e| -> _ {
@@ -513,7 +513,7 @@ impl ::rustc_serialize::Encodable for Media {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 return _e.emit_struct_field("source_status_id_str", 11usize, |_e| -> _ {

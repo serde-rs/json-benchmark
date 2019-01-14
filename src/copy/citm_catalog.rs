@@ -11,10 +11,7 @@ use crate::prim_str::PrimStr;
 pub struct CitmCatalog {
     #[cfg_attr(feature = "lib-serde", serde(rename = "areaNames"))]
     pub area_names: Map<IdStr, String>,
-    #[cfg_attr(
-        feature = "lib-serde",
-        serde(rename = "audienceSubCategoryNames")
-    )]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "audienceSubCategoryNames"))]
     pub audience_sub_category_names: Map<IdStr, String>,
     #[cfg_attr(feature = "lib-serde", serde(rename = "blockNames"))]
     pub block_names: Map<IdStr, String>,
@@ -75,10 +72,7 @@ pub struct Performance {
 #[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
 pub struct Price {
     pub amount: u32,
-    #[cfg_attr(
-        feature = "lib-serde",
-        serde(rename = "audienceSubCategoryId")
-    )]
+    #[cfg_attr(feature = "lib-serde", serde(rename = "audienceSubCategoryId"))]
     pub audience_sub_category_id: Id,
     #[cfg_attr(feature = "lib-serde", serde(rename = "seatCategoryId"))]
     pub seat_category_id: Id,
@@ -118,7 +112,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 audience_sub_category_names: match _d.read_struct_field(
@@ -128,7 +122,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 block_names: match _d.read_struct_field(
@@ -138,7 +132,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 events: match _d.read_struct_field(
@@ -148,7 +142,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 performances: match _d.read_struct_field(
@@ -158,7 +152,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 seat_category_names: match _d.read_struct_field(
@@ -168,7 +162,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 sub_topic_names: match _d.read_struct_field(
@@ -178,7 +172,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 subject_names: match _d.read_struct_field(
@@ -188,7 +182,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 topic_names: match _d.read_struct_field(
@@ -198,7 +192,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 topic_sub_topics: match _d.read_struct_field(
@@ -208,7 +202,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 venue_names: match _d.read_struct_field(
@@ -218,7 +212,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
             })
@@ -251,7 +245,7 @@ impl ::rustc_serialize::Encodable for CitmCatalog {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("audienceSubCategoryNames", 1usize, |_e| -> _ {
@@ -259,7 +253,7 @@ impl ::rustc_serialize::Encodable for CitmCatalog {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("blockNames", 2usize, |_e| -> _ {
@@ -267,7 +261,7 @@ impl ::rustc_serialize::Encodable for CitmCatalog {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("events", 3usize, |_e| -> _ {
@@ -275,7 +269,7 @@ impl ::rustc_serialize::Encodable for CitmCatalog {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("performances", 4usize, |_e| -> _ {
@@ -283,7 +277,7 @@ impl ::rustc_serialize::Encodable for CitmCatalog {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("seatCategoryNames", 5usize, |_e| -> _ {
@@ -291,7 +285,7 @@ impl ::rustc_serialize::Encodable for CitmCatalog {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("subTopicNames", 6usize, |_e| -> _ {
@@ -299,7 +293,7 @@ impl ::rustc_serialize::Encodable for CitmCatalog {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("subjectNames", 7usize, |_e| -> _ {
@@ -307,7 +301,7 @@ impl ::rustc_serialize::Encodable for CitmCatalog {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("topicNames", 8usize, |_e| -> _ {
@@ -315,7 +309,7 @@ impl ::rustc_serialize::Encodable for CitmCatalog {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("topicSubTopics", 9usize, |_e| -> _ {
@@ -323,7 +317,7 @@ impl ::rustc_serialize::Encodable for CitmCatalog {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 return _e.emit_struct_field("venueNames", 10usize, |_e| -> _ {
@@ -348,13 +342,13 @@ impl ::rustc_serialize::Decodable for Event {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 id: match _d.read_struct_field("id", 1usize, ::rustc_serialize::Decodable::decode) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 logo: match _d.read_struct_field(
@@ -364,7 +358,7 @@ impl ::rustc_serialize::Decodable for Event {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 name: match _d.read_struct_field(
@@ -374,7 +368,7 @@ impl ::rustc_serialize::Decodable for Event {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 sub_topic_ids: match _d.read_struct_field(
@@ -384,7 +378,7 @@ impl ::rustc_serialize::Decodable for Event {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 subject_code: match _d.read_struct_field(
@@ -394,7 +388,7 @@ impl ::rustc_serialize::Decodable for Event {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 subtitle: match _d.read_struct_field(
@@ -404,7 +398,7 @@ impl ::rustc_serialize::Decodable for Event {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 topic_ids: match _d.read_struct_field(
@@ -414,7 +408,7 @@ impl ::rustc_serialize::Decodable for Event {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
             })
@@ -444,7 +438,7 @@ impl ::rustc_serialize::Encodable for Event {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("id", 1usize, |_e| -> _ {
@@ -452,7 +446,7 @@ impl ::rustc_serialize::Encodable for Event {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("logo", 2usize, |_e| -> _ {
@@ -460,7 +454,7 @@ impl ::rustc_serialize::Encodable for Event {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("name", 3usize, |_e| -> _ {
@@ -468,7 +462,7 @@ impl ::rustc_serialize::Encodable for Event {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("subTopicIds", 4usize, |_e| -> _ {
@@ -476,7 +470,7 @@ impl ::rustc_serialize::Encodable for Event {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("subjectCode", 5usize, |_e| -> _ {
@@ -484,7 +478,7 @@ impl ::rustc_serialize::Encodable for Event {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("subtitle", 6usize, |_e| -> _ {
@@ -492,7 +486,7 @@ impl ::rustc_serialize::Encodable for Event {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 return _e.emit_struct_field("topicIds", 7usize, |_e| -> _ {
@@ -517,13 +511,13 @@ impl ::rustc_serialize::Decodable for Performance {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 id: match _d.read_struct_field("id", 1usize, ::rustc_serialize::Decodable::decode) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 logo: match _d.read_struct_field(
@@ -533,7 +527,7 @@ impl ::rustc_serialize::Decodable for Performance {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 name: match _d.read_struct_field(
@@ -543,7 +537,7 @@ impl ::rustc_serialize::Decodable for Performance {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 prices: match _d.read_struct_field(
@@ -553,7 +547,7 @@ impl ::rustc_serialize::Decodable for Performance {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 seat_categories: match _d.read_struct_field(
@@ -563,7 +557,7 @@ impl ::rustc_serialize::Decodable for Performance {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 seat_map_image: match _d.read_struct_field(
@@ -573,7 +567,7 @@ impl ::rustc_serialize::Decodable for Performance {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 start: match _d.read_struct_field(
@@ -583,7 +577,7 @@ impl ::rustc_serialize::Decodable for Performance {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 venue_code: match _d.read_struct_field(
@@ -593,7 +587,7 @@ impl ::rustc_serialize::Decodable for Performance {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
             })
@@ -624,7 +618,7 @@ impl ::rustc_serialize::Encodable for Performance {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("id", 1usize, |_e| -> _ {
@@ -632,7 +626,7 @@ impl ::rustc_serialize::Encodable for Performance {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("logo", 2usize, |_e| -> _ {
@@ -640,7 +634,7 @@ impl ::rustc_serialize::Encodable for Performance {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("name", 3usize, |_e| -> _ {
@@ -648,7 +642,7 @@ impl ::rustc_serialize::Encodable for Performance {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("prices", 4usize, |_e| -> _ {
@@ -656,7 +650,7 @@ impl ::rustc_serialize::Encodable for Performance {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("seatCategories", 5usize, |_e| -> _ {
@@ -664,7 +658,7 @@ impl ::rustc_serialize::Encodable for Performance {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("seatMapImage", 6usize, |_e| -> _ {
@@ -672,7 +666,7 @@ impl ::rustc_serialize::Encodable for Performance {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("start", 7usize, |_e| -> _ {
@@ -680,7 +674,7 @@ impl ::rustc_serialize::Encodable for Performance {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 return _e.emit_struct_field("venueCode", 8usize, |_e| -> _ {
@@ -705,7 +699,7 @@ impl ::rustc_serialize::Decodable for Price {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 audience_sub_category_id: match _d.read_struct_field(
@@ -715,7 +709,7 @@ impl ::rustc_serialize::Decodable for Price {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 seat_category_id: match _d.read_struct_field(
@@ -725,7 +719,7 @@ impl ::rustc_serialize::Decodable for Price {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
             })
@@ -750,7 +744,7 @@ impl ::rustc_serialize::Encodable for Price {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 match _e.emit_struct_field("audienceSubCategoryId", 1usize, |_e| -> _ {
@@ -758,7 +752,7 @@ impl ::rustc_serialize::Encodable for Price {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 return _e.emit_struct_field("seatCategoryId", 2usize, |_e| -> _ {
@@ -783,7 +777,7 @@ impl ::rustc_serialize::Decodable for SeatCategory {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 seat_category_id: match _d.read_struct_field(
@@ -793,7 +787,7 @@ impl ::rustc_serialize::Decodable for SeatCategory {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
             })
@@ -817,7 +811,7 @@ impl ::rustc_serialize::Encodable for SeatCategory {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 return _e.emit_struct_field("seatCategoryId", 1usize, |_e| -> _ {
@@ -842,7 +836,7 @@ impl ::rustc_serialize::Decodable for Area {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
                 block_ids: match _d.read_struct_field(
@@ -852,7 +846,7 @@ impl ::rustc_serialize::Decodable for Area {
                 ) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 },
             })
@@ -876,7 +870,7 @@ impl ::rustc_serialize::Encodable for Area {
                 }) {
                     ::std::result::Result::Ok(__try_var) => __try_var,
                     ::std::result::Result::Err(__try_var) => {
-                        return ::std::result::Result::Err(__try_var)
+                        return ::std::result::Result::Err(__try_var);
                     }
                 };
                 return _e.emit_struct_field("blockIds", 1usize, |_e| -> _ {
