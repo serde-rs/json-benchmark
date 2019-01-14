@@ -39,16 +39,15 @@ For comparison, here are results from
 nativejson-benchmark modified to run 256 times instead of 10.
 
 ```
-                                DOM
-==== rapidjson-clang ===== parse|stringify ====
-data/canada.json         390 MB/s   200 MB/s
-data/citm_catalog.json   670 MB/s   290 MB/s
-data/twitter.json        340 MB/s   370 MB/s
+==== rapidjson-clang ===================== parse|stringify ====
+data/canada.json                         390 MB/s   200 MB/s
+data/citm_catalog.json                   670 MB/s   290 MB/s
+data/twitter.json                        340 MB/s   370 MB/s
 
-===== rapidjson-gcc ====== parse|stringify ====
-data/canada.json         470 MB/s   240 MB/s
-data/citm_catalog.json   990 MB/s   480 MB/s
-data/twitter.json        470 MB/s   620 MB/s
+===== rapidjson-gcc ====================== parse|stringify ====
+data/canada.json                         470 MB/s   240 MB/s
+data/citm_catalog.json                   990 MB/s   480 MB/s
+data/twitter.json                        470 MB/s   620 MB/s
 ```
 
 - clang version 3.8.0
