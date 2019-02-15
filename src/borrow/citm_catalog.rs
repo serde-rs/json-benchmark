@@ -7,29 +7,28 @@ use std::borrow::Cow;
 use std::collections::BTreeMap as Map;
 
 #[derive(Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CitmCatalog<'a> {
-    #[serde(rename = "areaNames", borrow)]
+    #[serde(borrow)]
     pub area_names: Map<IdStr, &'a str>,
-    #[serde(rename = "audienceSubCategoryNames", borrow)]
+    #[serde(borrow)]
     pub audience_sub_category_names: Map<IdStr, &'a str>,
-    #[serde(rename = "blockNames", borrow)]
+    #[serde(borrow)]
     pub block_names: Map<IdStr, &'a str>,
     #[serde(borrow)]
     pub events: Map<IdStr, Event<'a>>,
     #[serde(borrow)]
     pub performances: Vec<Performance<'a>>,
-    #[serde(rename = "seatCategoryNames", borrow)]
+    #[serde(borrow)]
     pub seat_category_names: Map<IdStr, &'a str>,
-    #[serde(rename = "subTopicNames", borrow)]
+    #[serde(borrow)]
     pub sub_topic_names: Map<IdStr, &'a str>,
-    #[serde(rename = "subjectNames", borrow)]
+    #[serde(borrow)]
     pub subject_names: Map<IdStr, &'a str>,
-    #[serde(rename = "topicNames", borrow)]
+    #[serde(borrow)]
     pub topic_names: Map<IdStr, &'a str>,
-    #[serde(rename = "topicSubTopics")]
     pub topic_sub_topics: Map<IdStr, Vec<Id>>,
-    #[serde(rename = "venueNames", borrow)]
+    #[serde(borrow)]
     pub venue_names: Map<&'a str, &'a str>,
 }
 
@@ -37,7 +36,7 @@ pub type Id = u32;
 pub type IdStr = PrimStr<u32>;
 
 #[derive(Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Event<'a> {
     pub description: (),
     pub id: Id,
@@ -45,57 +44,46 @@ pub struct Event<'a> {
     pub logo: Option<&'a str>,
     #[serde(borrow)]
     pub name: Cow<'a, str>,
-    #[serde(rename = "subTopicIds")]
     pub sub_topic_ids: Vec<Id>,
-    #[serde(rename = "subjectCode")]
     pub subject_code: (),
     pub subtitle: (),
-    #[serde(rename = "topicIds")]
     pub topic_ids: Vec<Id>,
 }
 
 #[derive(Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Performance<'a> {
-    #[serde(rename = "eventId")]
     pub event_id: Id,
     pub id: Id,
     #[serde(borrow)]
     pub logo: Option<&'a str>,
     pub name: (),
     pub prices: Vec<Price>,
-    #[serde(rename = "seatCategories")]
     pub seat_categories: Vec<SeatCategory>,
-    #[serde(rename = "seatMapImage")]
     pub seat_map_image: (),
     pub start: u64,
-    #[serde(rename = "venueCode", borrow)]
+    #[serde(borrow)]
     pub venue_code: &'a str,
 }
 
 #[derive(Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Price {
     pub amount: u32,
-    #[serde(rename = "audienceSubCategoryId")]
     pub audience_sub_category_id: Id,
-    #[serde(rename = "seatCategoryId")]
     pub seat_category_id: Id,
 }
 
 #[derive(Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct SeatCategory {
     pub areas: Vec<Area>,
-    #[serde(rename = "seatCategoryId")]
     pub seat_category_id: Id,
 }
 
 #[derive(Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Area {
-    #[serde(rename = "areaId")]
     pub area_id: Id,
-    #[serde(rename = "blockIds")]
     pub block_ids: empty::Array,
 }
