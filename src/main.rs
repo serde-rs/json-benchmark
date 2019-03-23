@@ -1,41 +1,7 @@
-#[macro_use]
-pub mod enums;
+use json_benchmark::*;
 
-pub mod adapter;
-pub mod color;
-pub mod empty;
-pub mod prim_str;
-pub mod timer;
-
-#[cfg(feature = "zero-copy")]
-pub mod borrow;
-#[cfg(feature = "zero-copy")]
-pub use self::borrow::*;
-
-#[cfg(not(feature = "zero-copy"))]
-pub mod copy;
-#[cfg(not(feature = "zero-copy"))]
-pub use self::copy::*;
-
-#[cfg(feature = "file-canada")]
-pub mod canada;
-
-pub use std::io::{self, Read, Write};
-
-use std::env;
 use std::fs::File;
-
-fn num_trials() -> usize {
-    let mut opts = getopts::Options::new();
-    opts.optopt("n", "", "number of trials", "N");
-
-    let args: Vec<String> = env::args().collect();
-    let matches = opts.parse(&args[1..]).unwrap();
-    matches
-        .opt_str("n")
-        .map(|s| s.parse().unwrap())
-        .unwrap_or(256)
-}
+use std::io::{self, Read, Write};
 
 macro_rules! bench {
     {
@@ -80,6 +46,8 @@ macro_rules! bench_file {
             stringify_struct: $stringify_struct:expr,
         )*
     } => {
+        let num_trials = num_trials().unwrap_or(256);
+
         print!("{:22}", $path);
         io::stdout().flush().unwrap();
 
@@ -91,7 +59,7 @@ macro_rules! bench_file {
 
         #[cfg(feature = "parse-dom")]
         {
-            let dur = timer::bench(num_trials(), || {
+            let dur = timer::bench(num_trials, || {
                 let parsed: $dom = $parse_dom(&contents).unwrap();
                 parsed
             });
@@ -105,7 +73,7 @@ macro_rules! bench_file {
         {
             let len = contents.len();
             let dom: $dom = $parse_dom(&contents).unwrap();
-            let dur = timer::bench_with_buf(num_trials(), len, |out| {
+            let dur = timer::bench_with_buf(num_trials, len, |out| {
                 $stringify_dom(out, &dom).unwrap()
             });
             let mut serialized = Vec::new();
@@ -119,7 +87,7 @@ macro_rules! bench_file {
         $(
             #[cfg(feature = "parse-struct")]
             {
-                let dur = timer::bench(num_trials(), || {
+                let dur = timer::bench(num_trials, || {
                     let parsed: $structure = $parse_struct(&contents).unwrap();
                     parsed
                 });
@@ -133,7 +101,7 @@ macro_rules! bench_file {
             {
                 let len = contents.len();
                 let parsed: $structure = $parse_struct(&contents).unwrap();
-                let dur = timer::bench_with_buf(num_trials(), len, |out| {
+                let dur = timer::bench_with_buf(num_trials, len, |out| {
                     $stringify_struct(out, &parsed).unwrap()
                 });
                 let mut serialized = Vec::new();
@@ -255,18 +223,4 @@ where
     let mut writer = adapter::IoWriteAsFmtWrite::new(writer);
     let mut encoder = rustc_serialize::json::Encoder::new(&mut writer);
     value.encode(&mut encoder)
-}
-
-fn throughput(dur: time::Duration, bytes: usize) -> u64 {
-    let mut megabytes_per_second = bytes as u64 / dur.num_microseconds().unwrap() as u64;
-
-    // Round to two significant digits.
-    if megabytes_per_second > 100 {
-        if megabytes_per_second % 10 >= 5 {
-            megabytes_per_second += 10;
-        }
-        megabytes_per_second = megabytes_per_second / 10 * 10;
-    }
-
-    megabytes_per_second
 }

@@ -1,47 +1,16 @@
-#[macro_use]
-pub mod enums;
-
-pub mod adapter;
-pub mod color;
-pub mod empty;
-pub mod prim_str;
-pub mod timer;
-
-#[cfg(feature = "zero-copy")]
-pub mod borrow;
-#[cfg(feature = "zero-copy")]
-pub use self::borrow::*;
-
-#[cfg(not(feature = "zero-copy"))]
-pub mod copy;
-#[cfg(not(feature = "zero-copy"))]
-pub use self::copy::*;
-
-#[cfg(feature = "file-canada")]
-pub mod canada;
-
-pub use std::io::{self, Read, Write};
+use json_benchmark::*;
 
 use std::env;
 use std::fs::File;
-
-fn num_trials() -> usize {
-    let mut opts = getopts::Options::new();
-    opts.optopt("n", "", "number of trials", "N");
-
-    let args: Vec<String> = env::args().collect();
-    let matches = opts.parse(&args[1..]).unwrap();
-    matches
-        .opt_str("n")
-        .map(|s| s.parse().unwrap())
-        .unwrap_or(4096)
-}
+use std::io::{self, Read, Write};
 
 macro_rules! bench_file {
     {
         path: $path:expr,
         structure: $structure:ty,
     } => {
+        let num_trials = num_trials().unwrap_or(4096);
+
         print!("{:27}", $path);
         io::stdout().flush().unwrap();
 
@@ -58,7 +27,7 @@ macro_rules! bench_file {
         #[cfg(feature = "parse-struct")]
         {
             let len = binary.len();
-            let dur = timer::bench(num_trials(), || {
+            let dur = timer::bench(num_trials, || {
                 let parsed: $structure = serde_bench::deserialize(&binary).unwrap();
                 parsed
             });
@@ -71,7 +40,7 @@ macro_rules! bench_file {
         #[cfg(feature = "stringify-struct")]
         {
             let len = binary.len();
-            let dur = timer::bench_with_buf(num_trials(), len, |out| {
+            let dur = timer::bench_with_buf(num_trials, len, |out| {
                 serde_bench::serialize(out, &data).unwrap()
             });
             print!("{:7} MB/s", throughput(dur, len));
@@ -83,6 +52,8 @@ macro_rules! bench_file {
 }
 
 fn main() {
+    env::set_current_dir("..").unwrap();
+
     println!("{:>45}", "STRUCT");
     println!("================================= decode | encode ===");
 
@@ -103,23 +74,4 @@ fn main() {
         path: "data/twitter.json",
         structure: twitter::Twitter,
     }
-}
-
-fn throughput(dur: time::Duration, bytes: usize) -> u64 {
-    let mut megabytes_per_second = bytes as u64 / dur.num_microseconds().unwrap() as u64;
-
-    // Round to two significant digits.
-    if megabytes_per_second > 1000 {
-        if megabytes_per_second % 100 >= 50 {
-            megabytes_per_second += 100;
-        }
-        megabytes_per_second = megabytes_per_second / 100 * 100;
-    } else if megabytes_per_second > 100 {
-        if megabytes_per_second % 10 >= 5 {
-            megabytes_per_second += 10;
-        }
-        megabytes_per_second = megabytes_per_second / 10 * 10;
-    }
-
-    megabytes_per_second
 }

@@ -8,7 +8,7 @@ to Rust. The libraries tested are:
 - [json-rust](https://github.com/maciejhirsz/json-rust) 0.11.13
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.24
 
-#### `$ cargo run --release --bin json-benchmark`
+#### `$ cargo run --release`
 
 ```
                                 DOM                STRUCT

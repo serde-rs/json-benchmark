@@ -32,14 +32,9 @@ stringify-struct = []
 zero-copy = []
 binary = ["serde-bench", "lib-serde"]
 
-[[bin]]
-name = "json-benchmark"
-path = "src/main.rs"
-
-[[bin]]
-name = "binary-benchmark"
-path = "src/binary.rs"
-
 [profile.release]
 debug = true
 panic = "abort"
+
+[workspace]
+members = ["binary"]
