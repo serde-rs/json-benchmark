@@ -31,8 +31,8 @@ data/twitter.json         84 MB/s   310 MB/s    64 MB/s   330 MB/s
 - Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz *(laptop CPU from 2015)*
 - rustc 1.35.0-nightly (cb2f34dc6 2019-03-22)
 
-To update the numbers above, I run `./json-benchmark -n 256` twice on an
-otherwise idle computer and take the greater of the two results for each number.
+To update the numbers above, I run `./json-benchmark` twice on an otherwise idle
+computer and take the greater of the two results for each number.
 
 For comparison, here are results from
 [RapidJSON](https://github.com/miloyip/rapidjson) on the same hardware with the
