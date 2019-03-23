@@ -25,6 +25,9 @@ pub use std::io::{self, Read, Write};
 use std::env;
 use std::fs::File;
 
+#[global_allocator]
+static ALLOC: jemallocator::Jemalloc = jemallocator::Jemalloc;
+
 fn num_trials() -> usize {
     let mut opts = getopts::Options::new();
     opts.optopt("n", "", "number of trials", "N");

@@ -13,19 +13,19 @@ to Rust. The libraries tested are:
 ```
                                 DOM                STRUCT
 ======= serde_json ======= parse|stringify ===== parse|stringify ====
-data/canada.json         200 MB/s   400 MB/s   550 MB/s   320 MB/s
-data/citm_catalog.json   300 MB/s   390 MB/s   840 MB/s   820 MB/s
-data/twitter.json        260 MB/s   860 MB/s   540 MB/s   930 MB/s
+data/canada.json         230 MB/s   410 MB/s   540 MB/s   320 MB/s
+data/citm_catalog.json   400 MB/s   460 MB/s   870 MB/s   830 MB/s
+data/twitter.json        270 MB/s   790 MB/s   570 MB/s   820 MB/s
 
 ======= json-rust ======== parse|stringify ===== parse|stringify ====
-data/canada.json         280 MB/s   850 MB/s
-data/citm_catalog.json   580 MB/s   720 MB/s
-data/twitter.json        420 MB/s   910 MB/s
+data/canada.json         360 MB/s   880 MB/s
+data/citm_catalog.json   560 MB/s   760 MB/s
+data/twitter.json        430 MB/s   900 MB/s
 
 ==== rustc_serialize ===== parse|stringify ===== parse|stringify ====
-data/canada.json         120 MB/s    62 MB/s    89 MB/s    44 MB/s
-data/citm_catalog.json   120 MB/s   150 MB/s   100 MB/s   190 MB/s
-data/twitter.json         84 MB/s   310 MB/s    64 MB/s   330 MB/s
+data/canada.json         130 MB/s    55 MB/s    97 MB/s    41 MB/s
+data/citm_catalog.json   140 MB/s   150 MB/s   100 MB/s   190 MB/s
+data/twitter.json         80 MB/s   310 MB/s    62 MB/s   330 MB/s
 ```
 
 - Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz *(laptop CPU from 2015)*
