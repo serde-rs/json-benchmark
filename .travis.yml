@@ -8,5 +8,5 @@ rust:
   - 1.31.0
 
 script:
-  - cargo check --bin json-benchmark
-  - cargo check --bin binary-benchmark --no-default-features --features 'binary performance all-files'
+  - cargo check
+  - cargo check --manifest-path binary/Cargo.toml
