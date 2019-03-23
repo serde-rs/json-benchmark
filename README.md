@@ -4,7 +4,7 @@ This is a partial port of
 [nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark)
 to Rust. The libraries tested are:
 
-- [serde\_json](https://github.com/serde-rs/json) 1.0.35
+- [serde\_json](https://github.com/serde-rs/json) 1.0.39
 - [json-rust](https://github.com/maciejhirsz/json-rust) 0.11.13
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.24
 
@@ -13,23 +13,23 @@ to Rust. The libraries tested are:
 ```
                                 DOM                STRUCT
 ======= serde_json ======= parse|stringify ===== parse|stringify ====
-data/canada.json         200 MB/s   390 MB/s   550 MB/s   320 MB/s
-data/citm_catalog.json   290 MB/s   370 MB/s   860 MB/s   790 MB/s
-data/twitter.json        260 MB/s   850 MB/s   550 MB/s   940 MB/s
+data/canada.json         200 MB/s   400 MB/s   550 MB/s   320 MB/s
+data/citm_catalog.json   300 MB/s   390 MB/s   840 MB/s   820 MB/s
+data/twitter.json        260 MB/s   860 MB/s   540 MB/s   930 MB/s
 
 ======= json-rust ======== parse|stringify ===== parse|stringify ====
-data/canada.json         270 MB/s   830 MB/s
-data/citm_catalog.json   560 MB/s   660 MB/s
-data/twitter.json        420 MB/s   870 MB/s
+data/canada.json         280 MB/s   850 MB/s
+data/citm_catalog.json   580 MB/s   720 MB/s
+data/twitter.json        420 MB/s   910 MB/s
 
 ==== rustc_serialize ===== parse|stringify ===== parse|stringify ====
-data/canada.json         130 MB/s    60 MB/s   100 MB/s    45 MB/s
-data/citm_catalog.json   130 MB/s   140 MB/s    97 MB/s   200 MB/s
-data/twitter.json         92 MB/s   330 MB/s    69 MB/s   350 MB/s
+data/canada.json         120 MB/s    62 MB/s    89 MB/s    44 MB/s
+data/citm_catalog.json   120 MB/s   150 MB/s   100 MB/s   190 MB/s
+data/twitter.json         84 MB/s   310 MB/s    64 MB/s   330 MB/s
 ```
 
 - Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz *(laptop CPU from 2015)*
-- rustc 1.33.0-nightly (75a369c5b 2019-01-12)
+- rustc 1.35.0-nightly (cb2f34dc6 2019-03-22)
 
 To update the numbers above, I run `./json-benchmark -n 256` twice on an
 otherwise idle computer and take the greater of the two results for each number.
