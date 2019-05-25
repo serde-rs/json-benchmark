@@ -63,8 +63,9 @@ macro_rules! bench_file {
             let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
             let mut i = 0;
             let dur = timer::bench(num_trials, || {
-                let _parsed: $dom = $parse_dom(&mut data[i]).unwrap();
+                let parsed: $dom = $parse_dom(&mut data[i]).unwrap();
                 i += 1;
+                parsed
             });
             print!("{:6} MB/s", throughput(dur, contents.len()));
             io::stdout().flush().unwrap();
@@ -158,7 +159,7 @@ fn main() {
     #[cfg(feature = "lib-simd-json")]
     bench! {
         name: "serde_json",
-        dom: simd_json::BorrowedValue,
+        dom: simd_json::OwnedValue,
         parse_dom: simd_json_parse_dom,
         stringify_dom: serde_json::to_writer,
         parse_struct: simd_json_parse_struct,
@@ -258,8 +259,8 @@ fn serde_json_parse_dom(bytes: &[u8]) -> serde_json::Result<serde_json::Value> {
     feature = "lib-simd-json",
     any(feature = "parse-dom", feature = "stringify-dom")
 ))]
-fn simd_json_parse_dom(bytes: &mut [u8]) -> simd_json::Result<simd_json::BorrowedValue> {
-    simd_json::to_borrowed_value(bytes)
+fn simd_json_parse_dom(bytes: &mut [u8]) -> simd_json::Result<simd_json::OwnedValue> {
+    simd_json::to_owned_value(bytes)
 }
 #[cfg(all(
     feature = "lib-simd-json",
