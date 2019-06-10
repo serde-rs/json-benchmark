@@ -1,3 +1,11 @@
+// Since this is a benchmakr we should use an optiomal allocator
+// to not be slwoed down by allcoations but rather measure the
+// perofrmance of the code
+extern crate jemallocator;
+
+#[global_allocator]
+static ALLOC: jemallocator::Jemalloc = jemallocator::Jemalloc;
+
 use json_benchmark::*;
 
 use std::fs::File;
@@ -34,6 +42,31 @@ macro_rules! bench {
     }
 }
 
+macro_rules! bench_simd_json {
+    {} => {
+        let name = format!(" simd_json ");
+        println!("\n{:=^26} parse|stringify ===== parse|stringify ====", name);
+
+        #[cfg(feature = "file-canada")]
+        bench_file_simd_json! {
+            path: "data/canada.json",
+            structure: canada::Canada,
+        }
+
+        #[cfg(feature = "file-citm-catalog")]
+        bench_file_simd_json! {
+            path: "data/citm_catalog.json",
+            structure: citm_catalog::CitmCatalog,
+        }
+
+        #[cfg(feature = "file-twitter")]
+        bench_file_simd_json! {
+            path: "data/twitter.json",
+            structure: twitter::Twitter,
+        }
+    }
+}
+
 macro_rules! bench_file {
     {
         path: $path:expr,
@@ -56,6 +89,7 @@ macro_rules! bench_file {
             File::open($path).unwrap().read_to_end(&mut vec).unwrap();
             vec
         };
+
 
         #[cfg(feature = "parse-dom")]
         {
@@ -125,6 +159,93 @@ macro_rules! bench_file {
     }
 }
 
+macro_rules! bench_file_simd_json {
+    {
+        path: $path:expr,
+        structure: $structure:ty,
+    } => {
+        let num_trials = num_trials().unwrap_or(256);
+
+        print!("{:22}", $path);
+        io::stdout().flush().unwrap();
+
+        let contents = {
+            let mut vec = Vec::new();
+            File::open($path).unwrap().read_to_end(&mut vec).unwrap();
+            vec
+        };
+
+
+        #[cfg(feature = "parse-dom")]
+        {
+            use std::iter;
+            let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
+            let mut i = 0;
+            let dur = timer::bench(num_trials, || {
+                // Not returning parsed means we do account for the time needed to drop
+                // the value.
+                // This is a disadvantage compared to the other benchmarks. However
+                // the performance boost thatusing the Borrowed value gives more then
+                // outwights it.
+                // So while still at a slight disadvantage it's still worth it.
+                let _parsed: simd_json::BorrowedValue = simd_json_parse_dom(&mut data[i]).unwrap();
+                i += 1;
+            });
+            print!("{:6} MB/s", throughput(dur, contents.len()));
+            io::stdout().flush().unwrap();
+        }
+        #[cfg(not(feature = "parse-dom"))]
+        print!("          ");
+
+        #[cfg(feature = "stringify-dom")]
+        {
+            let len = contents.len();
+            let mut data = contents.clone();
+            let dom = simd_json_parse_dom(&mut data).unwrap();
+            let dur = timer::bench_with_buf(num_trials, len, |out| {
+                dom.write(out).unwrap()
+            });
+            let mut serialized = Vec::new();
+            dom.write(&mut serialized).unwrap();
+            print!("{:6} MB/s", throughput(dur, serialized.len()));
+            io::stdout().flush().unwrap();
+        }
+        #[cfg(not(feature = "stringify-dom"))]
+        print!("          ");
+
+        #[cfg(feature = "parse-struct")]
+        {
+            use std::iter;
+            let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
+            let mut i = 0;
+            let dur = timer::bench(num_trials, || {
+                let _parsed: $structure = simd_json_parse_struct(&mut data[i]).unwrap();
+                i += 1;
+            });
+            print!("{:6} MB/s", throughput(dur, contents.len()));
+            io::stdout().flush().unwrap();
+        }
+        #[cfg(not(feature = "parse-struct"))]
+        print!("          ");
+
+        #[cfg(feature = "stringify-struct")]
+        {
+            let len = contents.len();
+            let mut data = contents.clone();
+            let parsed: $structure = simd_json_parse_struct(&mut data).unwrap();
+            let dur = timer::bench_with_buf(num_trials, len, |out| {
+                serde_json::to_writer(out, &parsed).unwrap()
+            });
+            let mut serialized = Vec::new();
+            serde_json::to_writer(&mut serialized, &parsed).unwrap();
+            print!("{:6} MB/s", throughput(dur, serialized.len()));
+            io::stdout().flush().unwrap();
+        }
+
+        println!();
+    }
+}
+
 fn main() {
     print!("{:>35}{:>24}", "DOM", "STRUCT");
 
@@ -156,15 +277,18 @@ fn main() {
         stringify_struct: rustc_serialize_stringify,
     }
 
+    // This is rolled out since simd-json does mutate
+    // it's input unlike the other libraries.
+    // While this makes little difference in a real life situation
+    // as you're unlikely to de-serialize the same data twoce
+    // it is a big disadvantage in a synthetic benchmark.
+    //
+    // To be fair to both other libraries and simd-json
+    // we roll it out and provide the same benchmarks
+    // with slightly different characteristics.
+
     #[cfg(feature = "lib-simd-json")]
-    bench! {
-        name: "serde_json",
-        dom: simd_json::OwnedValue,
-        parse_dom: simd_json_parse_dom,
-        stringify_dom: serde_json::to_writer,
-        parse_struct: simd_json_parse_struct,
-        stringify_struct: serde_json::to_writer,
-        }
+    bench_simd_json! {}
 }
 
 #[cfg(all(
@@ -259,9 +383,10 @@ fn serde_json_parse_dom(bytes: &[u8]) -> serde_json::Result<serde_json::Value> {
     feature = "lib-simd-json",
     any(feature = "parse-dom", feature = "stringify-dom")
 ))]
-fn simd_json_parse_dom(bytes: &mut [u8]) -> simd_json::Result<simd_json::OwnedValue> {
-    simd_json::to_owned_value(bytes)
+fn simd_json_parse_dom(bytes: &mut [u8]) -> simd_json::Result<simd_json::BorrowedValue> {
+    simd_json::to_borrowed_value(bytes)
 }
+
 #[cfg(all(
     feature = "lib-simd-json",
     any(feature = "parse-struct", feature = "stringify-struct")
