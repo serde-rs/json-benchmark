@@ -90,15 +90,10 @@ macro_rules! bench_file {
             vec
         };
 
-
         #[cfg(feature = "parse-dom")]
         {
-            use std::iter;
-            let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
-            let mut i = 0;
             let dur = timer::bench(num_trials, || {
-                let parsed: $dom = $parse_dom(&mut data[i]).unwrap();
-                i += 1;
+                let parsed: $dom = $parse_dom(&contents).unwrap();
                 parsed
             });
             print!("{:6} MB/s", throughput(dur, contents.len()));
@@ -110,8 +105,7 @@ macro_rules! bench_file {
         #[cfg(feature = "stringify-dom")]
         {
             let len = contents.len();
-            let mut data = contents.clone();
-            let dom: $dom = $parse_dom(&mut data).unwrap();
+            let dom: $dom = $parse_dom(&contents).unwrap();
             let dur = timer::bench_with_buf(num_trials, len, |out| {
                 $stringify_dom(out, &dom).unwrap()
             });
@@ -126,13 +120,9 @@ macro_rules! bench_file {
         $(
             #[cfg(feature = "parse-struct")]
             {
-                use std::iter;
-                let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
-                let mut i = 0;
                 let dur = timer::bench(num_trials, || {
-                    let _parsed: $structure = $parse_struct(&mut data[i]).unwrap();
-                    i += 1;
-                    //parsed
+                    let parsed: $structure = $parse_struct(&contents).unwrap();
+                    parsed
                 });
                 print!("{:6} MB/s", throughput(dur, contents.len()));
                 io::stdout().flush().unwrap();
@@ -143,8 +133,7 @@ macro_rules! bench_file {
             #[cfg(feature = "stringify-struct")]
             {
                 let len = contents.len();
-                let mut data = contents.clone();
-                let parsed: $structure = $parse_struct(&mut data).unwrap();
+                let parsed: $structure = $parse_struct(&contents).unwrap();
                 let dur = timer::bench_with_buf(num_trials, len, |out| {
                     $stringify_struct(out, &parsed).unwrap()
                 });
