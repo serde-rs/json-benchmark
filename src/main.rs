@@ -168,18 +168,18 @@ macro_rules! bench_file_simd_json {
         #[cfg(feature = "parse-dom")]
         {
             use std::iter;
+            use timer::Benchmark;
             let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
             let mut i = 0;
-            let dur = timer::bench(num_trials, || {
-                // Not returning parsed means we do account for the time needed to drop
-                // the value.
-                // This is a disadvantage compared to the other benchmarks. However
-                // the performance boost thatusing the Borrowed value gives more then
-                // outwights it.
-                // So while still at a slight disadvantage it's still worth it.
-                let _parsed: simd_json::BorrowedValue = simd_json_parse_dom(&mut data[i]).unwrap();
+            let mut benchmark = Benchmark::new();
+            for _ in 0..num_trials {
+                let mut timer = benchmark.start();
+                let parsed = simd_json_parse_dom(&mut data[i]);
+                timer.stop();
                 i += 1;
-            });
+                parsed.unwrap();
+            }
+            let dur = benchmark.min_elapsed();
             print!("{:6} MB/s", throughput(dur, contents.len()));
             io::stdout().flush().unwrap();
         }
@@ -205,12 +205,18 @@ macro_rules! bench_file_simd_json {
         #[cfg(feature = "parse-struct")]
         {
             use std::iter;
+            use timer::Benchmark;
             let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
             let mut i = 0;
-            let dur = timer::bench(num_trials, || {
-                let _parsed: $structure = simd_json_parse_struct(&mut data[i]).unwrap();
+            let mut benchmark = Benchmark::new();
+            for _ in 0..num_trials {
+                let mut timer = benchmark.start();
+                let parsed: simd_json::Result<$structure> = simd_json_parse_struct(&mut data[i]);
+                timer.stop();
                 i += 1;
-            });
+                parsed.unwrap();
+            }
+            let dur = benchmark.min_elapsed();
             print!("{:6} MB/s", throughput(dur, contents.len()));
             io::stdout().flush().unwrap();
         }
