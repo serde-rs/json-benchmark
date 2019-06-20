@@ -167,16 +167,14 @@ macro_rules! bench_file_simd_json {
 
         #[cfg(feature = "parse-dom")]
         {
-            use std::iter;
             use timer::Benchmark;
-            let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
-            let mut i = 0;
             let mut benchmark = Benchmark::new();
+            let mut data = contents.clone();
             for _ in 0..num_trials {
+                data.as_mut_slice().clone_from_slice(contents.as_slice());
                 let mut timer = benchmark.start();
-                let parsed = simd_json_parse_dom(&mut data[i]);
+                let parsed = simd_json_parse_dom(&mut data);
                 timer.stop();
-                i += 1;
                 parsed.unwrap();
             }
             let dur = benchmark.min_elapsed();
@@ -204,16 +202,15 @@ macro_rules! bench_file_simd_json {
 
         #[cfg(feature = "parse-struct")]
         {
-            use std::iter;
             use timer::Benchmark;
-            let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
-            let mut i = 0;
+            //let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
             let mut benchmark = Benchmark::new();
+            let mut data = contents.clone();
             for _ in 0..num_trials {
+                data.as_mut_slice().clone_from_slice(contents.as_slice());
                 let mut timer = benchmark.start();
-                let parsed: simd_json::Result<$structure> = simd_json_parse_struct(&mut data[i]);
+                let parsed: simd_json::Result<$structure> = simd_json_parse_struct(&mut data);
                 timer.stop();
-                i += 1;
                 parsed.unwrap();
             }
             let dur = benchmark.min_elapsed();
