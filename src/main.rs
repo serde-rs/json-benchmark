@@ -39,7 +39,13 @@ macro_rules! bench {
             structure: twitter::Twitter,
             $($args)*
         }
-    }
+        #[cfg(feature = "file-log")]
+        bench_file! {
+            path: "data/log.json",
+            structure: log::Log,
+            $($args)*
+        }
+   }
 }
 
 macro_rules! bench_simd_json {
@@ -63,6 +69,12 @@ macro_rules! bench_simd_json {
         bench_file_simd_json! {
             path: "data/twitter.json",
             structure: twitter::Twitter,
+        }
+
+        #[cfg(feature = "file-log")]
+        bench_file_simd_json! {
+            path: "data/log.json",
+            structure: log::Log,
         }
     }
 }
