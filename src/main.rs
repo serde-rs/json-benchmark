@@ -1,8 +1,3 @@
-// Since this is a benchmark we should use an optimal allocator
-// to not be slowed down by allocations but rather measure the
-// performance of the code
-extern crate jemallocator;
-
 #[global_allocator]
 static ALLOC: jemallocator::Jemalloc = jemallocator::Jemalloc;
 
