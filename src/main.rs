@@ -140,7 +140,6 @@ macro_rules! bench_file_simd_json {
             vec
         };
 
-
         #[cfg(feature = "parse-dom")]
         {
             use timer::Benchmark;
@@ -188,22 +187,6 @@ macro_rules! bench_file_simd_json {
             }
             let dur = benchmark.min_elapsed();
             print!("{:6} MB/s", throughput(dur, contents.len()));
-            io::stdout().flush().unwrap();
-        }
-        #[cfg(not(feature = "parse-struct"))]
-        print!("          ");
-
-        #[cfg(feature = "stringify-struct")]
-        {
-            let len = contents.len();
-            let mut data = contents.clone();
-            let parsed: $structure = simd_json_parse_struct(&mut data).unwrap();
-            let dur = timer::bench_with_buf(num_trials, len, |out| {
-                serde_json::to_writer(out, &parsed).unwrap()
-            });
-            let mut serialized = Vec::new();
-            serde_json::to_writer(&mut serialized, &parsed).unwrap();
-            print!("{:6} MB/s", throughput(dur, serialized.len()));
             io::stdout().flush().unwrap();
         }
 
