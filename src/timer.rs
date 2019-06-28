@@ -2,9 +2,9 @@ use std::cmp;
 
 use time::{Duration, PreciseTime};
 
-pub fn bench<T, F>(trials: usize, f: F) -> Duration
+pub fn bench<T, F>(trials: usize, mut f: F) -> Duration
 where
-    F: Fn() -> T,
+    F: FnMut() -> T,
 {
     let mut benchmark = Benchmark::new();
     for _ in 0..trials {

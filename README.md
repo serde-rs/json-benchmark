@@ -7,8 +7,9 @@ to Rust. The libraries tested are:
 - [serde\_json](https://github.com/serde-rs/json) 1.0.39
 - [json-rust](https://github.com/maciejhirsz/json-rust) 0.11.13
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.24
+- [simd-json](https://github.com/Licenser/simdjson-rs) 0.1.11 (this requires a modern x86 CPU for good results)
 
-#### `$ cargo run --release`
+#### `$ RUSTFLAGS="-C target-cpu=native" cargo run --release`
 
 ```
                                 DOM                STRUCT
