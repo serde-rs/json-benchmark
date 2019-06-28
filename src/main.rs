@@ -9,58 +9,33 @@ use std::io::{self, Read, Write};
 macro_rules! bench {
     {
         name: $name:expr,
+        bench: $bench:ident,
         $($args:tt)*
     } => {
         let name = format!(" {} ", $name);
         println!("\n{:=^26} parse|stringify ===== parse|stringify ====", name);
 
         #[cfg(feature = "file-canada")]
-        bench_file! {
+        $bench! {
             path: "data/canada.json",
             structure: canada::Canada,
             $($args)*
         }
 
         #[cfg(feature = "file-citm-catalog")]
-        bench_file! {
+        $bench! {
             path: "data/citm_catalog.json",
             structure: citm_catalog::CitmCatalog,
             $($args)*
         }
 
         #[cfg(feature = "file-twitter")]
-        bench_file! {
+        $bench! {
             path: "data/twitter.json",
             structure: twitter::Twitter,
             $($args)*
         }
    }
-}
-
-#[cfg(feature = "lib-simd-json")]
-macro_rules! bench_simd_json {
-    {} => {
-        let name = format!(" simd_json ");
-        println!("\n{:=^26} parse|stringify ===== parse|stringify ====", name);
-
-        #[cfg(feature = "file-canada")]
-        bench_file_simd_json! {
-            path: "data/canada.json",
-            structure: canada::Canada,
-        }
-
-        #[cfg(feature = "file-citm-catalog")]
-        bench_file_simd_json! {
-            path: "data/citm_catalog.json",
-            structure: citm_catalog::CitmCatalog,
-        }
-
-        #[cfg(feature = "file-twitter")]
-        bench_file_simd_json! {
-            path: "data/twitter.json",
-            structure: twitter::Twitter,
-        }
-    }
 }
 
 macro_rules! bench_file {
@@ -144,6 +119,10 @@ macro_rules! bench_file {
     }
 }
 
+// This library is handled separately because simd-json needs to mutate its
+// input unlike the other libraries. While this makes little difference in a
+// real life situation as you're unlikely to deserialize the same data twice,
+// it can be a disadvantage in a benchmark.
 #[cfg(feature = "lib-simd-json")]
 macro_rules! bench_file_simd_json {
     {
@@ -241,6 +220,7 @@ fn main() {
     #[cfg(feature = "lib-serde")]
     bench! {
         name: "serde_json",
+        bench: bench_file,
         dom: serde_json::Value,
         parse_dom: serde_json_parse_dom,
         stringify_dom: serde_json::to_writer,
@@ -251,6 +231,7 @@ fn main() {
     #[cfg(feature = "lib-json-rust")]
     bench! {
         name: "json-rust",
+        bench: bench_file,
         dom: json::JsonValue,
         parse_dom: json_rust_parse_dom,
         stringify_dom: json_rust_stringify_dom,
@@ -259,6 +240,7 @@ fn main() {
     #[cfg(feature = "lib-rustc-serialize")]
     bench! {
         name: "rustc_serialize",
+        bench: bench_file,
         dom: rustc_serialize::json::Json,
         parse_dom: rustc_serialize_parse_dom,
         stringify_dom: rustc_serialize_stringify,
@@ -266,18 +248,11 @@ fn main() {
         stringify_struct: rustc_serialize_stringify,
     }
 
-    // This is rolled out since simd-json does mutate
-    // its input unlike the other libraries.
-    // While this makes little difference in a real life situation
-    // as you're unlikely to deserialize the same data twice
-    // it is a big disadvantage in a synthetic benchmark.
-    //
-    // To be fair to both other libraries and simd-json
-    // we roll it out and provide the same benchmarks
-    // with slightly different characteristics.
-
     #[cfg(feature = "lib-simd-json")]
-    bench_simd_json! {}
+    bench! {
+        name: "simd_json",
+        bench: bench_file_simd_json,
+    }
 }
 
 #[cfg(all(
