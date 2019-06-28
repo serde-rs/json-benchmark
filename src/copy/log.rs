@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 enum_str!(Environment {
     Production("Production"),
-    Staging("Stagig"),
+    Staging("Staging"),
     Development("Development"),
     Test("Test"),
 });
