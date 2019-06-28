@@ -149,9 +149,8 @@ macro_rules! bench_file_simd_json {
             for _ in 0..num_trials {
                 data.as_mut_slice().clone_from_slice(contents.as_slice());
                 let mut timer = benchmark.start();
-                let parsed = simd_json_parse_dom(&mut data);
+                let _parsed = simd_json_parse_dom(&mut data).unwrap();
                 timer.stop();
-                parsed.unwrap();
             }
             let dur = benchmark.min_elapsed();
             print!("{:6} MB/s", throughput(dur, contents.len()));
@@ -184,9 +183,8 @@ macro_rules! bench_file_simd_json {
             for _ in 0..num_trials {
                 data.as_mut_slice().clone_from_slice(contents.as_slice());
                 let mut timer = benchmark.start();
-                let parsed: simd_json::Result<$structure> = simd_json_parse_struct(&mut data);
+                let _parsed: $structure = simd_json_parse_struct(&mut data).unwrap();
                 timer.stop();
-                parsed.unwrap();
             }
             let dur = benchmark.min_elapsed();
             print!("{:6} MB/s", throughput(dur, contents.len()));
