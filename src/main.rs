@@ -230,7 +230,7 @@ fn main() {
 
     #[cfg(feature = "lib-simd-json")]
     bench! {
-        name: "simd_json",
+        name: "simd-json",
         bench: bench_file_simd_json,
     }
 }
