@@ -35,7 +35,7 @@ macro_rules! bench {
             structure: twitter::Twitter,
             $($args)*
         }
-   }
+    }
 }
 
 macro_rules! bench_file {
