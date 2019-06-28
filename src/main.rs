@@ -334,16 +334,6 @@ where
 }
 
 #[cfg(all(
-    feature = "lib-somd-json",
-    any(feature = "parse-dom", feature = "stringify-dom")
-))]
-fn serde_json_parse_dom(bytes: &[u8]) -> serde_json::Result<serde_json::Value> {
-    use std::str;
-    let s = str::from_utf8(bytes).unwrap();
-    serde_json::from_str(s)
-}
-
-#[cfg(all(
     feature = "lib-simd-json",
     any(feature = "parse-dom", feature = "stringify-dom")
 ))]
