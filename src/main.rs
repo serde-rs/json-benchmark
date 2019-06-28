@@ -1,6 +1,6 @@
-// Since this is a benchmakr we should use an optiomal allocator
-// to not be slwoed down by allcoations but rather measure the
-// perofrmance of the code
+// Since this is a benchmark we should use an optimal allocator
+// to not be slowed down by allocations but rather measure the
+// performance of the code
 extern crate jemallocator;
 
 #[global_allocator]
@@ -270,9 +270,9 @@ fn main() {
     }
 
     // This is rolled out since simd-json does mutate
-    // it's input unlike the other libraries.
+    // its input unlike the other libraries.
     // While this makes little difference in a real life situation
-    // as you're unlikely to de-serialize the same data twoce
+    // as you're unlikely to deserialize the same data twice
     // it is a big disadvantage in a synthetic benchmark.
     //
     // To be fair to both other libraries and simd-json
