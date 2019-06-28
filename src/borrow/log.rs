@@ -26,16 +26,13 @@ pub struct Log<'a> {
     user_agent_device: &'a str,
     slush: String,
     and_an_ip4: &'a str,
-    #[cfg_attr(feature = "lib-serde", serde(rename = "@version"))]
     version: &'a str,
     error_url_path: &'a str,
     logstash: &'a str,
-    #[cfg_attr(feature = "lib-serde", serde(rename = "uuids->"))]
-    uuid: &'a str,
+    uuids: &'a str,
     anotherfilename: &'a str,
     environment: Environment,
     floatasstr: &'a str,
-    #[cfg_attr(feature = "lib-serde", serde(rename = "there_string:"))]
     there_string: &'a str,
     arry: Vec<&'a str>,
     message: &'a str,
@@ -49,18 +46,14 @@ pub struct Log<'a> {
     error_url: &'a str,
     short_message: &'a str,
     action: &'a str,
-    #[cfg_attr(feature = "lib-serde", serde(rename = "cakes!"))]
     cakes: &'a str,
-    #[cfg_attr(feature = "lib-serde", serde(rename = "type"))]
     log_type: &'a str,
     log_level: LogLevel,
     too_many_ho: &'a str,
     controller: &'a str,
     key_keykeykey: &'a str,
-    #[cfg_attr(feature = "lib-serde", serde(rename = "a proper_timestamp_ja"))]
     proper_timestamp: &'a str,
     and_yet_another: &'a str,
-    #[cfg_attr(feature = "lib-serde", serde(rename = "@timestamp"))]
     timestamp: &'a str,
     level: u8,
 }
