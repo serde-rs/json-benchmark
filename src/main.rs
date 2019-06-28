@@ -179,7 +179,6 @@ macro_rules! bench_file_simd_json {
         #[cfg(feature = "parse-struct")]
         {
             use timer::Benchmark;
-            //let mut data: Vec<Vec<u8>> = iter::repeat(contents.clone()).take(num_trials).collect();
             let mut benchmark = Benchmark::new();
             let mut data = contents.clone();
             for _ in 0..num_trials {
