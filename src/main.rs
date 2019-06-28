@@ -37,6 +37,7 @@ macro_rules! bench {
    }
 }
 
+#[cfg(feature = "lib-simd-json")]
 macro_rules! bench_simd_json {
     {} => {
         let name = format!(" simd_json ");
@@ -143,6 +144,7 @@ macro_rules! bench_file {
     }
 }
 
+#[cfg(feature = "lib-simd-json")]
 macro_rules! bench_file_simd_json {
     {
         path: $path:expr,
