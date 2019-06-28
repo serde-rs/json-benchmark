@@ -1,31 +1,31 @@
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
 use std::collections::BTreeMap as Map;
 
 pub type Canada = FeatureCollection;
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 pub struct FeatureCollection {
-    #[cfg_attr(feature = "lib-serde", serde(rename = "type"))]
+    #[cfg_attr(feature = "serde", serde(rename = "type"))]
     pub obj_type: ObjType,
     pub features: Vec<Feature>,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 pub struct Feature {
-    #[cfg_attr(feature = "lib-serde", serde(rename = "type"))]
+    #[cfg_attr(feature = "serde", serde(rename = "type"))]
     pub obj_type: ObjType,
     pub properties: Map<String, String>,
     pub geometry: Geometry,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 pub struct Geometry {
-    #[cfg_attr(feature = "lib-serde", serde(rename = "type"))]
+    #[cfg_attr(feature = "serde", serde(rename = "type"))]
     pub obj_type: ObjType,
     pub coordinates: Vec<Vec<(Latitude, Longitude)>>,
 }

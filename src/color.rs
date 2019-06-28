@@ -1,19 +1,19 @@
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 use std::fmt;
-#[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
+#[cfg(any(feature = "serde", feature = "lib-rustc-serialize"))]
 use std::{ptr, slice, str};
 
 #[cfg(feature = "lib-rustc-serialize")]
 use rustc_serialize::{Decodable, Decoder, Encodable, Encoder};
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 use serde::de::{self, Deserialize, Deserializer, Unexpected};
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 use serde::ser::{Serialize, Serializer};
 
 #[derive(Clone, Copy)]
 pub struct Color(u32);
 
-#[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
+#[cfg(any(feature = "serde", feature = "lib-rustc-serialize"))]
 const HEX_LUT: &'static [u8] = b"\
       000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F\
       202122232425262728292A2B2C2D2E2F303132333435363738393A3B3C3D3E3F\
@@ -24,7 +24,7 @@ const HEX_LUT: &'static [u8] = b"\
       C0C1C2C3C4C5C6C7C8C9CACBCCCDCECFD0D1D2D3D4D5D6D7D8D9DADBDCDDDEDF\
       E0E1E2E3E4E5E6E7E8E9EAEBECEDEEEFF0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF";
 
-#[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
+#[cfg(any(feature = "serde", feature = "lib-rustc-serialize"))]
 impl Color {
     fn as_str<'a>(self, buf: &'a mut [u8; 6]) -> &'a str {
         let buf_ptr = buf.as_mut_ptr();
@@ -44,7 +44,7 @@ impl Color {
     }
 }
 
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 impl Serialize for Color {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -55,7 +55,7 @@ impl Serialize for Color {
     }
 }
 
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 impl<'de> Deserialize<'de> for Color {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

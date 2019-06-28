@@ -1,4 +1,4 @@
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
 use std::collections::BTreeMap as Map;
@@ -6,9 +6,9 @@ use std::collections::BTreeMap as Map;
 use crate::empty;
 use crate::prim_str::PrimStr;
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "lib-serde",
+    feature = "serde",
     serde(deny_unknown_fields, rename_all = "camelCase")
 )]
 pub struct CitmCatalog {
@@ -28,9 +28,9 @@ pub struct CitmCatalog {
 pub type Id = u32;
 pub type IdStr = PrimStr<u32>;
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "lib-serde",
+    feature = "serde",
     serde(deny_unknown_fields, rename_all = "camelCase")
 )]
 pub struct Event {
@@ -44,9 +44,9 @@ pub struct Event {
     pub topic_ids: Vec<Id>,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "lib-serde",
+    feature = "serde",
     serde(deny_unknown_fields, rename_all = "camelCase")
 )]
 pub struct Performance {
@@ -61,9 +61,9 @@ pub struct Performance {
     pub venue_code: String,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "lib-serde",
+    feature = "serde",
     serde(deny_unknown_fields, rename_all = "camelCase")
 )]
 pub struct Price {
@@ -72,9 +72,9 @@ pub struct Price {
     pub seat_category_id: Id,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "lib-serde",
+    feature = "serde",
     serde(deny_unknown_fields, rename_all = "camelCase")
 )]
 pub struct SeatCategory {
@@ -82,9 +82,9 @@ pub struct SeatCategory {
     pub seat_category_id: Id,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "lib-serde",
+    feature = "serde",
     serde(deny_unknown_fields, rename_all = "camelCase")
 )]
 pub struct Area {

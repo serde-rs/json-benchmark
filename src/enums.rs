@@ -6,7 +6,7 @@ macro_rules! enum_str {
             $($variant,)*
         }
 
-        #[cfg(any(feature = "lib-serde", feature = "lib-rustc-serialize"))]
+        #[cfg(any(feature = "serde", feature = "lib-rustc-serialize"))]
         impl $name {
             fn as_str(self) -> &'static str {
                 match self {
@@ -15,7 +15,7 @@ macro_rules! enum_str {
             }
         }
 
-        #[cfg(feature = "lib-serde")]
+        #[cfg(feature = "serde")]
         impl ::serde::Serialize for $name {
             fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
                 where S: ::serde::Serializer,
@@ -24,7 +24,7 @@ macro_rules! enum_str {
             }
         }
 
-        #[cfg(feature = "lib-serde")]
+        #[cfg(feature = "serde")]
         impl<'de> ::serde::Deserialize<'de> for $name {
             fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
                 where D: ::serde::Deserializer<'de>,

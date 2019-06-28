@@ -1,14 +1,14 @@
 #[cfg(feature = "lib-rustc-serialize")]
 use rustc_serialize::{Decodable, Decoder, Encodable, Encoder};
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 use std::fmt;
 
 #[derive(Clone, Copy)]
 pub struct Array;
 
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 impl Serialize for Array {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -18,7 +18,7 @@ impl Serialize for Array {
     }
 }
 
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 impl<'de> Deserialize<'de> for Array {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

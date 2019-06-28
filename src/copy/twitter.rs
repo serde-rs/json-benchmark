@@ -1,12 +1,12 @@
-#[cfg(feature = "lib-serde")]
+#[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
 use crate::color::Color;
 use crate::empty;
 use crate::prim_str::PrimStr;
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -21,8 +21,8 @@ pub type ShortId = u32;
 pub type LongIdStr = PrimStr<LongId>;
 pub type ShortIdStr = PrimStr<ShortId>;
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -55,8 +55,8 @@ pub struct Status {
     pub lang: LanguageCode,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -66,8 +66,8 @@ pub struct Metadata {
     pub iso_language_code: LanguageCode,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -115,8 +115,8 @@ pub struct User {
     pub notifications: bool,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -126,8 +126,8 @@ pub struct UserEntities {
     pub description: UserEntitiesDescription,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -136,8 +136,8 @@ pub struct UserUrl {
     pub urls: Vec<Url>,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -149,8 +149,8 @@ pub struct Url {
     pub indices: Indices,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -159,8 +159,8 @@ pub struct UserEntitiesDescription {
     pub urls: Vec<Url>,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -173,8 +173,8 @@ pub struct StatusEntities {
     pub media: Option<Vec<Media>>,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -184,8 +184,8 @@ pub struct Hashtag {
     pub indices: Indices,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -198,8 +198,8 @@ pub struct UserMention {
     pub indices: Indices,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 pub struct Media {
     pub id: LongId,
     pub id_str: LongIdStr,
@@ -209,15 +209,15 @@ pub struct Media {
     pub url: String,
     pub display_url: String,
     pub expanded_url: String,
-    #[cfg_attr(feature = "lib-serde", serde(rename = "type"))]
+    #[cfg_attr(feature = "serde", serde(rename = "type"))]
     pub media_type: String,
     pub sizes: Sizes,
     pub source_status_id: Option<LongId>,
     pub source_status_id_str: Option<LongIdStr>,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -229,8 +229,8 @@ pub struct Sizes {
     pub large: Size,
 }
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
@@ -243,8 +243,8 @@ pub struct Size {
 
 pub type Indices = (u8, u8);
 
-#[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
