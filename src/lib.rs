@@ -28,9 +28,7 @@ pub fn num_trials() -> Option<usize> {
 
     let args: Vec<String> = env::args().collect();
     let matches = opts.parse(&args[1..]).unwrap();
-    matches
-        .opt_str("n")
-        .map(|s| s.parse().unwrap())
+    matches.opt_str("n").map(|s| s.parse().unwrap())
 }
 
 pub fn throughput(dur: time::Duration, bytes: usize) -> u64 {

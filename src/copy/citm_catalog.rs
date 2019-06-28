@@ -7,7 +7,10 @@ use crate::empty;
 use crate::prim_str::PrimStr;
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields, rename_all = "camelCase"))]
+#[cfg_attr(
+    feature = "lib-serde",
+    serde(deny_unknown_fields, rename_all = "camelCase")
+)]
 pub struct CitmCatalog {
     pub area_names: Map<IdStr, String>,
     pub audience_sub_category_names: Map<IdStr, String>,
@@ -26,7 +29,10 @@ pub type Id = u32;
 pub type IdStr = PrimStr<u32>;
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields, rename_all = "camelCase"))]
+#[cfg_attr(
+    feature = "lib-serde",
+    serde(deny_unknown_fields, rename_all = "camelCase")
+)]
 pub struct Event {
     pub description: (),
     pub id: Id,
@@ -39,7 +45,10 @@ pub struct Event {
 }
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields, rename_all = "camelCase"))]
+#[cfg_attr(
+    feature = "lib-serde",
+    serde(deny_unknown_fields, rename_all = "camelCase")
+)]
 pub struct Performance {
     pub event_id: Id,
     pub id: Id,
@@ -53,7 +62,10 @@ pub struct Performance {
 }
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields, rename_all = "camelCase"))]
+#[cfg_attr(
+    feature = "lib-serde",
+    serde(deny_unknown_fields, rename_all = "camelCase")
+)]
 pub struct Price {
     pub amount: u32,
     pub audience_sub_category_id: Id,
@@ -61,14 +73,20 @@ pub struct Price {
 }
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields, rename_all = "camelCase"))]
+#[cfg_attr(
+    feature = "lib-serde",
+    serde(deny_unknown_fields, rename_all = "camelCase")
+)]
 pub struct SeatCategory {
     pub areas: Vec<Area>,
     pub seat_category_id: Id,
 }
 
 #[cfg_attr(feature = "lib-serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "lib-serde", serde(deny_unknown_fields, rename_all = "camelCase"))]
+#[cfg_attr(
+    feature = "lib-serde",
+    serde(deny_unknown_fields, rename_all = "camelCase")
+)]
 pub struct Area {
     pub area_id: Id,
     pub block_ids: empty::Array,
