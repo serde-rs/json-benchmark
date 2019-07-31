@@ -9,7 +9,7 @@ to Rust. The libraries tested are:
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.24
 - [simd-json](https://github.com/Licenser/simdjson-rs) 0.1.15 (this requires a modern x86 CPU for good results)
 
-#### `$ RUSTFLAGS='-C target-cpu=native' cargo run --release`
+#### `$ cargo run --release`
 
 ```
                                 DOM                STRUCT
