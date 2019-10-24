@@ -4,38 +4,38 @@ This is a partial port of
 [nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark)
 to Rust. The libraries tested are:
 
-- [serde\_json](https://github.com/serde-rs/json) 1.0.39
-- [json-rust](https://github.com/maciejhirsz/json-rust) 0.11.14
+- [serde\_json](https://github.com/serde-rs/json) 1.0.41
+- [json-rust](https://github.com/maciejhirsz/json-rust) 0.12.0
 - [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.24
-- [simd-json](https://github.com/Licenser/simdjson-rs) 0.1.15 (this requires a modern x86 CPU for good results)
+- [simd-json](https://github.com/Licenser/simdjson-rs) 0.1.25 (this requires a modern x86 CPU for good results)
 
 #### `$ cargo run --release`
 
 ```
                                 DOM                STRUCT
 ======= serde_json ======= parse|stringify ===== parse|stringify ====
-data/canada.json         230 MB/s   420 MB/s   530 MB/s   330 MB/s
-data/citm_catalog.json   390 MB/s   450 MB/s   860 MB/s   810 MB/s
-data/twitter.json        260 MB/s   870 MB/s   570 MB/s   940 MB/s
+data/canada.json         220 MB/s   420 MB/s   510 MB/s   330 MB/s
+data/citm_catalog.json   380 MB/s   450 MB/s   850 MB/s   820 MB/s
+data/twitter.json        250 MB/s   860 MB/s   570 MB/s   880 MB/s
 
 ======= json-rust ======== parse|stringify ===== parse|stringify ====
-data/canada.json         360 MB/s   920 MB/s
-data/citm_catalog.json   520 MB/s   770 MB/s
-data/twitter.json        420 MB/s   900 MB/s
+data/canada.json         390 MB/s   890 MB/s
+data/citm_catalog.json   590 MB/s   740 MB/s
+data/twitter.json        430 MB/s   880 MB/s
 
 ==== rustc_serialize ===== parse|stringify ===== parse|stringify ====
-data/canada.json         140 MB/s    56 MB/s    96 MB/s    42 MB/s
-data/citm_catalog.json   150 MB/s   150 MB/s   110 MB/s   190 MB/s
-data/twitter.json         83 MB/s   290 MB/s    64 MB/s   310 MB/s
+data/canada.json         130 MB/s    53 MB/s    91 MB/s    36 MB/s
+data/citm_catalog.json   150 MB/s   150 MB/s   110 MB/s   180 MB/s
+data/twitter.json         79 MB/s   310 MB/s    61 MB/s   330 MB/s
 
 ======= simd-json ======== parse|stringify ===== parse|stringify ====
-data/canada.json         340 MB/s   460 MB/s   570 MB/s
-data/citm_catalog.json   780 MB/s   630 MB/s  1230 MB/s
-data/twitter.json        670 MB/s   990 MB/s   800 MB/s
+data/canada.json         320 MB/s   440 MB/s   630 MB/s
+data/citm_catalog.json   880 MB/s   610 MB/s  1390 MB/s
+data/twitter.json        790 MB/s   730 MB/s   930 MB/s
 ```
 
 - Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz *(laptop CPU from 2015)*
-- rustc 1.37.0-nightly (d3e2cec29 2019-06-26)
+- rustc 1.40.0-nightly (4a8c5b20c 2019-10-23)
 
 To update the numbers above, I run `./json-benchmark` twice on an otherwise idle
 computer and take the greater of the two results for each number.
