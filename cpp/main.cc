@@ -65,6 +65,7 @@ template <typename Handler> void bench(const char *path) {
               << std::endl;
   }
 
+  /*
   {
     std::chrono::microseconds min{
         std::numeric_limits<std::chrono::microseconds::rep>::max()};
@@ -111,12 +112,13 @@ template <typename Handler> void bench(const char *path) {
     std::cout << path << " stringify struct: " << throughput(min, bytes)
               << " MB/s" << std::endl;
   }
+  */
 }
 
 int main(int argc, char *argv[]) {
   std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(1);
 
-  bench<Canada>("../data/canada.json");
-  // bench<CitmCatalog>("../data/citm_catalog.json");
+  // bench<Canada>("../data/canada.json");
+  bench<void>("../data/citm_catalog.json");
   // bench<Twitter>("../data/twitter.json");
 }
