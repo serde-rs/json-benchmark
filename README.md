@@ -53,18 +53,18 @@ nativejson-benchmark modified to run 256 times instead of 10. Code is in the
 
 ```
 ==== rapidjson-clang ===================== parse|stringify ====
-data/canada.json                         390 MB/s   200 MB/s
-data/citm_catalog.json                   670 MB/s   290 MB/s
-data/twitter.json                        340 MB/s   370 MB/s
+data/canada.json                         380 MB/s   200 MB/s
+data/citm_catalog.json                   680 MB/s  1090 MB/s
+data/twitter.json                        320 MB/s   600 MB/s
 
 ===== rapidjson-gcc ====================== parse|stringify ====
-data/canada.json                         470 MB/s   240 MB/s
-data/citm_catalog.json                   990 MB/s   480 MB/s
-data/twitter.json                        470 MB/s   620 MB/s
+data/canada.json                         390 MB/s   250 MB/s
+data/citm_catalog.json                   890 MB/s  1650 MB/s
+data/twitter.json                        440 MB/s   870 MB/s
 ```
 
-- clang version 3.8.0
-- gcc version 5.4.0
+- clang version 11.0.0-++20200128080810+b96e6859c99-1~exp1~20200128191406.2758
+- gcc version 10.1.0 (Ubuntu 10.1.0-2ubuntu1~18.04)
 
 <br>
 
