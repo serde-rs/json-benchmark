@@ -46,7 +46,8 @@ To update the numbers above, I run `./json-benchmark` twice on an otherwise idle
 computer and take the greater of the two results for each number.
 
 For comparison, here are results from [RapidJSON] on the same hardware with the
-nativejson-benchmark modified to run 256 times instead of 10.
+nativejson-benchmark modified to run 256 times instead of 10. Code is in the
+`cpp` directory of this repo.
 
 [RapidJSON]: https://github.com/miloyip/rapidjson
 
