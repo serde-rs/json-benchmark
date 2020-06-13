@@ -1,13 +1,18 @@
 # Rust JSON Benchmark
 
-This is a partial port of
-[nativejson-benchmark](https://github.com/miloyip/nativejson-benchmark)
-to Rust. The libraries tested are:
+This is a partial port of [nativejson-benchmark] to Rust. The libraries tested
+are:
 
-- [serde\_json](https://github.com/serde-rs/json) 1.0.53
-- [json-rust](https://github.com/maciejhirsz/json-rust) 0.12.4
-- [rustc-serialize](https://github.com/rust-lang-nursery/rustc-serialize) 0.3.24
-- [simd-json](https://github.com/Licenser/simdjson-rs) 0.1.26 (this requires a modern x86 CPU for good results)
+- [serde\_json] 1.0.53
+- [json-rust] 0.12.4
+- [rustc-serialize] 0.3.24
+- [simd-json] 0.1.26 (this requires a modern x86 CPU for good results)
+
+[nativejson-benchmark]: https://github.com/miloyip/nativejson-benchmark
+[serde\_json]: https://github.com/serde-rs/json
+[json-rust]: https://github.com/maciejhirsz/json-rust
+[rustc-serialize]: https://github.com/rust-lang-nursery/rustc-serialize
+[simd-json]: https://github.com/Licenser/simdjson-rs
 
 #### `$ cargo run --release`
 
@@ -40,9 +45,10 @@ data/twitter.json        660 MB/s   740 MB/s   900 MB/s
 To update the numbers above, I run `./json-benchmark` twice on an otherwise idle
 computer and take the greater of the two results for each number.
 
-For comparison, here are results from
-[RapidJSON](https://github.com/miloyip/rapidjson) on the same hardware with the
+For comparison, here are results from [RapidJSON] on the same hardware with the
 nativejson-benchmark modified to run 256 times instead of 10.
+
+[RapidJSON]: https://github.com/miloyip/rapidjson
 
 ```
 ==== rapidjson-clang ===================== parse|stringify ====
