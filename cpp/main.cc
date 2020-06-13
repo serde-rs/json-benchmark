@@ -29,23 +29,24 @@ void bench(const char* path) {
   in.read(&s[0], s.size());
   in.close();
   auto c_str = s.c_str();
+  auto bytes = s.size();
 
   Timer timer;
 
   {
-    auto min = std::numeric_limits<float>::infinity();
+    std::chrono::microseconds min{std::numeric_limits<std::chrono::microseconds::rep>::max()};
     for (int i = 0; i < 256; i++) {
       rapidjson::Document d;
       timer.reset();
       d.Parse(c_str);
       assert(!d.HasParseError());
-      min = std::min(min, timer.millis());
+      min = std::min(min, timer.micros());
     }
-    std::cout << path << " parse dom: " << min << "ms" << std::endl;
+    std::cout << path << " parse dom: " << throughput(min, bytes) << " MB/s" << std::endl;
   }
 
   {
-    auto min = std::numeric_limits<float>::infinity();
+    std::chrono::microseconds min{std::numeric_limits<std::chrono::microseconds::rep>::max()};
     rapidjson::Document d;
     d.Parse(c_str);
     assert(!d.HasParseError());
@@ -56,13 +57,13 @@ void bench(const char* path) {
       timer.reset();
       auto result = d.Accept(writer);
       assert(result);
-      min = std::min(min, timer.millis());
+      min = std::min(min, timer.micros());
     }
-    std::cout << path << " stringify dom: " << min << "ms" << std::endl;
+    std::cout << path << " stringify dom: " << throughput(min, bytes) << " MB/s" << std::endl;
   }
 
   {
-    auto min = std::numeric_limits<float>::infinity();
+    std::chrono::microseconds min{std::numeric_limits<std::chrono::microseconds::rep>::max()};
     for (int i = 0; i < 256; i++) {
       rapidjson::Reader reader;
       Handler handler;
@@ -79,13 +80,13 @@ void bench(const char* path) {
 #endif
       assert(result);
       auto keep = handler.Get();
-      min = std::min(min, timer.millis());
+      min = std::min(min, timer.micros());
     }
-    std::cout << path << " parse struct: " << min << "ms" << std::endl;
+    std::cout << path << " parse struct: " << throughput(min, bytes) << " MB/s" << std::endl;
   }
 
   {
-    auto min = std::numeric_limits<float>::infinity();
+    std::chrono::microseconds min{std::numeric_limits<std::chrono::microseconds::rep>::max()};
     rapidjson::Reader reader;
     Handler handler;
     rapidjson::StringStream ss(c_str);
@@ -99,9 +100,9 @@ void bench(const char* path) {
       rapidjson::Writer<rapidjson::StringBuffer> writer(sb);
       timer.reset();
       Serialize(d, writer);
-      min = std::min(min, timer.millis());
+      min = std::min(min, timer.micros());
     }
-    std::cout << path << " stringify struct: " << min << "ms" << std::endl;
+    std::cout << path << " stringify struct: " << throughput(min, bytes) << " MB/s" << std::endl;
   }
 }
 
