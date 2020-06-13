@@ -4,12 +4,12 @@
 #include <chrono>
 
 class Timer {
- public:
+public:
   Timer();
   void reset();
   std::chrono::microseconds micros() const;
 
- private:
+private:
   typedef std::chrono::high_resolution_clock clock_;
   std::chrono::time_point<clock_> begin_;
 };

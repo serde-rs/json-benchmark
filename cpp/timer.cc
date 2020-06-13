@@ -2,12 +2,11 @@
 
 Timer::Timer() : begin_(clock_::now()) {}
 
-void Timer::reset() {
-  begin_ = clock_::now();
-}
+void Timer::reset() { begin_ = clock_::now(); }
 
 std::chrono::microseconds Timer::micros() const {
-  return std::chrono::duration_cast<std::chrono::microseconds>(clock_::now() - begin_);
+  return std::chrono::duration_cast<std::chrono::microseconds>(clock_::now() -
+                                                               begin_);
 }
 
 // matches json-benchmark/src/lib.rs

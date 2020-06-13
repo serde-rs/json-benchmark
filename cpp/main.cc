@@ -1,11 +1,11 @@
 // __SSE2__ and __SSE4_2__ are recognized by gcc, clang, and the Intel compiler.
 // We use -march=native with gmake to enable -msse2 and -msse4.2, if supported.
 #if defined(__SSE4_2__)
-#  define RAPIDJSON_SSE42
+#define RAPIDJSON_SSE42
 #elif defined(__SSE2__)
-#  define RAPIDJSON_SSE2
+#define RAPIDJSON_SSE2
 #elif defined(_MSC_VER) // Turn on SSE4.2 for VC
-#  define RAPIDJSON_SSE42
+#define RAPIDJSON_SSE42
 #endif
 
 #include <fstream>
@@ -19,8 +19,7 @@
 #include "canada.h"
 #include "timer.h"
 
-template <typename Handler>
-void bench(const char* path) {
+template <typename Handler> void bench(const char *path) {
   std::ifstream in(path, std::ios::in | std::ios::binary);
   std::string s;
   in.seekg(0, std::ios::end);
@@ -34,7 +33,8 @@ void bench(const char* path) {
   Timer timer;
 
   {
-    std::chrono::microseconds min{std::numeric_limits<std::chrono::microseconds::rep>::max()};
+    std::chrono::microseconds min{
+        std::numeric_limits<std::chrono::microseconds::rep>::max()};
     for (int i = 0; i < 256; i++) {
       rapidjson::Document d;
       timer.reset();
@@ -42,11 +42,13 @@ void bench(const char* path) {
       assert(!d.HasParseError());
       min = std::min(min, timer.micros());
     }
-    std::cout << path << " parse dom: " << throughput(min, bytes) << " MB/s" << std::endl;
+    std::cout << path << " parse dom: " << throughput(min, bytes) << " MB/s"
+              << std::endl;
   }
 
   {
-    std::chrono::microseconds min{std::numeric_limits<std::chrono::microseconds::rep>::max()};
+    std::chrono::microseconds min{
+        std::numeric_limits<std::chrono::microseconds::rep>::max()};
     rapidjson::Document d;
     d.Parse(c_str);
     assert(!d.HasParseError());
@@ -59,11 +61,13 @@ void bench(const char* path) {
       assert(result);
       min = std::min(min, timer.micros());
     }
-    std::cout << path << " stringify dom: " << throughput(min, bytes) << " MB/s" << std::endl;
+    std::cout << path << " stringify dom: " << throughput(min, bytes) << " MB/s"
+              << std::endl;
   }
 
   {
-    std::chrono::microseconds min{std::numeric_limits<std::chrono::microseconds::rep>::max()};
+    std::chrono::microseconds min{
+        std::numeric_limits<std::chrono::microseconds::rep>::max()};
     for (int i = 0; i < 256; i++) {
       rapidjson::Reader reader;
       Handler handler;
@@ -82,11 +86,13 @@ void bench(const char* path) {
       auto keep = handler.Get();
       min = std::min(min, timer.micros());
     }
-    std::cout << path << " parse struct: " << throughput(min, bytes) << " MB/s" << std::endl;
+    std::cout << path << " parse struct: " << throughput(min, bytes) << " MB/s"
+              << std::endl;
   }
 
   {
-    std::chrono::microseconds min{std::numeric_limits<std::chrono::microseconds::rep>::max()};
+    std::chrono::microseconds min{
+        std::numeric_limits<std::chrono::microseconds::rep>::max()};
     rapidjson::Reader reader;
     Handler handler;
     rapidjson::StringStream ss(c_str);
@@ -102,14 +108,15 @@ void bench(const char* path) {
       Serialize(d, writer);
       min = std::min(min, timer.micros());
     }
-    std::cout << path << " stringify struct: " << throughput(min, bytes) << " MB/s" << std::endl;
+    std::cout << path << " stringify struct: " << throughput(min, bytes)
+              << " MB/s" << std::endl;
   }
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(1);
 
   bench<Canada>("../data/canada.json");
-  //bench<CitmCatalog>("../data/citm_catalog.json");
-  //bench<Twitter>("../data/twitter.json");
+  // bench<CitmCatalog>("../data/citm_catalog.json");
+  // bench<Twitter>("../data/twitter.json");
 }

@@ -1,9 +1,9 @@
 #ifndef CANADA_H_
 #define CANADA_H_
 
+#include <experimental/optional>
 #include <map>
 #include <vector>
-#include <experimental/optional>
 
 #include "rapidjson/reader.h"
 
@@ -34,20 +34,17 @@ struct FeatureCollection {
   std::vector<Feature> features_;
 };
 
-template <typename Writer>
-void Serialize(const ObjType& self, Writer& writer);
+template <typename Writer> void Serialize(const ObjType &self, Writer &writer);
 
 template <typename Writer>
-void Serialize(const Coordinate& self, Writer& writer);
+void Serialize(const Coordinate &self, Writer &writer);
+
+template <typename Writer> void Serialize(const Geometry &self, Writer &writer);
+
+template <typename Writer> void Serialize(const Feature &self, Writer &writer);
 
 template <typename Writer>
-void Serialize(const Geometry& self, Writer& writer);
-
-template <typename Writer>
-void Serialize(const Feature& self, Writer& writer);
-
-template <typename Writer>
-void Serialize(const FeatureCollection& self, Writer& writer);
+void Serialize(const FeatureCollection &self, Writer &writer);
 
 struct Canada : public rapidjson::BaseReaderHandler<rapidjson::UTF8<>, Canada> {
   Canada();
@@ -56,8 +53,8 @@ struct Canada : public rapidjson::BaseReaderHandler<rapidjson::UTF8<>, Canada> {
   bool EndObject(rapidjson::SizeType);
   bool StartArray();
   bool EndArray(rapidjson::SizeType);
-  bool Key(const char* str, rapidjson::SizeType len, bool);
-  bool String(const char* str, rapidjson::SizeType len, bool);
+  bool Key(const char *str, rapidjson::SizeType len, bool);
+  bool String(const char *str, rapidjson::SizeType len, bool);
   bool Double(double d);
   bool Int(int i);
   bool Uint(unsigned u);
@@ -93,7 +90,8 @@ struct Canada : public rapidjson::BaseReaderHandler<rapidjson::UTF8<>, Canada> {
   std::experimental::optional<std::string> property_;
   std::experimental::optional<std::map<std::string, std::string>> properties_;
   std::experimental::optional<Geometry> geometry_;
-  std::experimental::optional<std::vector<std::vector<Coordinate>>> coordinates_;
+  std::experimental::optional<std::vector<std::vector<Coordinate>>>
+      coordinates_;
   std::experimental::optional<float> latitude_;
 };
 
