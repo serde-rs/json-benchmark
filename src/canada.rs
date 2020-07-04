@@ -7,6 +7,7 @@ pub type Canada = FeatureCollection;
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct FeatureCollection {
     #[cfg_attr(feature = "serde", serde(rename = "type"))]
     pub obj_type: ObjType,
@@ -15,6 +16,7 @@ pub struct FeatureCollection {
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct Feature {
     #[cfg_attr(feature = "serde", serde(rename = "type"))]
     pub obj_type: ObjType,
@@ -24,6 +26,7 @@ pub struct Feature {
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct Geometry {
     #[cfg_attr(feature = "serde", serde(rename = "type"))]
     pub obj_type: ObjType,

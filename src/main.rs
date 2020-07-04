@@ -129,6 +129,7 @@ macro_rules! bench_file_simd_json {
         path: $path:expr,
         structure: $structure:ty,
     } => {
+
         let num_trials = num_trials().unwrap_or(256);
 
         print!("{:22}", $path);
@@ -160,6 +161,7 @@ macro_rules! bench_file_simd_json {
 
         #[cfg(feature = "stringify-dom")]
         {
+            use simd_json::prelude::*;
             let len = contents.len();
             let mut data = contents.clone();
             let dom = simd_json_parse_dom(&mut data).unwrap();
@@ -187,6 +189,22 @@ macro_rules! bench_file_simd_json {
             }
             let dur = benchmark.min_elapsed();
             print!("{:6} MB/s", throughput(dur, contents.len()));
+            io::stdout().flush().unwrap();
+        }
+
+        #[cfg(feature = "stringify-struct")]
+        {
+            use simd_json_derive::Serialize;
+            let len = contents.len();
+            let mut data = contents.clone();
+            let parsed: $structure = simd_json_parse_struct(&mut data).unwrap();
+            let dur = timer::bench_with_buf(num_trials, len, |out| {
+                parsed.json_write(out).unwrap();
+            });
+            let mut serialized = Vec::new();
+            parsed.json_write(&mut serialized).unwrap();
+
+            print!("{:6} MB/s", throughput(dur, serialized.len()));
             io::stdout().flush().unwrap();
         }
 

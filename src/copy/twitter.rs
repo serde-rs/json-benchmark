@@ -11,6 +11,7 @@ use crate::prim_str::PrimStr;
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct Twitter {
     pub statuses: Vec<Status>,
     pub search_metadata: SearchMetadata,
@@ -27,6 +28,7 @@ pub type ShortIdStr = PrimStr<ShortId>;
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct Status {
     pub metadata: Metadata,
     pub created_at: String,
@@ -61,6 +63,7 @@ pub struct Status {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct Metadata {
     pub result_type: ResultType,
     pub iso_language_code: LanguageCode,
@@ -72,6 +75,7 @@ pub struct Metadata {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct User {
     pub id: ShortId,
     pub id_str: ShortIdStr,
@@ -121,6 +125,7 @@ pub struct User {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct UserEntities {
     pub url: Option<UserUrl>,
     pub description: UserEntitiesDescription,
@@ -132,6 +137,7 @@ pub struct UserEntities {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct UserUrl {
     pub urls: Vec<Url>,
 }
@@ -142,6 +148,7 @@ pub struct UserUrl {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct Url {
     pub url: String,
     pub expanded_url: String,
@@ -155,6 +162,7 @@ pub struct Url {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct UserEntitiesDescription {
     pub urls: Vec<Url>,
 }
@@ -165,6 +173,7 @@ pub struct UserEntitiesDescription {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct StatusEntities {
     pub hashtags: Vec<Hashtag>,
     pub symbols: empty::Array,
@@ -179,6 +188,7 @@ pub struct StatusEntities {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct Hashtag {
     pub text: String,
     pub indices: Indices,
@@ -190,6 +200,7 @@ pub struct Hashtag {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct UserMention {
     pub screen_name: String,
     pub name: String,
@@ -200,6 +211,7 @@ pub struct UserMention {
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct Media {
     pub id: LongId,
     pub id_str: LongIdStr,
@@ -222,6 +234,7 @@ pub struct Media {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct Sizes {
     pub medium: Size,
     pub small: Size,
@@ -235,6 +248,7 @@ pub struct Sizes {
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct Size {
     pub w: u16,
     pub h: u16,
@@ -249,6 +263,7 @@ pub type Indices = (u8, u8);
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
+#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
 pub struct SearchMetadata {
     pub completed_in: f32,
     pub max_id: LongId,

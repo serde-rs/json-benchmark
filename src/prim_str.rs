@@ -65,6 +65,19 @@ where
     }
 }
 
+#[cfg(feature = "lib-simd-json")]
+impl<T> simd_json_derive::Serialize for PrimStr<T>
+where
+    T: Copy + Ord + Display + FromStr,
+{
+    fn json_write<W>(&self, writer: &mut W) -> std::io::Result<()>
+    where
+        W: std::io::Write,
+    {
+        write!(writer, "{}", self.0)
+    }
+}
+
 #[cfg(feature = "lib-rustc-serialize")]
 impl<T> Encodable for PrimStr<T>
 where

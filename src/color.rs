@@ -58,6 +58,17 @@ impl Serialize for Color {
     }
 }
 
+#[cfg(feature = "lib-simd-json")]
+impl simd_json_derive::Serialize for Color {
+    fn json_write<W>(&self, writer: &mut W) -> std::io::Result<()>
+    where
+        W: std::io::Write,
+    {
+        let mut buf = MaybeUninit::uninit();
+        self.as_str(&mut buf).json_write(writer)
+    }
+}
+
 #[cfg(feature = "serde")]
 impl<'de> Deserialize<'de> for Color {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>

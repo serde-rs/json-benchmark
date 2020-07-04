@@ -6,7 +6,7 @@ macro_rules! enum_str {
             $($variant,)*
         }
 
-        #[cfg(any(feature = "serde", feature = "lib-rustc-serialize"))]
+        #[cfg(any(feature = "lib-simd-json", feature = "lib-serde", feature = "lib-rustc-serialize"))]
         impl $name {
             fn as_str(self) -> &'static str {
                 match self {
@@ -49,6 +49,15 @@ macro_rules! enum_str {
                 }
 
                 deserializer.deserialize_str(Visitor)
+            }
+        }
+
+        #[cfg(feature = "lib-simd-json")]
+        impl ::simd_json_derive::Serialize for $name {
+            fn json_write<W>(&self, writer: &mut W) -> std::io::Result<()>
+                where W: std::io::Write
+            {
+                self.as_str().json_write(writer)
             }
         }
 
