@@ -5,13 +5,22 @@ use crate::color::Color;
 use crate::empty;
 use crate::prim_str::PrimStr;
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct Twitter {
     pub statuses: Vec<Status>,
     pub search_metadata: SearchMetadata,
@@ -22,13 +31,22 @@ pub type ShortId = u32;
 pub type LongIdStr = PrimStr<LongId>;
 pub type ShortIdStr = PrimStr<ShortId>;
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct Status {
     pub metadata: Metadata,
     pub created_at: String,
@@ -57,25 +75,43 @@ pub struct Status {
     pub lang: LanguageCode,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct Metadata {
     pub result_type: ResultType,
     pub iso_language_code: LanguageCode,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct User {
     pub id: ShortId,
     pub id_str: ShortIdStr,
@@ -119,36 +155,63 @@ pub struct User {
     pub notifications: bool,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct UserEntities {
     pub url: Option<UserUrl>,
     pub description: UserEntitiesDescription,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct UserUrl {
     pub urls: Vec<Url>,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct Url {
     pub url: String,
     pub expanded_url: String,
@@ -156,24 +219,42 @@ pub struct Url {
     pub indices: Indices,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct UserEntitiesDescription {
     pub urls: Vec<Url>,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct StatusEntities {
     pub hashtags: Vec<Hashtag>,
     pub symbols: empty::Array,
@@ -182,25 +263,43 @@ pub struct StatusEntities {
     pub media: Option<Vec<Media>>,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct Hashtag {
     pub text: String,
     pub indices: Indices,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct UserMention {
     pub screen_name: String,
     pub name: String,
@@ -209,9 +308,18 @@ pub struct UserMention {
     pub indices: Indices,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct Media {
     pub id: LongId,
     pub id_str: LongIdStr,
@@ -221,20 +329,32 @@ pub struct Media {
     pub url: String,
     pub display_url: String,
     pub expanded_url: String,
-    #[cfg_attr(feature = "serde", serde(rename = "type"))]
+    #[cfg_attr(
+        any(feature = "serde", feature = "lib-simd-json"),
+        serde(rename = "type")
+    )]
     pub media_type: String,
     pub sizes: Sizes,
     pub source_status_id: Option<LongId>,
     pub source_status_id_str: Option<LongIdStr>,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct Sizes {
     pub medium: Size,
     pub small: Size,
@@ -242,13 +362,22 @@ pub struct Sizes {
     pub large: Size,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct Size {
     pub w: u16,
     pub h: u16,
@@ -257,13 +386,22 @@ pub struct Size {
 
 pub type Indices = (u8, u8);
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
 #[cfg_attr(
     feature = "lib-rustc-serialize",
     derive(RustcEncodable, RustcDecodable)
 )]
-#[cfg_attr(feature = "lib-simd-json", derive(simd_json_derive::Serialize))]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct SearchMetadata {
     pub completed_in: f32,
     pub max_id: LongId,

@@ -12,7 +12,7 @@ use serde::de::{self, Deserialize, Deserializer, Unexpected};
 #[cfg(feature = "serde")]
 use serde::ser::{Serialize, Serializer};
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct Color(u32);
 
 #[cfg(any(feature = "serde", feature = "lib-rustc-serialize"))]
@@ -96,6 +96,29 @@ impl<'de> Deserialize<'de> for Color {
         }
 
         deserializer.deserialize_str(Visitor)
+    }
+}
+
+#[cfg(feature = "lib-simd-json")]
+impl<'input> ::simd_json_derive::Deserialize<'input> for Color {
+    #[inline]
+    fn from_tape(tape: &mut ::simd_json_derive::Tape<'input>) -> simd_json::Result<Self>
+    where
+        Self: std::marker::Sized + 'input,
+    {
+        if let Some(::simd_json::Node::String(s)) = tape.next() {
+            if let Ok(hex) = u32::from_str_radix(s, 16) {
+                Ok(Color(hex))
+            } else {
+                dbg!(Err(::simd_json::Error::generic(
+                    simd_json::ErrorType::ExpectedString,
+                )))
+            }
+        } else {
+            dbg!(Err(::simd_json::Error::generic(
+                simd_json::ErrorType::ExpectedString,
+            )))
+        }
     }
 }
 

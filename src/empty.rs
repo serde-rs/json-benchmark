@@ -55,6 +55,22 @@ impl simd_json_derive::Serialize for Array {
     }
 }
 
+impl<'input> simd_json_derive::Deserialize<'input> for Array {
+    #[inline]
+    fn from_tape(tape: &mut simd_json_derive::Tape<'input>) -> simd_json::Result<Self>
+    where
+        Self: std::marker::Sized + 'input,
+    {
+        if let Some(simd_json::Node::Array(0, _)) = tape.next() {
+            Ok(Self)
+        } else {
+            Err(simd_json::Error::generic(
+                simd_json::ErrorType::ExpectedArray,
+            ))
+        }
+    }
+}
+
 #[cfg(feature = "lib-rustc-serialize")]
 impl Encodable for Array {
     fn encode<S>(&self, s: &mut S) -> Result<(), S::Error>

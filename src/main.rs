@@ -215,17 +215,6 @@ macro_rules! bench_file_simd_json {
 fn main() {
     print!("{:>35}{:>24}", "DOM", "STRUCT");
 
-    #[cfg(feature = "lib-serde")]
-    bench! {
-        name: "serde_json",
-        bench: bench_file,
-        dom: serde_json::Value,
-        parse_dom: serde_json_parse_dom,
-        stringify_dom: serde_json::to_writer,
-        parse_struct: serde_json_parse_struct,
-        stringify_struct: serde_json::to_writer,
-    }
-
     #[cfg(feature = "lib-json-rust")]
     bench! {
         name: "json-rust",
@@ -250,6 +239,17 @@ fn main() {
     bench! {
         name: "simd-json",
         bench: bench_file_simd_json,
+    }
+
+    #[cfg(feature = "lib-serde")]
+    bench! {
+        name: "serde_json",
+        bench: bench_file,
+        dom: serde_json::Value,
+        parse_dom: serde_json_parse_dom,
+        stringify_dom: serde_json::to_writer,
+        parse_struct: serde_json_parse_struct,
+        stringify_struct: serde_json::to_writer,
     }
 }
 
@@ -339,13 +339,24 @@ fn simd_json_parse_dom(bytes: &mut [u8]) -> simd_json::Result<simd_json::Borrowe
     simd_json::to_borrowed_value(bytes)
 }
 
+// #[cfg(all(
+//     feature = "lib-simd-json",
+//     any(feature = "parse-struct", feature = "stringify-struct")
+// ))]
+// fn simd_json_parse_struct<'de, T>(bytes: &'de mut [u8]) -> simd_json::Result<T>
+// where
+//     T: serde::Deserialize<'de>,
+// {
+//     simd_json::serde::from_slice(bytes)
+// }
+
 #[cfg(all(
     feature = "lib-simd-json",
     any(feature = "parse-struct", feature = "stringify-struct")
 ))]
 fn simd_json_parse_struct<'de, T>(bytes: &'de mut [u8]) -> simd_json::Result<T>
 where
-    T: serde::Deserialize<'de>,
+    T: simd_json_derive::Deserialize<'de> + 'de,
 {
-    simd_json::serde::from_slice(bytes)
+    T::from_slice(bytes)
 }

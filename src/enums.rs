@@ -1,7 +1,7 @@
 #[macro_export]
 macro_rules! enum_str {
     ($name:ident { $($variant:ident($str:expr), )* }) => {
-        #[derive(Clone, Copy)]
+        #[derive(Clone, Copy, Debug)]
         pub enum $name {
             $($variant,)*
         }
@@ -54,12 +54,37 @@ macro_rules! enum_str {
 
         #[cfg(feature = "lib-simd-json")]
         impl ::simd_json_derive::Serialize for $name {
+            #[inline]
             fn json_write<W>(&self, writer: &mut W) -> std::io::Result<()>
                 where W: std::io::Write
             {
                 self.as_str().json_write(writer)
             }
         }
+
+        #[cfg(feature = "lib-simd-json")]
+        impl<'input> ::simd_json_derive::Deserialize<'input> for $name {
+            #[inline]
+            fn from_tape(tape: &mut ::simd_json_derive::Tape<'input>) -> simd_json::Result<Self>
+            where
+                Self: std::marker::Sized + 'input,
+            {
+                if let Some(::simd_json::Node::String(s)) = tape.next() {
+                    match s {
+                        $( $str => Ok($name::$variant), )*
+                        _ => Err(::simd_json::Error::generic(
+                            simd_json::ErrorType::ExpectedString,
+                        )),
+                    }
+
+                } else {
+                    Err(::simd_json::Error::generic(
+                        simd_json::ErrorType::ExpectedString,
+                    ))
+                }
+            }
+        }
+
 
         #[cfg(feature = "lib-rustc-serialize")]
         impl ::rustc_serialize::Encodable for $name {
