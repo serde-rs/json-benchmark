@@ -129,7 +129,10 @@ macro_rules! bench_file_simd_json {
         path: $path:expr,
         structure: $structure:ty,
     } => {
+
         let num_trials = num_trials().unwrap_or(256);
+        let mut string_buffer = Vec::with_capacity(4096);
+        let mut input_buffer = simd_json::AlignedBuf::with_capacity(4096);
 
         print!("{:22}", $path);
         io::stdout().flush().unwrap();
@@ -148,7 +151,7 @@ macro_rules! bench_file_simd_json {
             for _ in 0..num_trials {
                 data.as_mut_slice().clone_from_slice(contents.as_slice());
                 let mut timer = benchmark.start();
-                let _parsed = simd_json_parse_dom(&mut data).unwrap();
+                let _parsed = simd_json_parse_dom(&mut data, &mut input_buffer, &mut string_buffer).unwrap();
                 timer.stop();
             }
             let dur = benchmark.min_elapsed();
@@ -160,9 +163,10 @@ macro_rules! bench_file_simd_json {
 
         #[cfg(feature = "stringify-dom")]
         {
+            use simd_json::prelude::*;
             let len = contents.len();
             let mut data = contents.clone();
-            let dom = simd_json_parse_dom(&mut data).unwrap();
+            let dom = simd_json_parse_dom(&mut data, &mut input_buffer, &mut string_buffer).unwrap();
             let dur = timer::bench_with_buf(num_trials, len, |out| {
                 dom.write(out).unwrap()
             });
@@ -182,11 +186,27 @@ macro_rules! bench_file_simd_json {
             for _ in 0..num_trials {
                 data.as_mut_slice().clone_from_slice(contents.as_slice());
                 let mut timer = benchmark.start();
-                let _parsed: $structure = simd_json_parse_struct(&mut data).unwrap();
+                let _parsed: $structure = simd_json_parse_struct(&mut data, &mut input_buffer, &mut string_buffer).unwrap();
                 timer.stop();
             }
             let dur = benchmark.min_elapsed();
             print!("{:6} MB/s", throughput(dur, contents.len()));
+            io::stdout().flush().unwrap();
+        }
+
+        #[cfg(feature = "stringify-struct")]
+        {
+            use simd_json_derive::Serialize;
+            let len = contents.len();
+            let mut data = contents.clone();
+            let parsed: $structure = simd_json_parse_struct(&mut data, &mut input_buffer, &mut string_buffer).unwrap();
+            let dur = timer::bench_with_buf(num_trials, len, |out| {
+                parsed.json_write(out).unwrap();
+            });
+            let mut serialized = Vec::new();
+            parsed.json_write(&mut serialized).unwrap();
+
+            print!("{:6} MB/s", throughput(dur, serialized.len()));
             io::stdout().flush().unwrap();
         }
 
@@ -196,17 +216,6 @@ macro_rules! bench_file_simd_json {
 
 fn main() {
     print!("{:>35}{:>24}", "DOM", "STRUCT");
-
-    #[cfg(feature = "lib-serde")]
-    bench! {
-        name: "serde_json",
-        bench: bench_file,
-        dom: serde_json::Value,
-        parse_dom: serde_json_parse_dom,
-        stringify_dom: serde_json::to_writer,
-        parse_struct: serde_json_parse_struct,
-        stringify_struct: serde_json::to_writer,
-    }
 
     #[cfg(feature = "lib-json-rust")]
     bench! {
@@ -232,6 +241,17 @@ fn main() {
     bench! {
         name: "simd-json",
         bench: bench_file_simd_json,
+    }
+
+    #[cfg(feature = "lib-serde")]
+    bench! {
+        name: "serde_json",
+        bench: bench_file,
+        dom: serde_json::Value,
+        parse_dom: serde_json_parse_dom,
+        stringify_dom: serde_json::to_writer,
+        parse_struct: serde_json_parse_struct,
+        stringify_struct: serde_json::to_writer,
     }
 }
 
@@ -317,17 +337,36 @@ where
     feature = "lib-simd-json",
     any(feature = "parse-dom", feature = "stringify-dom")
 ))]
-fn simd_json_parse_dom(bytes: &mut [u8]) -> simd_json::Result<simd_json::BorrowedValue> {
-    simd_json::to_borrowed_value(bytes)
+fn simd_json_parse_dom<'input>(
+    bytes: &'input mut [u8],
+    input_buffer: &mut simd_json::AlignedBuf,
+    string_buffer: &mut [u8],
+) -> simd_json::Result<simd_json::BorrowedValue<'input>> {
+    simd_json::to_borrowed_value_with_buffers(bytes, input_buffer, string_buffer)
 }
+
+// #[cfg(all(
+//     feature = "lib-simd-json",
+//     any(feature = "parse-struct", feature = "stringify-struct")
+// ))]
+// fn simd_json_parse_struct<'de, T>(bytes: &'de mut [u8]) -> simd_json::Result<T>
+// where
+//     T: serde::Deserialize<'de>,
+// {
+//     simd_json::serde::from_slice(bytes)
+// }
 
 #[cfg(all(
     feature = "lib-simd-json",
     any(feature = "parse-struct", feature = "stringify-struct")
 ))]
-fn simd_json_parse_struct<'de, T>(bytes: &'de mut [u8]) -> simd_json::Result<T>
+fn simd_json_parse_struct<'de, T>(
+    bytes: &'de mut [u8],
+    input_buffer: &mut simd_json::AlignedBuf,
+    string_buffer: &mut [u8],
+) -> simd_json::Result<T>
 where
-    T: serde::Deserialize<'de>,
+    T: simd_json_derive::Deserialize<'de> + 'de,
 {
-    simd_json::serde::from_slice(bytes)
+    T::from_slice_with_buffers(bytes, input_buffer, string_buffer)
 }
