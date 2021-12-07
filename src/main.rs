@@ -208,6 +208,17 @@ fn main() {
         stringify_struct: serde_json::to_writer,
     }
 
+    #[cfg(feature = "ijson")]
+    bench! {
+        name: "ijson",
+        bench: bench_file,
+        dom: ijson::IValue,
+        parse_dom: ijson_parse_dom,
+        stringify_dom: serde_json::to_writer,
+        parse_struct: ijson_parse_struct,
+        stringify_struct: serde_json::to_writer,
+    }
+
     #[cfg(feature = "lib-json-rust")]
     bench! {
         name: "json-rust",
@@ -236,6 +247,16 @@ fn main() {
 }
 
 #[cfg(all(
+    feature = "ijson",
+    any(feature = "parse-dom", feature = "stringify-dom")
+))]
+fn ijson_parse_dom(bytes: &[u8]) -> serde_json::Result<ijson::IValue> {
+    use std::str;
+    let s = str::from_utf8(bytes).unwrap();
+    serde_json::from_str(s)
+}
+
+#[cfg(all(
     feature = "lib-serde",
     any(feature = "parse-dom", feature = "stringify-dom")
 ))]
@@ -250,6 +271,19 @@ fn serde_json_parse_dom(bytes: &[u8]) -> serde_json::Result<serde_json::Value> {
     any(feature = "parse-struct", feature = "stringify-struct")
 ))]
 fn serde_json_parse_struct<'de, T>(bytes: &'de [u8]) -> serde_json::Result<T>
+where
+    T: serde::Deserialize<'de>,
+{
+    use std::str;
+    let s = str::from_utf8(bytes).unwrap();
+    serde_json::from_str(s)
+}
+
+#[cfg(all(
+    feature = "ijson",
+    any(feature = "parse-struct", feature = "stringify-struct")
+))]
+fn ijson_parse_struct<'de, T>(bytes: &'de [u8]) -> serde_json::Result<T>
 where
     T: serde::Deserialize<'de>,
 {
