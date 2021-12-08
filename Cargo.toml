@@ -14,7 +14,7 @@ serde = { version = "1.0", features = ["derive"], optional = true }
 serde-bench = { version = "0.0.7", optional = true }
 serde_json = { version = "1.0", optional = true }
 simd-json = { version = "0.4", optional = true}
-time = "0.1"
+time = "0.3"
 
 [features]
 default = ["performance", "all-libs", "all-files"]

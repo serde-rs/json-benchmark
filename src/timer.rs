@@ -1,6 +1,6 @@
 use std::cmp;
 
-use time::{Duration, PreciseTime};
+use time::{Duration, Instant};
 
 pub fn bench<T, F>(trials: usize, f: F) -> Duration
 where
@@ -41,7 +41,7 @@ impl Benchmark {
     pub fn start<'a>(&'a mut self) -> Timer<'a> {
         Timer {
             source: self,
-            start: PreciseTime::now(),
+            start: Instant::now(),
             stopped: false,
         }
     }
@@ -53,13 +53,13 @@ impl Benchmark {
 
 pub struct Timer<'a> {
     source: &'a mut Benchmark,
-    start: PreciseTime,
+    start: Instant,
     stopped: bool,
 }
 
 impl<'a> Timer<'a> {
     pub fn stop(&mut self) {
-        let elapsed = self.start.to(PreciseTime::now());
+        let elapsed = self.start.elapsed();
         if self.stopped {
             panic!("already stopped");
         }

@@ -32,7 +32,7 @@ pub fn num_trials() -> Option<usize> {
 }
 
 pub fn throughput(dur: time::Duration, bytes: usize) -> u64 {
-    let mut megabytes_per_second = bytes as u64 / dur.num_microseconds().unwrap() as u64;
+    let mut megabytes_per_second = bytes as u64 / dur.whole_microseconds() as u64;
 
     // Round to two significant digits.
     if megabytes_per_second > 100 {
