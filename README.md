@@ -19,28 +19,28 @@ are:
 ```
                                 DOM                STRUCT
 ======= serde_json ======= parse|stringify ===== parse|stringify ====
-data/canada.json         280 MB/s   370 MB/s   510 MB/s   320 MB/s
-data/citm_catalog.json   400 MB/s   420 MB/s   840 MB/s   660 MB/s
-data/twitter.json        270 MB/s   730 MB/s   530 MB/s   850 MB/s
+data/canada.json         320 MB/s   430 MB/s   580 MB/s   310 MB/s
+data/citm_catalog.json   420 MB/s   560 MB/s   710 MB/s   880 MB/s
+data/twitter.json        300 MB/s   910 MB/s   550 MB/s  1060 MB/s
 
 ======= json-rust ======== parse|stringify ===== parse|stringify ====
-data/canada.json         270 MB/s   830 MB/s
-data/citm_catalog.json   550 MB/s   700 MB/s
-data/twitter.json        410 MB/s   900 MB/s
+data/canada.json         390 MB/s   840 MB/s
+data/citm_catalog.json   520 MB/s   780 MB/s
+data/twitter.json        430 MB/s  1030 MB/s
 
 ==== rustc_serialize ===== parse|stringify ===== parse|stringify ====
-data/canada.json         150 MB/s    65 MB/s   110 MB/s    45 MB/s
-data/citm_catalog.json   180 MB/s   180 MB/s   130 MB/s   210 MB/s
-data/twitter.json         99 MB/s   320 MB/s    75 MB/s   350 MB/s
+data/canada.json         150 MB/s    67 MB/s   120 MB/s    46 MB/s
+data/citm_catalog.json   210 MB/s   180 MB/s   140 MB/s   210 MB/s
+data/twitter.json        120 MB/s   330 MB/s    87 MB/s   350 MB/s
 
 ======= simd-json ======== parse|stringify ===== parse|stringify ====
-data/canada.json         350 MB/s   420 MB/s   580 MB/s
-data/citm_catalog.json   820 MB/s   590 MB/s  1290 MB/s
-data/twitter.json        660 MB/s   740 MB/s   900 MB/s
+data/canada.json         370 MB/s   440 MB/s   600 MB/s
+data/citm_catalog.json   920 MB/s   670 MB/s  1400 MB/s
+data/twitter.json        790 MB/s   880 MB/s   980 MB/s
 ```
 
 - Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz *(laptop CPU from 2015)*
-- rustc 1.46.0-nightly (118b50524 2020-06-06)
+- rustc 1.59.0-nightly (0b6f079e4 2021-12-07)
 
 To update the numbers above, I run `./json-benchmark` twice on an otherwise idle
 computer and take the greater of the two results for each number.
