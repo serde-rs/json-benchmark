@@ -1,3 +1,5 @@
+#![cfg_attr(feature = "lib-rustc-serialize", allow(deprecated))]
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
