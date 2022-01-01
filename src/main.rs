@@ -1,3 +1,5 @@
+#![allow(clippy::needless_borrow, clippy::wildcard_imports)]
+
 #[global_allocator]
 static ALLOC: jemallocator::Jemalloc = jemallocator::Jemalloc;
 
