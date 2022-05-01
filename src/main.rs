@@ -302,13 +302,13 @@ where
     feature = "lib-rustc-serialize",
     any(feature = "stringify-dom", feature = "stringify-struct")
 ))]
-fn rustc_serialize_stringify<W, T: ?Sized>(
+fn rustc_serialize_stringify<W, T>(
     writer: W,
     value: &T,
 ) -> rustc_serialize::json::EncodeResult<()>
 where
     W: Write,
-    T: rustc_serialize::Encodable,
+    T: ?Sized + rustc_serialize::Encodable,
 {
     let mut writer = adapter::IoWriteAsFmtWrite::new(writer);
     let mut encoder = rustc_serialize::json::Encoder::new(&mut writer);
