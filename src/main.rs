@@ -302,10 +302,7 @@ where
     feature = "lib-rustc-serialize",
     any(feature = "stringify-dom", feature = "stringify-struct")
 ))]
-fn rustc_serialize_stringify<W, T>(
-    writer: W,
-    value: &T,
-) -> rustc_serialize::json::EncodeResult<()>
+fn rustc_serialize_stringify<W, T>(writer: W, value: &T) -> rustc_serialize::json::EncodeResult<()>
 where
     W: Write,
     T: ?Sized + rustc_serialize::Encodable,
