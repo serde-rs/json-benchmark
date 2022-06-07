@@ -410,6 +410,7 @@ impl ::rustc_serialize::Decodable for Media {
 }
 
 #[cfg(feature = "lib-rustc-serialize")]
+#[allow(clippy::borrow_deref_ref)]
 impl ::rustc_serialize::Encodable for Media {
     fn encode<__S: ::rustc_serialize::Encoder>(
         &self,

@@ -75,6 +75,7 @@ impl ::rustc_serialize::Decodable for FeatureCollection {
 }
 
 #[cfg(feature = "lib-rustc-serialize")]
+#[allow(clippy::borrow_deref_ref)]
 impl ::rustc_serialize::Encodable for FeatureCollection {
     fn encode<__S: ::rustc_serialize::Encoder>(
         &self,
@@ -144,6 +145,7 @@ impl ::rustc_serialize::Decodable for Feature {
 }
 
 #[cfg(feature = "lib-rustc-serialize")]
+#[allow(clippy::borrow_deref_ref)]
 impl ::rustc_serialize::Encodable for Feature {
     fn encode<__S: ::rustc_serialize::Encoder>(
         &self,
@@ -212,6 +214,7 @@ impl ::rustc_serialize::Decodable for Geometry {
 }
 
 #[cfg(feature = "lib-rustc-serialize")]
+#[allow(clippy::borrow_deref_ref)]
 impl ::rustc_serialize::Encodable for Geometry {
     fn encode<__S: ::rustc_serialize::Encoder>(
         &self,

@@ -218,6 +218,7 @@ impl ::rustc_serialize::Decodable for CitmCatalog {
 }
 
 #[cfg(feature = "lib-rustc-serialize")]
+#[allow(clippy::borrow_deref_ref)]
 impl ::rustc_serialize::Encodable for CitmCatalog {
     fn encode<__S: ::rustc_serialize::Encoder>(
         &self,
@@ -414,6 +415,7 @@ impl ::rustc_serialize::Decodable for Event {
 }
 
 #[cfg(feature = "lib-rustc-serialize")]
+#[allow(clippy::borrow_deref_ref)]
 impl ::rustc_serialize::Encodable for Event {
     fn encode<__S: ::rustc_serialize::Encoder>(
         &self,
@@ -593,6 +595,7 @@ impl ::rustc_serialize::Decodable for Performance {
 }
 
 #[cfg(feature = "lib-rustc-serialize")]
+#[allow(clippy::borrow_deref_ref)]
 impl ::rustc_serialize::Encodable for Performance {
     fn encode<__S: ::rustc_serialize::Encoder>(
         &self,
@@ -725,6 +728,7 @@ impl ::rustc_serialize::Decodable for Price {
 }
 
 #[cfg(feature = "lib-rustc-serialize")]
+#[allow(clippy::borrow_deref_ref)]
 impl ::rustc_serialize::Encodable for Price {
     fn encode<__S: ::rustc_serialize::Encoder>(
         &self,
@@ -793,6 +797,7 @@ impl ::rustc_serialize::Decodable for SeatCategory {
 }
 
 #[cfg(feature = "lib-rustc-serialize")]
+#[allow(clippy::borrow_deref_ref)]
 impl ::rustc_serialize::Encodable for SeatCategory {
     fn encode<__S: ::rustc_serialize::Encoder>(
         &self,
@@ -852,6 +857,7 @@ impl ::rustc_serialize::Decodable for Area {
 }
 
 #[cfg(feature = "lib-rustc-serialize")]
+#[allow(clippy::borrow_deref_ref)]
 impl ::rustc_serialize::Encodable for Area {
     fn encode<__S: ::rustc_serialize::Encoder>(
         &self,
