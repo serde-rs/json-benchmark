@@ -2,7 +2,7 @@
 name = "binary-benchmark"
 version = "0.0.1"
 authors = ["dtolnay@gmail.com"]
-edition = "2018"
+edition = "2021"
 publish = false
 
 [dependencies]
