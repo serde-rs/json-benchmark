@@ -14,6 +14,7 @@
     clippy::semicolon_if_nothing_returned,
     clippy::struct_excessive_bools,
     clippy::too_many_lines,
+    clippy::uninlined_format_args,
     clippy::unreadable_literal,
     clippy::unused_io_amount,
     clippy::used_underscore_binding
