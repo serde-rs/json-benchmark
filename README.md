@@ -4,13 +4,11 @@ This is a partial port of [nativejson-benchmark] to Rust. The libraries tested
 are:
 
 - [serde\_json] 1.0.72
-- [json-rust] 0.12.4
 - [rustc-serialize] 0.3.24
 - [simd-json] 0.4.11 (this requires a modern x86 CPU for good results)
 
 [nativejson-benchmark]: https://github.com/miloyip/nativejson-benchmark
 [serde\_json]: https://github.com/serde-rs/json
-[json-rust]: https://github.com/maciejhirsz/json-rust
 [rustc-serialize]: https://github.com/rust-lang-nursery/rustc-serialize
 [simd-json]: https://github.com/Licenser/simdjson-rs
 
@@ -22,11 +20,6 @@ are:
 data/canada.json         320 MB/s   430 MB/s   580 MB/s   310 MB/s
 data/citm_catalog.json   420 MB/s   560 MB/s   710 MB/s   880 MB/s
 data/twitter.json        300 MB/s   910 MB/s   550 MB/s  1060 MB/s
-
-======= json-rust ======== parse|stringify ===== parse|stringify ====
-data/canada.json         390 MB/s   840 MB/s
-data/citm_catalog.json   520 MB/s   780 MB/s
-data/twitter.json        430 MB/s  1030 MB/s
 
 ==== rustc_serialize ===== parse|stringify ===== parse|stringify ====
 data/canada.json         150 MB/s    67 MB/s   120 MB/s    46 MB/s

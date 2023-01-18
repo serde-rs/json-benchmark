@@ -210,15 +210,6 @@ fn main() {
         stringify_struct: serde_json::to_writer,
     }
 
-    #[cfg(feature = "lib-json-rust")]
-    bench! {
-        name: "json-rust",
-        bench: bench_file,
-        dom: json::JsonValue,
-        parse_dom: json_rust_parse_dom,
-        stringify_dom: json_rust_stringify_dom,
-    }
-
     #[cfg(feature = "lib-rustc-serialize")]
     bench! {
         name: "rustc_serialize",
@@ -258,21 +249,6 @@ where
     use std::str;
     let s = str::from_utf8(bytes).unwrap();
     serde_json::from_str(s)
-}
-
-#[cfg(all(
-    feature = "lib-json-rust",
-    any(feature = "parse-dom", feature = "stringify-dom")
-))]
-fn json_rust_parse_dom(bytes: &[u8]) -> json::Result<json::JsonValue> {
-    use std::str;
-    let s = str::from_utf8(bytes).unwrap();
-    json::parse(&s)
-}
-
-#[cfg(all(feature = "lib-json-rust", feature = "stringify-dom"))]
-fn json_rust_stringify_dom<W: io::Write>(write: &mut W, dom: &json::JsonValue) -> io::Result<()> {
-    dom.write(write)
 }
 
 #[cfg(all(
