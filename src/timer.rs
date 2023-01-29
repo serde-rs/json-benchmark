@@ -1,6 +1,5 @@
 use std::cmp;
-
-use time::{Duration, Instant};
+use std::time::{Duration, Instant};
 
 pub fn bench<T, F>(trials: usize, f: F) -> Duration
 where

@@ -43,6 +43,7 @@ pub use self::copy::*;
 pub mod canada;
 
 use std::env;
+use std::time::Duration;
 
 pub fn num_trials() -> Option<usize> {
     let mut opts = getopts::Options::new();
@@ -53,8 +54,8 @@ pub fn num_trials() -> Option<usize> {
     matches.opt_str("n").map(|s| s.parse().unwrap())
 }
 
-pub fn throughput(dur: time::Duration, bytes: usize) -> u64 {
-    let mut megabytes_per_second = bytes as u64 / dur.whole_microseconds() as u64;
+pub fn throughput(dur: Duration, bytes: usize) -> u64 {
+    let mut megabytes_per_second = bytes as u64 / dur.as_micros() as u64;
 
     // Round to two significant digits.
     if megabytes_per_second > 100 {
