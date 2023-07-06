@@ -7,7 +7,7 @@ publish = false
 
 [dependencies]
 json-benchmark = { path = ".." }
-serde-bench = "0.0.9"
+serde-bench = "0.0.10"
 serde_json = "1.0"
 
 [features]
