@@ -196,6 +196,42 @@ macro_rules! bench_file_simd_json {
     }
 }
 
+#[cfg(feature = "lib-simdjson-rust")]
+macro_rules! bench_file_simdjson_rust {
+    (
+        path: $path:expr,
+        structure: $structure:ty,
+    ) => {
+        use simdjson_rust::prelude::*;
+
+        let num_trials = num_trials().unwrap_or(256);
+
+        print!("{:22}", $path);
+        io::stdout().flush().unwrap();
+
+        let contents = load_padded_string($path).unwrap();
+
+        #[cfg(feature = "parse-dom")]
+        {
+            use timer::Benchmark;
+            let mut benchmark = Benchmark::new();
+            let mut parser = simdjson_rust::dom::Parser::default();
+            for _ in 0..num_trials {
+                let mut timer = benchmark.start();
+                let _parsed = parser.parse(&contents).unwrap();
+                timer.stop();
+            }
+            let dur = benchmark.min_elapsed();
+            print!("{:6} MB/s", throughput(dur, contents.len()));
+            io::stdout().flush().unwrap();
+        }
+        #[cfg(not(feature = "parse-dom"))]
+        print!("          ");
+
+        println!();
+    };
+}
+
 fn main() {
     print!("{:>35}{:>24}", "DOM", "STRUCT");
 
@@ -225,6 +261,12 @@ fn main() {
     bench! {
         name: "simd-json",
         bench: bench_file_simd_json,
+    }
+
+    #[cfg(feature = "lib-simdjson-rust")]
+    bench! {
+        name: "simdjson-rust",
+        bench: bench_file_simdjson_rust,
     }
 }
 
