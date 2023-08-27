@@ -202,14 +202,12 @@ macro_rules! bench_file_simdjson_rust {
         path: $path:expr,
         structure: $structure:ty,
     ) => {
-        use simdjson_rust::prelude::*;
-
         let num_trials = num_trials().unwrap_or(256);
 
         print!("{:22}", $path);
         io::stdout().flush().unwrap();
 
-        let contents = load_padded_string($path).unwrap();
+        let contents = simdjson_rust::padded_string::load_padded_string($path).unwrap();
 
         #[cfg(feature = "parse-dom")]
         {
