@@ -61,7 +61,7 @@ impl<'input> simd_json_derive::Deserialize<'input> for Array {
     where
         Self: std::marker::Sized + 'input,
     {
-        if let Some(simd_json::Node::Array(0, _)) = tape.next() {
+        if let Some(simd_json::Node::Array { len: 0, .. }) = tape.next() {
             Ok(Self)
         } else {
             Err(simd_json::Error::generic(

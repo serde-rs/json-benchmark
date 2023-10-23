@@ -133,8 +133,7 @@ macro_rules! bench_file_simd_json {
     } => {
 
         let num_trials = num_trials().unwrap_or(256);
-        let mut string_buffer = Vec::with_capacity(4096);
-        let mut input_buffer = simd_json::AlignedBuf::with_capacity(4096);
+        let mut buffers = simd_json::Buffers::new(4096);
 
         print!("{:22}", $path);
         io::stdout().flush().unwrap();
@@ -153,7 +152,7 @@ macro_rules! bench_file_simd_json {
             for _ in 0..num_trials {
                 data.as_mut_slice().clone_from_slice(contents.as_slice());
                 let mut timer = benchmark.start();
-                let _parsed = simd_json_parse_dom(&mut data, &mut input_buffer, &mut string_buffer).unwrap();
+                let _parsed = simd_json_parse_dom(&mut data, &mut buffers).unwrap();
                 timer.stop();
             }
             let dur = benchmark.min_elapsed();
@@ -167,7 +166,7 @@ macro_rules! bench_file_simd_json {
         {
             let len = contents.len();
             let mut data = contents.clone();
-            let dom = simd_json_parse_dom(&mut data, &mut input_buffer, &mut string_buffer).unwrap();
+            let dom = simd_json_parse_dom(&mut data, &mut buffers).unwrap();
             let dur = timer::bench_with_buf(num_trials, len, |out| {
                 simd_json::Writable::write(&dom, out).unwrap()
             });
@@ -187,7 +186,7 @@ macro_rules! bench_file_simd_json {
             for _ in 0..num_trials {
                 data.as_mut_slice().clone_from_slice(contents.as_slice());
                 let mut timer = benchmark.start();
-                let _parsed: $structure = simd_json_parse_struct(&mut data, &mut input_buffer, &mut string_buffer).unwrap();
+                let _parsed: $structure = simd_json_parse_struct(&mut data, &mut buffers).unwrap();
                 timer.stop();
             }
             let dur = benchmark.min_elapsed();
@@ -200,7 +199,7 @@ macro_rules! bench_file_simd_json {
             use simd_json_derive::Serialize;
             let len = contents.len();
             let mut data = contents.clone();
-            let parsed: $structure = simd_json_parse_struct(&mut data, &mut input_buffer, &mut string_buffer).unwrap();
+            let parsed: $structure = simd_json_parse_struct(&mut data, &mut buffers).unwrap();
             let dur = timer::bench_with_buf(num_trials, len, |out| {
                 parsed.json_write(out).unwrap();
             });
@@ -313,10 +312,9 @@ where
 ))]
 fn simd_json_parse_dom<'input>(
     bytes: &'input mut [u8],
-    input_buffer: &mut simd_json::AlignedBuf,
-    string_buffer: &mut [u8],
+    buffers: &mut simd_json::Buffers,
 ) -> simd_json::Result<simd_json::BorrowedValue<'input>> {
-    simd_json::to_borrowed_value_with_buffers(bytes, input_buffer, string_buffer)
+    simd_json::to_borrowed_value_with_buffers(bytes, buffers)
 }
 
 // #[cfg(all(
@@ -336,11 +334,10 @@ fn simd_json_parse_dom<'input>(
 ))]
 fn simd_json_parse_struct<'de, T>(
     bytes: &'de mut [u8],
-    input_buffer: &mut simd_json::AlignedBuf,
-    string_buffer: &mut [u8],
+    buffers: &mut simd_json::Buffers,
 ) -> simd_json::Result<T>
 where
     T: simd_json_derive::Deserialize<'de> + 'de,
 {
-    T::from_slice_with_buffers(bytes, input_buffer, string_buffer)
+    T::from_slice_with_buffers(bytes, buffers)
 }
