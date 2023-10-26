@@ -13,8 +13,8 @@ rustc-serialize = { version = "0.3", optional = true }
 serde = { version = "1.0", features = ["derive"], optional = true }
 serde_json = { version = "1.0", optional = true }
 time = "0.3"
-simd-json = { version = "0.12", optional = true }
-simd-json-derive = { version = "0.12", optional = true }
+simd-json = { version = "0.13", optional = true }
+simd-json-derive = { version = "0.13", optional = true }
 
 [features]
 default = ["performance", "all-libs", "all-files"]

@@ -168,10 +168,10 @@ macro_rules! bench_file_simd_json {
             let mut data = contents.clone();
             let dom = simd_json_parse_dom(&mut data, &mut buffers).unwrap();
             let dur = timer::bench_with_buf(num_trials, len, |out| {
-                simd_json::Writable::write(&dom, out).unwrap()
+                simd_json::prelude::Writable::write(&dom, out).unwrap()
             });
             let mut serialized = Vec::new();
-            simd_json::Writable::write(&dom, &mut serialized).unwrap();
+            simd_json::prelude::Writable::write(&dom, &mut serialized).unwrap();
             print!("{:6} MB/s", throughput(dur, serialized.len()));
             io::stdout().flush().unwrap();
         }
