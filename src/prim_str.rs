@@ -65,6 +65,53 @@ where
     }
 }
 
+#[cfg(feature = "lib-simd-json")]
+impl<T> simd_json_derive::Serialize for PrimStr<T>
+where
+    T: Copy + Ord + Display + FromStr,
+{
+    fn json_write<W>(&self, writer: &mut W) -> std::io::Result<()>
+    where
+        W: std::io::Write,
+    {
+        write!(writer, r#""{}""#, self.0)
+    }
+}
+
+#[cfg(feature = "lib-simd-json")]
+impl<T> simd_json_derive::SerializeAsKey for PrimStr<T>
+where
+    T: Copy + Ord + Display + FromStr,
+{
+    fn json_write<W>(&self, writer: &mut W) -> std::io::Result<()>
+    where
+        W: std::io::Write,
+    {
+        write!(writer, r#""{}""#, self.0)
+    }
+}
+
+impl<'input, T> simd_json_derive::Deserialize<'input> for PrimStr<T>
+where
+    T: Copy + Ord + Display + FromStr,
+{
+    #[inline]
+    fn from_tape(tape: &mut simd_json_derive::Tape<'input>) -> simd_json::Result<Self>
+    where
+        Self: std::marker::Sized + 'input,
+    {
+        if let Some(simd_json::Node::String(s)) = tape.next() {
+            Ok(PrimStr(FromStr::from_str(s).map_err(|_e| {
+                simd_json::Error::generic(simd_json::ErrorType::Serde("not a number".into()))
+            })?))
+        } else {
+            Err(simd_json::Error::generic(
+                simd_json::ErrorType::ExpectedNull,
+            ))
+        }
+    }
+}
+
 #[cfg(feature = "lib-rustc-serialize")]
 impl<T> Encodable for PrimStr<T>
 where

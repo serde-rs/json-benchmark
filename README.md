@@ -5,12 +5,12 @@ are:
 
 - [serde\_json] 1.0.72
 - [rustc-serialize] 0.3.24
-- [simd-json] 0.4.11 (this requires a modern x86 CPU for good results)
+- [simd-json] 0.7.0 (this requires a modern x86 CPU for good results)
 
 [nativejson-benchmark]: https://github.com/miloyip/nativejson-benchmark
 [serde\_json]: https://github.com/serde-rs/json
 [rustc-serialize]: https://github.com/rust-lang-nursery/rustc-serialize
-[simd-json]: https://github.com/Licenser/simdjson-rs
+[simd-json]: https://github.com/simd-lite/simd-json
 
 #### `$ cargo run --release`
 
