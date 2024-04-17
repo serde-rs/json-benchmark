@@ -6,10 +6,17 @@ use std::collections::BTreeMap as Map;
 use crate::empty;
 use crate::prim_str::PrimStr;
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "serde",
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
     serde(deny_unknown_fields, rename_all = "camelCase")
+)]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
 )]
 pub struct CitmCatalog {
     pub area_names: Map<IdStr, String>,
@@ -28,10 +35,17 @@ pub struct CitmCatalog {
 pub type Id = u32;
 pub type IdStr = PrimStr<u32>;
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "serde",
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
     serde(deny_unknown_fields, rename_all = "camelCase")
+)]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
 )]
 pub struct Event {
     pub description: (),
@@ -44,10 +58,17 @@ pub struct Event {
     pub topic_ids: Vec<Id>,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "serde",
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
     serde(deny_unknown_fields, rename_all = "camelCase")
+)]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
 )]
 pub struct Performance {
     pub event_id: Id,
@@ -61,10 +82,17 @@ pub struct Performance {
     pub venue_code: String,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "serde",
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
     serde(deny_unknown_fields, rename_all = "camelCase")
+)]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
 )]
 pub struct Price {
     pub amount: u32,
@@ -72,20 +100,34 @@ pub struct Price {
     pub seat_category_id: Id,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "serde",
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
     serde(deny_unknown_fields, rename_all = "camelCase")
+)]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
 )]
 pub struct SeatCategory {
     pub areas: Vec<Area>,
     pub seat_category_id: Id,
 }
 
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[cfg_attr(
-    feature = "serde",
+    any(feature = "serde", feature = "lib-simd-json"),
+    derive(Serialize, Deserialize)
+)]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
     serde(deny_unknown_fields, rename_all = "camelCase")
+)]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
 )]
 pub struct Area {
     pub area_id: Id,

@@ -6,26 +6,56 @@ use std::collections::BTreeMap as Map;
 pub type Canada = FeatureCollection;
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct FeatureCollection {
-    #[cfg_attr(feature = "serde", serde(rename = "type"))]
+    #[cfg_attr(
+        any(feature = "serde", feature = "lib-simd-json"),
+        serde(rename = "type")
+    )]
     pub obj_type: ObjType,
     pub features: Vec<Feature>,
 }
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct Feature {
-    #[cfg_attr(feature = "serde", serde(rename = "type"))]
+    #[cfg_attr(
+        any(feature = "serde", feature = "lib-simd-json"),
+        serde(rename = "type")
+    )]
     pub obj_type: ObjType,
     pub properties: Map<String, String>,
     pub geometry: Geometry,
 }
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", serde(deny_unknown_fields))]
+#[cfg_attr(
+    any(feature = "serde", feature = "lib-simd-json"),
+    serde(deny_unknown_fields)
+)]
+#[cfg_attr(
+    feature = "lib-simd-json",
+    derive(simd_json_derive::Serialize, simd_json_derive::Deserialize)
+)]
 pub struct Geometry {
-    #[cfg_attr(feature = "serde", serde(rename = "type"))]
+    #[cfg_attr(
+        any(feature = "serde", feature = "lib-simd-json"),
+        serde(rename = "type")
+    )]
     pub obj_type: ObjType,
     pub coordinates: Vec<Vec<(Latitude, Longitude)>>,
 }

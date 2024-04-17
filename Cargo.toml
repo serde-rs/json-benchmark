@@ -6,12 +6,15 @@ edition = "2021"
 publish = false
 
 [dependencies]
+
 getopts = "0.2"
 jemallocator = "0.5"
 rustc-serialize = { version = "0.3", optional = true }
 serde = { version = "1.0", features = ["derive"], optional = true }
 serde_json = { version = "1.0", optional = true }
-simd-json = { version = "0.12", optional = true }
+time = "0.3"
+simd-json = { version = "0.13", optional = true }
+simd-json-derive = { version = "0.13", optional = true }
 
 [features]
 default = ["performance", "all-libs", "all-files"]
@@ -19,7 +22,7 @@ all-libs = ["lib-serde", "lib-rustc-serialize", "lib-simd-json"]
 all-files = ["file-canada", "file-citm-catalog", "file-twitter"]
 performance = ["parse-dom", "stringify-dom", "parse-struct", "stringify-struct"]
 lib-serde = ["serde", "serde_json"]
-lib-simd-json = ["serde", "simd-json"]
+lib-simd-json = ["serde", "simd-json", "simd-json-derive"]
 lib-rustc-serialize = ["rustc-serialize"]
 file-canada = []
 file-citm-catalog = []
